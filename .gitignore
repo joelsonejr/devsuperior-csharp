@@ -1,4 +1,2 @@
-/obj/Debug/*.*
-.dll
-.pdb
-.cache
+DevSuperior/obj/
+DevSuperior/bin/
