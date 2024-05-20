@@ -65,7 +65,7 @@ namespace Course {
 
 //04
 
-        int gameStart, gameEnd;
+/*         int gameStart, gameEnd;
         int gameDuration = 0;
         string [] userInput;
 
@@ -82,7 +82,7 @@ namespace Course {
         }
 
 
-        Console.WriteLine($"O jogo durou {gameDuration} hora(s)");
+        Console.WriteLine($"O jogo durou {gameDuration} hora(s)"); */
 
 
 
