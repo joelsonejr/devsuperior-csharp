@@ -2,10 +2,10 @@
  using System.Globalization;
 
 
-namespace Course {
+/* namespace Course {
     class Exercicios01 {
         static void Main(string[] args) {
- //01           
+ //01            */
 /*             int firstValue;
             int secondValue;
 
@@ -101,7 +101,7 @@ namespace Course {
 
 //06
 
-            float pi = 3.14159F;
+          /*   float pi = 3.14159F;
             float a, b, c;
             float triangleArea, circleArea, trapeziumArea, squareArea, rectangleArea;
             string [] userValues;
@@ -124,7 +124,7 @@ namespace Course {
             System.Console.WriteLine($"Área do circulo: {circleArea:F3}");
             System.Console.WriteLine($"Área do trapézio: {trapeziumArea:F3}");
             System.Console.WriteLine($"Área do quadrado: {squareArea:F3}");
-            System.Console.WriteLine($"Área do retângulo: {rectangleArea:F3}");
+            System.Console.WriteLine($"Área do retângulo: {rectangleArea:F3}"); */
 
 
 
@@ -140,9 +140,9 @@ namespace Course {
 
 
 
-
+/* 
 
         }
         
     }
-}
+} */
