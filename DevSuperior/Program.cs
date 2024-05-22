@@ -1,25 +1,41 @@
-﻿/* using System;
+﻿using System;
 
 namespace Course {
     class Program {
         static void Main(string[] args) {
+        
+            Console.WriteLine("Digite 3 números: ");
 
-            Console.WriteLine("Qual é a hora atual? ");
-            int hora = int.Parse(Console.ReadLine());
+            int n1 = int.Parse(Console.ReadLine());
+            int n2 = int.Parse(Console.ReadLine());
+            int n3 = int.Parse(Console.ReadLine());
 
-            if (hora < 12) {
-                Console.WriteLine("Bom dia");
-            }
-            else if (hora < 18) {
-                Console.WriteLine("Boa tarde");
-            }
-            else {
-                Console.WriteLine("Boa noite");
-            }            
+            int resultado = Maior(n1, n2, n3);
 
-
-
+            Console.WriteLine($"Maior = {resultado}");
 
         }
+
+        static int Maior(int a, int b, int c) 
+        {
+            int m;
+
+            if ( a > b && a > c ) 
+            {
+                m = a;
+            }
+            else if (b > c)
+            {
+                m = b;
+            }
+            else
+            {
+                m = c;
+            }
+
+            return m;
+
+        }
+
     }
-} */
+} 
