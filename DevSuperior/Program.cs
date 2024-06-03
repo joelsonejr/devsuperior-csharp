@@ -4,37 +4,19 @@ namespace Course {
     class Program {
         static void Main(string[] args) {
         
-            Console.WriteLine("Digite 3 números: ");
+            Console.Write("Quantos números inteiros você vai digitar: ");
+            int userInput = int.Parse(Console.ReadLine());
+            int sum = 0;
 
-            int n1 = int.Parse(Console.ReadLine());
-            int n2 = int.Parse(Console.ReadLine());
-            int n3 = int.Parse(Console.ReadLine());
+            for (int i = 0; i < userInput; i++)
+            {   
+                Console.Write($"Digite o valor numero {i + 1}: ");
+                int typedValue = int.Parse(Console.ReadLine());
 
-            int resultado = Maior(n1, n2, n3);
-
-            Console.WriteLine($"Maior = {resultado}");
-
-        }
-
-        static int Maior(int a, int b, int c) 
-        {
-            int m;
-
-            if ( a > b && a > c ) 
-            {
-                m = a;
-            }
-            else if (b > c)
-            {
-                m = b;
-            }
-            else
-            {
-                m = c;
+                sum += typedValue;
             }
 
-            return m;
-
+            Console.WriteLine($"Soma = {sum}");
         }
 
     }
