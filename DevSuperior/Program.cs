@@ -1,25 +1,25 @@
-﻿/* using System;
+﻿using System;
+using System.Globalization;
+
 
 namespace Course {
     class Program {
         static void Main(string[] args) {
+        
+            Console.Write("Quantos números inteiros você vai digitar: ");
+            int userInput = int.Parse(Console.ReadLine());
+            int sum = 0;
 
-            Console.WriteLine("Qual é a hora atual? ");
-            int hora = int.Parse(Console.ReadLine());
+            for (int i = 0; i < userInput; i++)
+            {   
+                Console.Write($"Digite o valor numero {i + 1}: ");
+                int typedValue = int.Parse(Console.ReadLine());
 
-            if (hora < 12) {
-                Console.WriteLine("Bom dia");
+                sum += typedValue;
             }
-            else if (hora < 18) {
-                Console.WriteLine("Boa tarde");
-            }
-            else {
-                Console.WriteLine("Boa noite");
-            }            
 
-
-
-
+            Console.WriteLine($"Soma = {sum}");
         }
+
     }
-} */
+} 
