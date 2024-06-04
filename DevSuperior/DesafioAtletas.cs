@@ -50,20 +50,11 @@ namespace Course {
                     
                 }
 
-                if (inputSexo ==  'F') 
-                {
-                    quantidadeMulheres++;
-                    alturaMulheres += inputAltura;
-                }
-                else 
-                {
-                    quantidadeHomens++;
-                }
 
                 Console.Write("Altura: ");
-                inputAltura = double.Parse(Console.ReadLine());
+                inputAltura = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
 
-                if (inputAltura < 0) 
+                if (inputAltura <= 0) 
                 {   
                     inputAltura = verificarValorPositivo();
                 }
@@ -75,11 +66,20 @@ namespace Course {
 
                 }
 
+                if (inputSexo ==  'F') 
+                {
+                    quantidadeMulheres++;
+                    alturaMulheres += inputAltura;
+                }
+                else 
+                {
+                    quantidadeHomens++;
+                }
 
                 Console.Write("Peso: ");
-                inputPeso = double.Parse(Console.ReadLine());
+                inputPeso = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
 
-                if (inputPeso < 0)
+                if (inputPeso <= 0)
                 {
                     inputPeso = verificarValorPositivo();
                 }
@@ -113,7 +113,7 @@ namespace Course {
             while (rodarCheck)
             {
                 Console.Write("Valor invalido! Favor digitar um valor positivo: ");
-                inputValor = double.Parse(Console.ReadLine());
+                inputValor = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
 
                 if (inputValor > 0) 
                 {
@@ -127,13 +127,14 @@ namespace Course {
         static void imprimirRelatorio(double pesoMedio, string maisAlto, double porcentagemHomens, double alturaMedia)
         {
             Console.WriteLine("");
-            Console.WriteLine($"Peso médio dos atletas: {pesoMedio}");
+            Console.WriteLine("RELATÓRIO:");
+            Console.WriteLine($"Peso médio dos atletas: {pesoMedio:F2}");
             Console.WriteLine($"Atleta mais alto: {maisAlto}");
-            Console.WriteLine($"Porcentagem de homens: {porcentagemHomens}");
+            Console.WriteLine($"Porcentagem de homens: {porcentagemHomens:F1} %");
             
             if (alturaMedia != 0)
             {
-                Console.WriteLine($"Altura média das mulheres: {alturaMedia}");
+                Console.WriteLine($"Altura média das mulheres: {alturaMedia:F2}");
             }
             else 
             {
