@@ -5,20 +5,36 @@ using System.Globalization;
 namespace Course {
     class Program {
         static void Main(string[] args) {
-        
-            Console.Write("Quantos números inteiros você vai digitar: ");
-            int userInput = int.Parse(Console.ReadLine());
-            int sum = 0;
 
-            for (int i = 0; i < userInput; i++)
-            {   
-                Console.Write($"Digite o valor numero {i + 1}: ");
-                int typedValue = int.Parse(Console.ReadLine());
+            string maisVelho;
 
-                sum += typedValue;
+            Pessoa pessoa1, pessoa2;
+            pessoa1 = new Pessoa();
+            pessoa2 = new Pessoa();
+
+            Console.WriteLine("Dados da primeira pessoa:");
+            Console.WriteLine("Nome: ");
+            pessoa1.Nome = Console.ReadLine();
+            Console.Write("Idade: ");
+            pessoa1.Idade = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Dados da segunda pessoa:");
+            Console.WriteLine("Nome: ");
+            pessoa2.Nome = Console.ReadLine();
+            Console.Write("Idade: ");
+            pessoa2.Idade = int.Parse(Console.ReadLine());
+
+            if (pessoa1.Idade > pessoa2.Idade)
+            {
+                maisVelho = pessoa1.Nome;
+            }
+            else
+            {
+                maisVelho = pessoa2.Nome;
             }
 
-            Console.WriteLine($"Soma = {sum}");
+            Console.WriteLine($"Pessoa mais velha: {maisVelho}");
+
         }
 
     }
