@@ -2,7 +2,55 @@
 using System.Globalization;
 
 
-namespace Course {
+/* namespace Course {
+    class Program {
+        static void Main(string[] args) {
+
+            Produto produto01 = new Produto();;
+
+            Console.WriteLine("Entre od dados do produto:");
+            Console.Write("Nome: ");
+            produto01.Nome = Console.ReadLine();
+            Console.Write("Preço: ");
+            produto01.Preco = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+            Console.Write("Quantidade no estoque: ");
+            produto01.Quantidade = int.Parse(Console.ReadLine());
+
+            double valorTotal = produto01.ValorTotalEmEstoque();
+
+            Console.WriteLine();
+            Console.WriteLine($"Dados do produto: {produto01}");
+
+            Console.WriteLine();
+            Console.Write("Digite o número de produtos a ser adicionado ao estoque: ");
+            int modificadorDeEstoque = int.Parse(Console.ReadLine());
+            produto01.AdicionarProdutos(modificadorDeEstoque);
+
+            Console.WriteLine();
+            Console.WriteLine($"Dados atualizados: {produto01}");
+
+            Console.WriteLine();
+            Console.Write("Digite o número de produtos a ser removido do estoque: ");
+            modificadorDeEstoque = int.Parse(Console.ReadLine());
+            produto01.RemoverProdutos(modificadorDeEstoque);
+
+            Console.WriteLine();
+            Console.WriteLine($"Dados atualizados: {produto01}");
+
+
+
+        }
+
+    }
+}  */
+
+/*
+=========================================================
+================= AULAS PASSADAS ========================
+=========================================================
+
+//3.07
+    namespace Course {
     class Program {
         static void Main(string[] args) {
 
@@ -44,10 +92,7 @@ namespace Course {
     }
 } 
 
-/*
-=========================================================
-================= AULAS PASSADAS ========================
-=========================================================
+----------------------------------------------------------
 
 //3.06 Segundo Problema Exemplo
     using System;
