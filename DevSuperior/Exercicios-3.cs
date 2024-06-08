@@ -1,3 +1,28 @@
+/* using System;
+using System.Globalization;
+
+namespace ExercicioTres
+{
+    public class Exercicio302
+    {
+        public static void Main(string[] args)
+        {
+            Console.Write("Qual a cotação do dólar: ");
+            double cotacao = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+            Console.Write("Quantos dólares você vai comprar: ");
+            double dolares = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+            double valorDaCompra = ConversorDeMoeda.ConverteDolarEmReal(dolares, cotacao);
+
+            Console.WriteLine($"Valor a ser pago em reais = {valorDaCompra:F2}");
+        }
+    }
+} */
+
+
+
+
 /* using System.Globalization;
 
 namespace Course

@@ -1,8 +1,85 @@
-﻿using System;
+﻿
+
+
+
+/*
+=========================================================
+================= AULAS PASSADAS ========================
+=========================================================
+
+//3.10 Membros estáticos - PT 02
+    using System;
 using System.Globalization;
 
+namespace Course
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
 
-/* namespace Course {
+            Console.Write("Entre o valor do raio: ");
+            double raio = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+            double circ = Calculadora.Circunferencia(raio);
+
+            Console.WriteLine($"Circunferencia {circ:F2}");
+            double volume = Calculadora.Volume(raio);
+            Console.WriteLine($"Volume {volume:F2}");
+            Console.WriteLine($"Pi: {Calculadora.Pi}");
+
+
+        }
+    }
+}
+
+
+//3.09 Membros estáticos - PT 01
+    using System;
+using System.Globalization;
+using System.Runtime.CompilerServices;
+
+namespace Course
+{
+    class Program
+    {
+
+        static double Pi = 3.14;
+        static void Main (string[] args)
+        {
+            Console.Write("Entre o valor do raio: ");
+            double raio = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+            double circ = Circunferencia(raio);
+
+            Console.WriteLine($"Circunferencia {circ:F2}");
+            double volume = Volume(raio);
+            Console.WriteLine($"Volume {volume:F2}");
+            Console.WriteLine($"Pi: {Pi}");
+
+
+        }
+
+        static double Circunferencia (double r)
+        {
+            return 2 * Pi * r;
+        }
+
+        static double Volume (double r)
+        {
+            return 4.0 / 3.0 * Pi * Math.Pow(r , 3);
+        }
+    }
+}
+
+-------------------------------------------------
+
+//3.08
+    namespace Course {
+
+using System;
+using System.Globalization;
+
     class Program {
         static void Main(string[] args) {
 
@@ -42,12 +119,9 @@ using System.Globalization;
         }
 
     }
-}  */
+}  
 
-/*
-=========================================================
-================= AULAS PASSADAS ========================
-=========================================================
+---------------------------------------------------------
 
 //3.07
     namespace Course {
