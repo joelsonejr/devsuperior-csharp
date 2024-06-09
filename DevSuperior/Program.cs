@@ -1,4 +1,45 @@
-﻿
+﻿using System;
+using System.Globalization;
+
+namespace Course
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("Entre od dados do produto:");
+            Console.Write("Nome: ");
+            string nome = Console.ReadLine();
+            Console.Write("Preço: ");
+            double preco = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+            Console.Write("Quantidade no estoque: ");
+            int quantidade = int.Parse(Console.ReadLine());
+
+            Produto produto01 = new Produto(nome, preco, quantidade);
+
+            double valorTotal = produto01.ValorTotalEmEstoque();
+
+            Console.WriteLine();
+            Console.WriteLine($"Dados do produto: {produto01}");
+
+            Console.WriteLine();
+            Console.Write("Digite o número de produtos a ser adicionado ao estoque: ");
+            int modificadorDeEstoque = int.Parse(Console.ReadLine());
+            produto01.AdicionarProdutos(modificadorDeEstoque);
+
+            Console.WriteLine();
+            Console.WriteLine($"Dados atualizados: {produto01}");
+
+            Console.WriteLine();
+            Console.Write("Digite o número de produtos a ser removido do estoque: ");
+            modificadorDeEstoque = int.Parse(Console.ReadLine());
+            produto01.RemoverProdutos(modificadorDeEstoque);
+
+            Console.WriteLine();
+            Console.WriteLine($"Dados atualizados: {produto01}");
+        }
+    }
+}
 
 
 
@@ -6,6 +47,53 @@
 =========================================================
 ================= AULAS PASSADAS ========================
 =========================================================
+
+//4.01 - Construtores
+using System;
+using System.Globalization;
+
+namespace Course
+{
+    class Program
+    {
+        public static void Main (string[] args)
+        {
+
+            Console.WriteLine("Entre od dados do produto:");
+            Console.Write("Nome: ");
+            string nome = Console.ReadLine();
+            Console.Write("Preço: ");
+            double preco = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+            Console.Write("Quantidade no estoque: ");
+            int quantidade = int.Parse(Console.ReadLine());
+
+            Produto produto01 = new Produto(nome, preco, quantidade);
+
+            double valorTotal = produto01.ValorTotalEmEstoque();
+
+            Console.WriteLine();
+            Console.WriteLine($"Dados do produto: {produto01}");
+
+            Console.WriteLine();
+            Console.Write("Digite o número de produtos a ser adicionado ao estoque: ");
+            int modificadorDeEstoque = int.Parse(Console.ReadLine());
+            produto01.AdicionarProdutos(modificadorDeEstoque);
+
+            Console.WriteLine();
+            Console.WriteLine($"Dados atualizados: {produto01}");
+
+            Console.WriteLine();
+            Console.Write("Digite o número de produtos a ser removido do estoque: ");
+            modificadorDeEstoque = int.Parse(Console.ReadLine());
+            produto01.RemoverProdutos(modificadorDeEstoque);
+
+            Console.WriteLine();
+            Console.WriteLine($"Dados atualizados: {produto01}");
+        }
+    }
+}
+
+-******************************************************************************
 
 //3.10 Membros estáticos - PT 02
     using System;
