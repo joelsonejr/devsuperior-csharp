@@ -8,6 +8,27 @@ namespace Course
         public double Preco;
         public int Quantidade;
 
+        //Construtor padrão
+        public Produto()
+        {
+            
+        }
+
+        //Construtor com 3 argumentos
+        public Produto(string nome, double preco, int quantidade)
+        {
+            Nome = nome;
+            Preco = preco;
+            Quantidade = quantidade;
+        }
+        //Construtor com 2 argumentos
+        public Produto(string nome, double preco)
+        {
+            Nome = nome;
+            Preco = preco;
+            Quantidade = 5;
+        }
+
         public double ValorTotalEmEstoque()
         {
             return Quantidade * Preco;
