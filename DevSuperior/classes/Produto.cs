@@ -5,8 +5,8 @@ namespace Course
     class Produto
     {
         private string _nome;
-        private double _preco;
-        private int _quantidade;
+        public double Preco {get; private set;}  //auto propertie
+        public int Quantidade {get; private set;} //auto propertie
 
         //Construtor padrão
         public Produto()
@@ -18,20 +18,20 @@ namespace Course
         public Produto(string nome, double preco, int quantidade)
         {
             _nome = nome;
-            _preco = preco;
-            _quantidade = quantidade;
+            Preco = preco;
+            Quantidade = quantidade;
         }
         //Construtor com 2 argumentos
         public Produto(string nome, double preco)
         {
             _nome = nome;
-            _preco = preco;
-            _quantidade = 5;
+            Preco = preco;
+            Quantidade = 5;
         }
 
         public double ValorTotalEmEstoque()
         {
-            return _quantidade * _preco;
+            return Quantidade * Preco;
         }
 
         //Implementação de propertie, definindo as operações de get e set
@@ -44,31 +44,26 @@ namespace Course
             }
         }
 
-        public double Preco {
-            get { return _preco;}
-        }
 
-        public int Quantidade {
-            get { return _quantidade;}
-        }
+
 
         public void AdicionarProdutos (int quantity)
         {
-            _quantidade += quantity;
+            Quantidade += quantity;
         }
 
         public void RemoverProdutos(int quantity)
         {
-            _quantidade -= quantity;
+            Quantidade -= quantity;
         }
         
         public override string ToString()
         {
             return _nome 
                 + ", $" 
-                + _preco.ToString("F2",CultureInfo.InvariantCulture) 
+                + Preco.ToString("F2",CultureInfo.InvariantCulture) 
                 + ", "
-                + _quantidade
+                + Quantidade
                 + " unidades, Total: $ "
                 + ValorTotalEmEstoque().ToString("F2", CultureInfo.InvariantCulture);
         }

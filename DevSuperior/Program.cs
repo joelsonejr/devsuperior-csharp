@@ -6,6 +6,116 @@
 ================= AULAS PASSADAS ========================
 =========================================================
 
+//4.08 - Modificadores de Acesso
+
+Membro da classe:       Pode ser acessado por:
+public                  própria classe, subclasse no assembly, classes do assembly, subclasses fora do assembly, clsses fora do assembly
+protected internal      própria classe, subclasse no assembly, classes do assembly, subclasses fora do assembly
+internal                própria classe, subclasse no assembly, classes do assembly
+protected               própria classe, subclasse no assembly, subclasses fora do assembly
+private protected       própria classe, subclasse no assembly
+private                 própria classe
+
+
+//4.07 - Ordem sugerida para implementação de membros de Classe
+    - Atributos privados
+    - Propriedades autoimplementadas
+    - Construtores
+    - Propriedades customizadas
+    - Outros médotos da classe
+
+//4.06 - Auto Properties
+
+    using System.Globalization;
+
+    namespace Course 
+    {
+        class Produto
+        {
+            private string _nome;
+            public double Preco {get; private set;}  //auto propertie
+            public int Quantidade {get; private set;} //auto propertie
+
+            //Construtor padrão
+            public Produto()
+            {
+                
+            }
+
+            //Construtor com 3 argumentos
+            public Produto(string nome, double preco, int quantidade)
+            {
+                _nome = nome;
+                Preco = preco;
+                Quantidade = quantidade;
+            }
+            //Construtor com 2 argumentos
+            public Produto(string nome, double preco)
+            {
+                _nome = nome;
+                Preco = preco;
+                Quantidade = 5;
+            }
+
+            public double ValorTotalEmEstoque()
+            {
+                return Quantidade * Preco;
+            }
+
+            //Implementação de propertie, definindo as operações de get e set
+            public string Nome {
+                get { return _nome;}
+                set {
+                    if (value != null && value.Length > 1){
+                    _nome = value;
+                }
+                }
+            }
+
+
+
+
+            public void AdicionarProdutos (int quantity)
+            {
+                Quantidade += quantity;
+            }
+
+            public void RemoverProdutos(int quantity)
+            {
+                Quantidade -= quantity;
+            }
+            
+            public override string ToString()
+            {
+                return _nome 
+                    + ", $" 
+                    + Preco.ToString("F2",CultureInfo.InvariantCulture) 
+                    + ", "
+                    + Quantidade
+                    + " unidades, Total: $ "
+                    + ValorTotalEmEstoque().ToString("F2", CultureInfo.InvariantCulture);
+            }
+        }
+    }
+
+    using System;
+    using System.Globalization;
+
+    namespace Course{
+        class Program {
+            public static void Main(string[] args){
+                Produto p = new Produto("TV", 500.00, 10);
+
+                p.Nome = "TV 4k";
+
+                Console.WriteLine(p.Nome);
+                Console.WriteLine(p.Preco.ToString("F2", CultureInfo.InvariantCulture));
+            }
+        }
+    }
+
+///////////////////////////////////////////////////////////////
+
 //4.05 - Properties
     using System.Globalization;
 
