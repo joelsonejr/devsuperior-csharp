@@ -2,9 +2,9 @@ using System.Globalization;
 
 namespace Course{
     public class ContaCorrente {
-        private double _saldo; //TODO: verificar atributo
-        public int NumeroDaConta {get;}
-        public string NomeTitular {get; private set;}  //TODO: Verificar método set
+        public double Saldo {get; private set;}
+        public int NumeroDaConta {get; private set;}
+        public string NomeTitular {get; set;}  //TODO: Verificar método set
 
         private double TaxaDeSaque = 5.00; 
 
@@ -12,10 +12,10 @@ namespace Course{
         
         }
 
-        public ContaCorrente(int conta, string nome, double saldo) {
+        public ContaCorrente(int conta, string nome, double depositoInicial) {
             NumeroDaConta = conta;
             NomeTitular = nome;
-            _saldo = saldo;
+            Depositar(depositoInicial);
         }
 
         public ContaCorrente(int conta, string nome) {
@@ -29,11 +29,11 @@ namespace Course{
         }
 
         public void Depositar(double valor) {
-            _saldo += valor;
+            Saldo += valor;
         }
 
         public void Sacar(double valor) {
-            _saldo -= valor + TaxaDeSaque;
+            Saldo -= valor + TaxaDeSaque;
         }
 
         public override string ToString()
@@ -43,7 +43,7 @@ namespace Course{
             + ", Titular: "
             + NomeTitular
             + ", Saldo: "
-            + _saldo.ToString("F2", CultureInfo.InvariantCulture);
+            + Saldo.ToString("F2", CultureInfo.InvariantCulture);
         }
 
     }
