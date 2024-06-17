@@ -1,4 +1,318 @@
-﻿using System;
+﻿
+
+
+/*
+=========================================================
+================= AULAS PASSADAS ========================
+=========================================================
+
+//4.08 - Modificadores de Acesso
+
+Membro da classe:       Pode ser acessado por:
+public                  própria classe, subclasse no assembly, classes do assembly, subclasses fora do assembly, clsses fora do assembly
+protected internal      própria classe, subclasse no assembly, classes do assembly, subclasses fora do assembly
+internal                própria classe, subclasse no assembly, classes do assembly
+protected               própria classe, subclasse no assembly, subclasses fora do assembly
+private protected       própria classe, subclasse no assembly
+private                 própria classe
+
+
+//4.07 - Ordem sugerida para implementação de membros de Classe
+    - Atributos privados
+    - Propriedades autoimplementadas
+    - Construtores
+    - Propriedades customizadas
+    - Outros médotos da classe
+
+//4.06 - Auto Properties
+
+    using System.Globalization;
+
+    namespace Course 
+    {
+        class Produto
+        {
+            private string _nome;
+            public double Preco {get; private set;}  //auto propertie
+            public int Quantidade {get; private set;} //auto propertie
+
+            //Construtor padrão
+            public Produto()
+            {
+                
+            }
+
+            //Construtor com 3 argumentos
+            public Produto(string nome, double preco, int quantidade)
+            {
+                _nome = nome;
+                Preco = preco;
+                Quantidade = quantidade;
+            }
+            //Construtor com 2 argumentos
+            public Produto(string nome, double preco)
+            {
+                _nome = nome;
+                Preco = preco;
+                Quantidade = 5;
+            }
+
+            public double ValorTotalEmEstoque()
+            {
+                return Quantidade * Preco;
+            }
+
+            //Implementação de propertie, definindo as operações de get e set
+            public string Nome {
+                get { return _nome;}
+                set {
+                    if (value != null && value.Length > 1){
+                    _nome = value;
+                }
+                }
+            }
+
+
+
+
+            public void AdicionarProdutos (int quantity)
+            {
+                Quantidade += quantity;
+            }
+
+            public void RemoverProdutos(int quantity)
+            {
+                Quantidade -= quantity;
+            }
+            
+            public override string ToString()
+            {
+                return _nome 
+                    + ", $" 
+                    + Preco.ToString("F2",CultureInfo.InvariantCulture) 
+                    + ", "
+                    + Quantidade
+                    + " unidades, Total: $ "
+                    + ValorTotalEmEstoque().ToString("F2", CultureInfo.InvariantCulture);
+            }
+        }
+    }
+
+    using System;
+    using System.Globalization;
+
+    namespace Course{
+        class Program {
+            public static void Main(string[] args){
+                Produto p = new Produto("TV", 500.00, 10);
+
+                p.Nome = "TV 4k";
+
+                Console.WriteLine(p.Nome);
+                Console.WriteLine(p.Preco.ToString("F2", CultureInfo.InvariantCulture));
+            }
+        }
+    }
+
+///////////////////////////////////////////////////////////////
+
+//4.05 - Properties
+    using System.Globalization;
+
+    namespace Course 
+    {
+        class Produto
+        {
+            private string _nome;
+            private double _preco;
+            private int _quantidade;
+
+            //Construtor padrão
+            public Produto()
+            {
+                
+            }
+
+            //Construtor com 3 argumentos
+            public Produto(string nome, double preco, int quantidade)
+            {
+                _nome = nome;
+                _preco = preco;
+                _quantidade = quantidade;
+            }
+            //Construtor com 2 argumentos
+            public Produto(string nome, double preco)
+            {
+                _nome = nome;
+                _preco = preco;
+                _quantidade = 5;
+            }
+
+            public double ValorTotalEmEstoque()
+            {
+                return _quantidade * _preco;
+            }
+
+            //Implementação de propertie, definindo as operações de get e set
+            public string Nome {
+                get { return _nome;}
+                set {
+                    if (value != null && value.Length > 1){
+                    _nome = value;
+                }
+                }
+            }
+
+            public double Preco {
+                get { return _preco;}
+            }
+
+            public int Quantidade {
+                get { return _quantidade;}
+            }
+
+            public void AdicionarProdutos (int quantity)
+                                    {
+                _quantidade += quantity;
+            }
+
+            public void RemoverProdutos(int quantity)
+            {
+                _quantidade -= quantity;
+            }
+            
+            public override string ToString()
+            {
+                return _nome 
+                    + ", $" 
+                    + _preco.ToString("F2",CultureInfo.InvariantCulture) 
+                    + ", "
+                    + _quantidade
+                    + " unidades, Total: $ "
+                    + ValorTotalEmEstoque().ToString("F2", CultureInfo.InvariantCulture);
+            }
+        }
+    }   
+
+    using System;
+    using System.Globalization;
+
+    namespace Course {
+        class Program {
+            public static void Main (string[] args) {
+
+                Produto p = new Produto("TV", 500.00, 10);
+
+                p.Nome = "T";
+
+                Console.WriteLine(p.Nome);
+                Console.WriteLine(p.Preco);
+
+            }
+        }
+    }
+
+**************************************************************************
+
+
+
+//4.04 - Encapsulamento
+    using System;
+    using System.Globalization;
+
+    namespace Course {
+        class Program {
+            static void Main (string[] args) {
+                Produto p = new Produto("TV", 500.00, 10);
+
+                p.SetNome("T");
+
+                Console.WriteLine(p.GetNome());
+            }
+        }
+    }
+
+    using System.Globalization;
+
+    namespace Course 
+    {
+        class Produto
+        {
+            private string _nome;
+            private double _preco;
+            private int _quantidade;
+
+            //Construtor padrão
+            public Produto()
+            {
+                
+            }
+
+            //Construtor com 3 argumentos
+            public Produto(string nome, double preco, int quantidade)
+            {
+                _nome = nome;
+                _preco = preco;
+                _quantidade = quantidade;
+            }
+            //Construtor com 2 argumentos
+            public Produto(string nome, double preco)
+            {
+                _nome = nome;
+                _preco = preco;
+                _quantidade = 5;
+            }
+
+            public double ValorTotalEmEstoque()
+            {
+                return _quantidade * _preco;
+            }
+
+            public string GetNome() {
+                return _nome;
+            }
+
+            public void SetNome(string nome) {
+                if (nome != null && nome.Length > 1){
+                    _nome = nome;
+                }
+            }
+
+            public double GetPreco() {
+                return _preco;  
+            }
+
+            public int GetQuantidade() {
+                return _quantidade;
+            }
+            
+            public void AdicionarProdutos (int quantity)
+            {
+                _quantidade += quantity;
+            }
+
+            public void RemoverProdutos(int quantity)
+            {
+                _quantidade -= quantity;
+            }
+            
+            public override string ToString()
+            {
+                return _nome 
+                    + ", $" 
+                    + _preco.ToString("F2",CultureInfo.InvariantCulture) 
+                    + ", "
+                    + _quantidade
+                    + " unidades, Total: $ "
+                    + ValorTotalEmEstoque().ToString("F2", CultureInfo.InvariantCulture);
+            }
+        }
+    }
+
+**************************************************************************
+
+//4.03 - Sobrecarga
+using System;
 using System.Globalization;
 
 namespace Course
@@ -16,6 +330,12 @@ namespace Course
             int quantidade = int.Parse(Console.ReadLine());
 
             Produto produto01 = new Produto(nome, preco, quantidade);
+
+            Produto p3 = new Produto {
+                Nome = "TV", 
+                Preco = 500.00, 
+                Quantidade = 20
+            };
 
             double valorTotal = produto01.ValorTotalEmEstoque();
 
@@ -41,12 +361,7 @@ namespace Course
     }
 }
 
-
-
-/*
-=========================================================
-================= AULAS PASSADAS ========================
-=========================================================
+*******************************************************
 
 //4.01 - Construtores
 using System;
