@@ -14,12 +14,23 @@ namespace Challenge {
             Armor = armor;
         }
 
-        public void TakeDamage (Warrior champion) { //TODO: Prosseguir a partir daqui.
 
+        public void TakeDamage (Warrior champion) { 
+            int attack = (champion.Attack - Armor);
+
+            if (attack <= 0){
+                Life -= 1;
+            } else {
+                Life -= attack;
+            }
         }
 
         public string Status() {
-            return "";
+            if (Life > 0) {
+                return ($"{Name}: {Life} de vida");
+            } else {
+                return ($"{Name}: 0 de vida (morreu)");
+            }
         }
 
     }
