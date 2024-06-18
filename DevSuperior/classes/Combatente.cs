@@ -29,7 +29,8 @@ namespace Challenge {
             if (Life > 0) {
                 return ($"{Name}: {Life} de vida");
             } else {
-                return ($"{Name}: 0 de vida (morreu)");
+                Life = 0;
+                return ($"{Name}: {Life} de vida (morreu)");
             }
         }
 

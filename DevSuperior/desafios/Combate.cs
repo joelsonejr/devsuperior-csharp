@@ -20,29 +20,7 @@ namespace Challenge {
 
             int round = 1;
 
-            while (turnos >0) {
-
-                campeaoA.TakeDamage(campeaoB);
-                campeaoB.TakeDamage(campeaoA);
-            
-
-                Console.WriteLine();
-                Console.WriteLine($"Resultado do turno {round}:");
-                Console.WriteLine(campeaoA.Status());
-                Console.WriteLine(campeaoB.Status());
-
-                if (campeaoA.Life <= 0 || campeaoB.Life <= 0) {
-                    Console.WriteLine();
-                    Console.WriteLine("FIM DO COMBATE");
-                    return;
-                }
-
-                turnos--;
-                round++;
-            }
-            
-            Console.WriteLine();
-            Console.WriteLine("FIM DO COMBATE");
+           RunGame(turnos, round, campeaoA, campeaoB);
             
         }
 
@@ -60,6 +38,32 @@ namespace Challenge {
             Warrior champion = new Warrior(name, life, attack, armor);
 
             return champion;
+        }
+
+        public static void RunGame(int turnos, int round, Warrior champA, Warrior champB) {
+             while (turnos >0) {
+
+                champA.TakeDamage(champB);
+                champB.TakeDamage(champA);
+            
+
+                Console.WriteLine();
+                Console.WriteLine($"Resultado do turno {round}:");
+                Console.WriteLine(champA.Status());
+                Console.WriteLine(champB.Status());
+
+                if (champA.Life <= 0 || champB.Life <= 0) {
+                    Console.WriteLine();
+                    Console.WriteLine("FIM DO COMBATE");
+                    return;
+                }
+
+                turnos--;
+                round++;
+            }
+            
+            Console.WriteLine();
+            Console.WriteLine("FIM DO COMBATE");
         }
     }
 
