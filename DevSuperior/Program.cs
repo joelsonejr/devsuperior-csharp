@@ -1,10 +1,74 @@
-﻿
+﻿// 5.04 - Nullable
+using System;
+using System.Globalization;
 
+namespace Course {
+    class Program {
+        public static void Main(string[] args) {
+
+            // double x = null;  - Dá erro
+            // Nullable<double> x = null; 
+            double? x = null;
+
+            double? y = 10.0;
+
+            Console.WriteLine(x.GetValueOrDefault()); // Pega o valor da variável, ou o valor padrão do Tipo da variável.
+            Console.WriteLine(y.GetValueOrDefault());
+
+            Console.WriteLine(x.HasValue); // Informa se dentro da varíavel existe/ não existe um valor. 
+            Console.WriteLine(y.HasValue);
+
+            // Console.WriteLine(x.Value); // Pega o valor diretamente de "dentro do x". Caso seja feito em cima de um objeto que está valendo nulo, dispara uma excessão. 
+            // Console.WriteLine(y.Value);
+
+            if (x.HasValue) { Console.WriteLine(x.Value);}
+             else Console.WriteLine("x é nulo");
+
+            //Nullish coalescing operator
+            double z = x ?? 5;
+            double a = y ?? 5;
+
+            Console.WriteLine(a);
+            Console.WriteLine(z);
+
+
+        }
+    }
+}
 
 /*
 =========================================================
 ================= AULAS PASSADAS ========================
 =========================================================
+
+///////////////////////////////////////////////////////////
+
+// 5.03 - Desalocação de Memória - Garbage Collector e Escopo Local.
+
+// 5.02 - Tipos Referência vs Tipos valor
+
+using System;
+using System.Globalization;
+
+namespace Course {
+    class Program {
+        public static void Main (string[] args) {
+
+            Point p;
+
+            p.X = 10;
+            p.Y = 20;
+
+            Console.WriteLine(p);
+
+            p = new Point();
+            Console.WriteLine(p); 
+
+        }
+    }
+}
+
+/////////////////////////////////////////////////////////////////////////////
 
 //4.08 - Modificadores de Acesso
 
