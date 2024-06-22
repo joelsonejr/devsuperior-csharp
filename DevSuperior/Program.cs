@@ -72,13 +72,34 @@ namespace Course {
 
 //4.08 - Modificadores de Acesso
 
-Membro da classe:       Pode ser acessado por:
-public                  própria classe, subclasse no assembly, classes do assembly, subclasses fora do assembly, clsses fora do assembly
-protected internal      própria classe, subclasse no assembly, classes do assembly, subclasses fora do assembly
-internal                própria classe, subclasse no assembly, classes do assembly
-protected               própria classe, subclasse no assembly, subclasses fora do assembly
-private protected       própria classe, subclasse no assembly
-private                 própria classe
+assembly == projeto.
+subclasse é um conceito de herança.
+* Dentro de uma solução, podem haver vários projetos.
+
+Própria classe
+    public
+    protected internal
+    internal
+    protected
+    private protected
+    private
+Subclasse no Assembly
+    public
+    protected internal
+    internal
+    protected
+    private protected
+Classes do Assembly
+    public
+    protected internal
+    internal
+Subclasses fora do Assembly
+    public
+    protected internal
+    protected
+Classes fora do Assembly
+    public
+    private
 
 
 //4.07 - Ordem sugerida para implementação de membros de Classe
