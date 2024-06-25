@@ -1,4 +1,102 @@
-﻿// 5.04 - Nullable
+﻿//5.06 - Vetores, parte 2
+
+using System;
+using System.Globalization;
+using System.Reflection.Metadata;
+
+namespace Course {
+    class Program {
+        public static void Main (string[] args){
+            Console.Write("Digite a quantidade de produtos: ");
+            int quantidadeProdutos = int.Parse(Console.ReadLine());
+
+            Product[] listaProdutos = new Product[quantidadeProdutos];
+
+            // Versão 01 do Loop
+            // for (int i = 0; i < quantidadeProdutos; i++) {
+            //     Product p = new Product();
+
+            //     Console.Write($"Digite o nome produto {i + 1}: ");
+            //     p.Nome = Console.ReadLine();
+            //     Console.Write($"Digite o preço do produto {i + 1}: ");
+            //     p.Preco = double.Parse(Console.ReadLine());
+
+            //     listaProdutos[i] = p;
+            // }
+
+            // Versão 02 do Loop
+            for (int i = 0; i < quantidadeProdutos; i++) {
+                Console.WriteLine();
+                Console.WriteLine($"Digite os dados do produto {i + 1}");
+                Console.Write("Nome: ");
+                string nome = Console.ReadLine();
+                Console.Write("Preço: ");
+                double preco = double.Parse(Console.ReadLine());
+            
+
+                Product p = new Product(nome, preco);
+
+                listaProdutos[i] = p;
+            }
+
+            double somaPrecos = 0;
+
+            for (int i = 0; i < listaProdutos.Length; i ++){
+                somaPrecos += listaProdutos[i].Preco;
+            }
+
+            double media = somaPrecos / listaProdutos.Length;
+            
+            Console.WriteLine($"Average Price = {media:F2}");
+
+
+        }
+    }
+}
+
+/*
+=========================================================
+================= AULAS PASSADAS ========================
+=========================================================
+
+////////////////////////////////////////////////////////
+
+//5.05 - Vetores, parte 1
+using System;
+using System.Globalization;
+
+namespace Course {
+    class Program {
+
+        public static void Main(string[] args) {
+
+            Console.Write("Digite o valor de N: ");
+            int n = int.Parse(Console.ReadLine());
+
+            double[] alturas = new double[n];
+
+            for (int i = 0; i < n; i++) {
+                Console.Write($"Digite a altura da pessoa {i}: ");
+                alturas[i] = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+            }
+
+            double alturaMedia = 0;
+
+            for (int i = 0; i < alturas.Length; i++) {
+                alturaMedia += alturas[i];
+            }
+
+            double media = alturaMedia / alturas.Length;
+            Console.WriteLine($"Altura média igual = {media:F2}");
+
+            
+        }
+    }
+}
+
+///////////////////////////////////////////////////////
+
+// 5.04 - Nullable
 using System;
 using System.Globalization;
 
@@ -35,11 +133,6 @@ namespace Course {
         }
     }
 }
-
-/*
-=========================================================
-================= AULAS PASSADAS ========================
-=========================================================
 
 ///////////////////////////////////////////////////////////
 
