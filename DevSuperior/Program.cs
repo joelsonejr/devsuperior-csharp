@@ -1,17 +1,17 @@
-﻿//5.08 - Modificador de parâmetros Params
-
+﻿//5.11 - Laço Foreach
 using System;
 using System.Globalization;
 
 namespace Course {
     class Program {
-        public static void Main (string[] args) {
-            //O Params do método Sum garante que a quantidade de parâmetros seja variável.
-            int s1 = Calculator.Sum(2, 3, 4);
-            int s2 = Calculator.Sum(2, 3, 4, 5, 6, 7);
+        public static void Main(string[] args) {
 
-            Console.WriteLine(s1);
-            Console.WriteLine(s2);
+            string[] vect = new string[] { "Ana", "Barbara", "Silvia"};
+
+            foreach (string s in vect) {
+                Console.WriteLine(s);
+            }
+
         }
     }
 }
@@ -22,6 +22,54 @@ namespace Course {
 =========================================================
 
 
+//5.10 - Boxing e Unboxing
+
+//////////////////////////////////////////////////////////
+
+//5.09 Modificadores de parâmetros Out e Ref
+using System;
+using System.ComponentModel.Design.Serialization;
+using System.Globalization;
+
+namespace Course {
+    class Program {
+        public static void Main(string[] args) {
+
+            int a = 10;
+            Calculator.Triple(ref a); //ref faz com que o parametro da função possa
+            //alterar o valor (seja referência) da variável original. 
+
+            Console.WriteLine(a);
+
+            int triple;
+            Calculator.Triple2(a, out triple);
+            // Funcionamento similar ao ref, mas não exige que a variável de saída
+            // tenha sido inicializada.
+            Console.WriteLine(triple);
+        }
+    }
+}
+
+/////////////////////////////////////////////////////////
+
+//5.08 - Modificador de parâmetros Params
+
+using System;
+using System.Globalization;
+
+namespace Course {
+    class Program {
+        public static void Main (string[] args) {
+            //O Params do método Sum garante que a quantidade de parâmetros 
+            // seja variável.
+            int s1 = Calculator.Sum(2, 3, 4);
+            int s2 = Calculator.Sum(2, 3, 4, 5, 6, 7);
+
+            Console.WriteLine(s1);
+            Console.WriteLine(s2);
+        }
+    }
+}
 
 ////////////////////////////////////////////////////
 
