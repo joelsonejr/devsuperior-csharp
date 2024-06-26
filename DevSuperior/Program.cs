@@ -1,4 +1,20 @@
-﻿
+﻿//5.08 - Modificador de parâmetros Params
+
+using System;
+using System.Globalization;
+
+namespace Course {
+    class Program {
+        public static void Main (string[] args) {
+            //O Params do método Sum garante que a quantidade de parâmetros seja variável.
+            int s1 = Calculator.Sum(2, 3, 4);
+            int s2 = Calculator.Sum(2, 3, 4, 5, 6, 7);
+
+            Console.WriteLine(s1);
+            Console.WriteLine(s2);
+        }
+    }
+}
 
 /*
 =========================================================
