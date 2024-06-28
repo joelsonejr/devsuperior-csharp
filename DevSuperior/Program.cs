@@ -1,4 +1,132 @@
-﻿//5.11 - Laço Foreach
+﻿//5.13 - Listas - Parte 2
+using System;
+using System.Globalization;
+using System.Collections.Generic;
+
+namespace Course {
+    class Program {
+        public static void Main(string[] args) {
+
+            List<string> list = new List<string>();
+
+            //Adicionando itens é no final da lista.
+            list.Add("Sabrina");
+            list.Add("Kênia");
+            list.Add("Ana Beatriz");
+            list.Add("Viviane");
+            list.Add("Amanda");
+
+            foreach (string obj in list) {
+                Console.WriteLine(obj);
+            }
+
+            //Inseringo ítens em uma determinada posição da lista
+            list.Insert(2, "Cassia");
+            
+            Console.WriteLine();
+            foreach (string obj in list) {
+             Console.WriteLine(obj);
+            }
+
+            Console.WriteLine();
+            //Contanto quantidade de ítens da lista
+            Console.WriteLine(list.Count());
+
+            Console.WriteLine();
+            //Encontrar na lista a primeirta ocorrência de um elemento que
+            //satisfaça um predicado. No exemplo abaixo, será a 
+            //primeira ocorrência de um nome começando pela letra A.
+            string s1 = list.Find(x => x[0] == 'A');
+            Console.WriteLine($"Primeiro nome iniciado pela letra A: {s1}");
+
+            //Encontrar na lista a última ocorrência de um elemento que
+            //satisfaça um predicado.
+            string s2 = list.FindLast(x => x[0] == 'A');
+            Console.WriteLine($"Primeiro nome terminado pela letra A: {s2}");
+
+            //Encontrar a primeira posição de um elemento que satisfaça um 
+            //predicado.
+            int pos1 = list.FindIndex(x => x[0] == 'K');
+            Console.WriteLine(pos1);
+
+            //Encontrar a primeira posição de um elemento que satisfaça um 
+            //predicado.
+            int pos2 = list.FindLastIndex(x => x[0] == 'A');
+            Console.WriteLine(pos2);
+
+            //Filtrar a lista com base em um predicado
+            List<string> list2 = list.FindAll(x => x.Length >= 6 );
+            foreach (string name in list2) {
+                Console.WriteLine(name);
+            }
+
+            //Remover elementos da lista
+            Console.WriteLine();
+            list.Remove("Viviane");
+            foreach (string name in list) {
+            Console.WriteLine(name);
+            }
+
+            //Remover todas as ocorrências com base em um predicado
+            list.RemoveAll(x => x[0] == 'A');
+            Console.WriteLine();
+            foreach (string name in list) {
+            Console.WriteLine(name);
+            }
+            //Caso o método não encontre o objeto informado, ele simplesmente
+            //ignora.
+
+            //Remover um elemento de acordo com a posição dele.
+            list.RemoveAt(2);
+            Console.WriteLine();
+            foreach (string name in list) {
+            Console.WriteLine(name);
+            }
+
+            //Removendo os elementos de uma faixa
+            //(n, nn) posição inicial, quantos elementos serão removidos a partir
+            //dali.
+            list.RemoveRange(0, 2);
+            Console.WriteLine();
+            Console.WriteLine("Removendo");
+            foreach (string name in list) {
+            Console.WriteLine(name);
+            }
+
+
+
+
+
+
+        }
+    }
+}
+
+/*
+=========================================================
+================= AULAS PASSADAS ========================
+=========================================================
+
+//5.12 Listas - Parte 1
+
+using System;
+using System.Globalization;
+using System.Collections.Generic; // necessário para acessar a classe lista.
+
+namespace Course {
+    class Program {
+        public static void Main(string[] args) {
+
+            List<string> list = new List<string>(); //instaciando uma lista vazia.
+
+            List<string> list2 = new List<string> {"Márcis", "Joana"};
+        }
+    }
+}
+
+///////////////////////////////////////////////////////////
+
+//5.11 - Laço Foreach
 using System;
 using System.Globalization;
 
@@ -16,11 +144,7 @@ namespace Course {
     }
 }
 
-/*
-=========================================================
-================= AULAS PASSADAS ========================
-=========================================================
-
+//////////////////////////////////////////////////////////////
 
 //5.10 - Boxing e Unboxing
 
