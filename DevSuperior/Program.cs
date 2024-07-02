@@ -1,4 +1,90 @@
-﻿using System;
+﻿
+/*
+=========================================================
+================= AULAS PASSADAS ========================
+=========================================================
+
+//5.17 - Exercício resolvido - Matrizes
+
+using System;
+using System.Globalization;
+using System.Collections.Generic;
+
+namespace Course {
+    class Program {
+        public static void Main(string[] args) {
+
+            Console.Write("Digite a ordem da Matriz: ");
+            int order = int.Parse(Console.ReadLine());
+
+            int [,] mat = new int [order, order];
+
+            for (int i = 0; i < order; i++) {
+                Console.Write($"Informe os elementos da linha {i} da matriz: ");
+                string[] userInput = Console.ReadLine().Split(' ');
+
+                for(int j = 0; j < order; j++) {
+                    mat[i,j] = int.Parse(userInput[j]);
+                }
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Main diagonal: ");
+
+            for (int i = 0; i < order; i++){
+                Console.Write($"{mat[i,i]} ");
+            }
+
+            int negativeNumbers = 0;
+
+            for (int i = 0; i < order; i++) {
+                for (int j = 0; j < order; j++) {
+                    if (mat[i,j] < 0) {
+                        negativeNumbers++;
+                    }
+                }
+            }
+
+            Console.WriteLine();
+            Console.WriteLine($"Negative numbers = {negativeNumbers}");
+        }
+    }
+}
+
+////////////////////////////////////////////////////////////////////////
+
+//5.16 - Matrizes
+
+using System;
+using System.Globalization;
+using System.Collections.Generic;
+
+namespace Course {
+    class Program {
+        public static void Main(string[] args) {
+
+            double [,] mat = new double[2, 3];
+
+            //Quantos elementos a matrix tem no total
+            Console.WriteLine(mat.Length);  
+
+            //Quanto é a primeira dimensao da matrix (quantidade de linhas)
+            Console.WriteLine(mat.Rank);
+
+            //Tamanho da primeira dimensão da matrix (quantidade de linhas)
+            Console.WriteLine(mat.GetLength(0));
+
+            //Tamanho da segunda dimensão da matrix (quantidade de colunas)
+            Console.WriteLine(mat.GetLength(1));
+        }
+    }
+}
+
+//////////////////////////////////////////////////////////
+
+//5.15 - Exercício de fixação - Listas
+
+using System;
 using System.Globalization;
 using System.Collections.Generic;
 
@@ -64,10 +150,7 @@ namespace Course{
     }
 }
 
-/*
-=========================================================
-================= AULAS PASSADAS ========================
-=========================================================
+////////////////////////////////////////////////////////
 
 //5.13 - Listas - Parte 2
 using System;
