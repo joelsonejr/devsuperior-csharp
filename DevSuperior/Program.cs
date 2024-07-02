@@ -1,4 +1,37 @@
-﻿
+﻿//5.18 - Exercício de fixação: Matrizes
+using System;
+using System.Globalization;
+using System.Collections.Generic;
+using System.Reflection.Metadata;
+
+namespace Course {
+    class Program {
+        public static void Main(string[] args) {
+            Console.Write("Digite a quantidade de linhas da matriz: ");
+            int lines = int.Parse(Console.ReadLine());
+
+            Console.Write("Digite a quantidade de colunas da matriz: ");
+            int columns = int.Parse(Console.ReadLine());
+
+            int [,] mat = new int[lines, columns];
+
+            for (int i = 0; i < lines; i++) {
+                Console.Write("Digite os elementos da primeira linha, separados por espaço: ");
+                string[] userInput = Console.ReadLine().Split(' ');
+
+                for( int j = 0; j < columns; j++) {
+                    mat[i,j] = int.Parse(userInput[j]);
+                }
+            }
+
+            //TODO: Create method to find a given number in the matrix.
+            //TODO: To find the neighbours, is necessary to validate if the 
+            //values for the line/ column are inside the matrix boundaries.
+        }
+    }
+}
+
+
 /*
 =========================================================
 ================= AULAS PASSADAS ========================
