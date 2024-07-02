@@ -15,14 +15,8 @@ namespace Course {
 
             int [,] mat = new int[lines, columns];
 
-            for (int i = 0; i < lines; i++) {
-                Console.Write("Digite os elementos da primeira linha, separados por espaço: ");
-                string[] userInput = Console.ReadLine().Split(' ');
+            mat = BuildMatrix(lines, columns);
 
-                for( int j = 0; j < columns; j++) {
-                    mat[i,j] = int.Parse(userInput[j]);
-                }
-            }
 
             Console.Write("Wich number are you looking for: ");
             int numberToSearch = int.Parse(Console.ReadLine());
@@ -31,6 +25,22 @@ namespace Course {
 
             //TODO: To find the neighbours, is necessary to validate if the 
             //values for the line/ column are inside the matrix boundaries.
+        }
+
+        public static int[,] BuildMatrix(int lin, int col) {
+
+            int[,] matrix = new int[lin,col];
+
+            for (int i = 0; i < lin; i++) {
+                Console.Write($"Digite os elementos da linha {i}, separados por espaço: ");
+                string[] userInput = Console.ReadLine().Split(' ');
+
+                for( int j = 0; j < col; j++) {
+                    matrix[i,j] = int.Parse(userInput[j]);
+                }
+            }
+
+            return matrix;
         }
 
         public static void FindNumber(int number, int[,] matrix) {
