@@ -1,4 +1,66 @@
-﻿//5.13 - Listas - Parte 2
+﻿using System;
+using System.Globalization;
+using System.Collections.Generic;
+
+namespace Course{
+    class Program {
+        public static void Main(string[] args) {
+
+            Console.Write("How many employees will be registered? ");
+            int numberOfEmployees = int.Parse(Console.ReadLine());
+
+            List<Employee> allEmployees = new List<Employee>();
+
+            for (int i = 0; i < numberOfEmployees; i++) {
+
+                Employee emp = new Employee();
+
+                Console.WriteLine();
+                Console.WriteLine($"Employee { i + 1}");
+                Console.Write("Id: ");
+                emp.Id = int.Parse(Console.ReadLine());
+                Console.Write("Name: ");
+                emp.Name = Console.ReadLine();
+                Console.Write("Salary: ");
+                emp.Salary = double.Parse(Console.ReadLine());
+
+                allEmployees.Add(emp);
+
+            }
+            Console.WriteLine();
+            Console.Write("Enter the employee id that will have salary increase: ");
+            int id = int.Parse(Console.ReadLine());
+
+            Console.Write("Enter the percentage: ");
+            double percentage = double.Parse(Console.ReadLine());
+
+            Employee? employeeToUpdate = allEmployees.Find( e => e.Id == id);
+
+            if (employeeToUpdate != null) {
+                employeeToUpdate.SalaryIncrease(percentage);
+            }
+            else {
+                Console.WriteLine("No employee to update");
+            }
+
+
+            Console.WriteLine();
+            Console.WriteLine("Updated list of employees: ");
+            foreach (Employee employee in allEmployees) {
+                Console.WriteLine(employee);
+
+            }
+
+        }
+    }
+}
+
+/*
+=========================================================
+================= AULAS PASSADAS ========================
+=========================================================
+
+//5.13 - Listas - Parte 2
 using System;
 using System.Globalization;
 using System.Collections.Generic;
@@ -20,7 +82,7 @@ namespace Course {
                 Console.WriteLine(obj);
             }
 
-            //Inseringo ítens em uma determinada posição da lista
+            //Inserindo ítens em uma determinada posição da lista
             list.Insert(2, "Cassia");
             
             Console.WriteLine();
@@ -92,20 +154,11 @@ namespace Course {
             foreach (string name in list) {
             Console.WriteLine(name);
             }
-
-
-
-
-
-
         }
     }
 }
 
-/*
-=========================================================
-================= AULAS PASSADAS ========================
-=========================================================
+/////////////////////////////////////////////////////////
 
 //5.12 Listas - Parte 1
 
