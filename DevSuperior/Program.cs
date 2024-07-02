@@ -55,7 +55,12 @@ namespace Course {
                 }
             }
 
-            Console.WriteLine($"The number appeared {found} times");
+            if (found != 0) {
+                Console.WriteLine($"The number {number} appeared {found} time(s)");
+            }
+            else {
+                Console.WriteLine("Number not found.");
+            }
         }
     }
 }
