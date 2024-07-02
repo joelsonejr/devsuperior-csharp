@@ -22,7 +22,7 @@ namespace Course {
 
         public void SalaryIncrease (double percentage){
 
-            Salary += Salary * 0.1;
+            Salary += Salary * (percentage / 100);
 
         }
         public override string ToString()

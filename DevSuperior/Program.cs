@@ -28,19 +28,28 @@ namespace Course{
 
             }
             Console.WriteLine();
-            Console.Write("Enter the employee id that will have salary increase: ");
-            int id = int.Parse(Console.ReadLine());
+            Console.Write("Enter the employee id that will have salary increase (separeted by space): ");
+            string[] userInput = Console.ReadLine().Split(' ');
+
+            List<int> ids = new List<int>();
+
+            foreach (string input in userInput) {
+
+                ids.Add(int.Parse(input));
+            }
 
             Console.Write("Enter the percentage: ");
             double percentage = double.Parse(Console.ReadLine());
 
-            Employee? employeeToUpdate = allEmployees.Find( e => e.Id == id);
+            foreach(int id in ids) {
+                Employee? employeeToUpdate = allEmployees.Find( e => e.Id == id);
 
-            if (employeeToUpdate != null) {
-                employeeToUpdate.SalaryIncrease(percentage);
-            }
-            else {
-                Console.WriteLine("No employee to update");
+                if (employeeToUpdate != null) {
+                    employeeToUpdate.SalaryIncrease(percentage);
+                }
+                else {
+                    Console.WriteLine("No employee to update");
+                }
             }
 
 
