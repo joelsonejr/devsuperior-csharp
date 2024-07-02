@@ -13,7 +13,7 @@ namespace Course {
             Console.Write("Digite a quantidade de colunas da matriz: ");
             int columns = int.Parse(Console.ReadLine());
 
-            int [,] mat = new int[lines, columns];
+            int [,] mat;
 
             mat = BuildMatrix(lines, columns);
 
@@ -21,7 +21,7 @@ namespace Course {
             Console.Write("Wich number are you looking for: ");
             int numberToSearch = int.Parse(Console.ReadLine());
 
-            FindNumber(8, mat);
+            FindNumber(numberToSearch, mat);
 
             //TODO: To find the neighbours, is necessary to validate if the 
             //values for the line/ column are inside the matrix boundaries.
