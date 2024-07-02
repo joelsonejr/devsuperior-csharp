@@ -24,9 +24,28 @@ namespace Course {
                 }
             }
 
-            //TODO: Create method to find a given number in the matrix.
+            Console.Write("Wich number are you looking for: ");
+            int numberToSearch = int.Parse(Console.ReadLine());
+
+            FindNumber(8, mat);
+
             //TODO: To find the neighbours, is necessary to validate if the 
             //values for the line/ column are inside the matrix boundaries.
+        }
+
+        public static void FindNumber(int number, int[,] matrix) {
+            int found = 0;
+
+            for (int i = 0; i < matrix.GetLength(0); i++ ) {
+                for (int j = 0; j < matrix.GetLength(1); j++) {
+
+                    if ( number == matrix[i,j]) {
+                        found++; //TODO: Adjust what happens when the number is found
+                    }
+                }
+            }
+
+            Console.WriteLine($"The number appeared {found} times");
         }
     }
 }
