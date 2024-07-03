@@ -10,10 +10,12 @@ namespace Course {
 
             int [,] mat = BuildMatrix();
 
-            FindNumber(mat);
+            FindNumberInfo(mat);
 
             //TODO: To find the neighbours, is necessary to validate if the 
             //values for the line/ column are inside the matrix boundaries.
+            //TODO: Create "Position" class, to store a number number,position 
+            //and neighbours info.
         }
 
         public static int[,] BuildMatrix() {
@@ -40,7 +42,7 @@ namespace Course {
             return matrix;
         }
 
-        public static void FindNumber(int[,] matrix) {
+        public static void FindNumberInfo(int[,] matrix) {
 
             Console.Write("Qual número você gostaria de procurar? ");
             int number = int.Parse(Console.ReadLine());
@@ -52,6 +54,8 @@ namespace Course {
 
                     if ( number == matrix[i,j]) {
                         found++; 
+
+                        FindNeighbours();
                         //TODO: Adjust what happens when the number is found
                     }
                 }
@@ -75,6 +79,10 @@ namespace Course {
 
                 //TODO: Create method logic
 
+            }
+
+            public static void FindNeighbours() {
+                //TODO: Will populate the Object with it's neighbours values.
             }
     }
 }
