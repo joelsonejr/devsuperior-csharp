@@ -7,33 +7,30 @@ using System.Reflection.Metadata;
 namespace Course {
     class Program {
         public static void Main(string[] args) {
-            Console.Write("Digite a quantidade de linhas da matriz: ");
-            int lines = int.Parse(Console.ReadLine());
 
-            Console.Write("Digite a quantidade de colunas da matriz: ");
-            int columns = int.Parse(Console.ReadLine());
+            int [,] mat = BuildMatrix();
 
-            int [,] mat;
-
-            mat = BuildMatrix(lines, columns);
-
-
-            Console.Write("Wich number are you looking for: ");
-            int numberToSearch = int.Parse(Console.ReadLine());
-
-            FindNumber(numberToSearch, mat);
+            FindNumber(mat);
 
             //TODO: To find the neighbours, is necessary to validate if the 
             //values for the line/ column are inside the matrix boundaries.
         }
 
-        public static int[,] BuildMatrix(int lin, int col) {
+        public static int[,] BuildMatrix() {
+
+            string[] userInput;
+
+            Console.Write("Digite a quantidade de linhas e colunas da matriz, separados por espaço: ");
+            userInput = Console.ReadLine().Split(' ');
+
+            int lin = int.Parse(userInput[0]);
+            int col = int.Parse(userInput[1]);
 
             int[,] matrix = new int[lin,col];
 
             for (int i = 0; i < lin; i++) {
                 Console.Write($"Digite os elementos da linha {i}, separados por espaço: ");
-                string[] userInput = Console.ReadLine().Split(' ');
+                userInput = Console.ReadLine().Split(' ');
 
                 for( int j = 0; j < col; j++) {
                     matrix[i,j] = int.Parse(userInput[j]);
@@ -43,23 +40,41 @@ namespace Course {
             return matrix;
         }
 
-        public static void FindNumber(int number, int[,] matrix) {
+        public static void FindNumber(int[,] matrix) {
+
+            Console.Write("Qual número você gostaria de procurar? ");
+            int number = int.Parse(Console.ReadLine());
+
             int found = 0;
 
             for (int i = 0; i < matrix.GetLength(0); i++ ) {
                 for (int j = 0; j < matrix.GetLength(1); j++) {
 
                     if ( number == matrix[i,j]) {
-                        found++; //TODO: Adjust what happens when the number is found
+                        found++; 
+                        //TODO: Adjust what happens when the number is found
                     }
                 }
             }
 
+            PrintNumberInfo();
+
             if (found != 0) {
-                Console.WriteLine($"The number {number} appeared {found} time(s)");
+                string messageEnd = "vez";
+
+                if (found > 1) {
+                    messageEnd = "vezes";
+                }
+
+                Console.WriteLine($"O número {number} apreceu {found} {messageEnd}.");
             }
             else {
-                Console.WriteLine("Number not found.");
+                Console.WriteLine($"O número {number} não foi encontrado!");
+            }
+
+            int? joe = null;
+            if (joe != null) {
+            Console.WriteLine(10);
             }
         }
     }
