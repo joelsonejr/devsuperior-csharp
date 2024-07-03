@@ -57,7 +57,6 @@ namespace Course {
                 }
             }
 
-            PrintNumberInfo();
 
             if (found != 0) {
                 string messageEnd = "vez";
@@ -72,6 +71,11 @@ namespace Course {
                 Console.WriteLine($"O número {number} não foi encontrado!");
             }
         }
+            public static void PrintNumberInfo() {
+
+                //TODO: Create method logic
+
+            }
     }
 }
 
