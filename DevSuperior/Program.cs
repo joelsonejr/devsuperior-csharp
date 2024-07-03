@@ -71,11 +71,6 @@ namespace Course {
             else {
                 Console.WriteLine($"O número {number} não foi encontrado!");
             }
-
-            int? joe = null;
-            if (joe != null) {
-            Console.WriteLine(10);
-            }
         }
     }
 }
