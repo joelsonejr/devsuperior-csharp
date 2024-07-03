@@ -78,6 +78,7 @@ namespace Course {
             public static void PrintNumberInfo() {
 
                 //TODO: Create method logic
+                //TODO: Verify if the Positon.Attribute != null before print it
 
             }
 
