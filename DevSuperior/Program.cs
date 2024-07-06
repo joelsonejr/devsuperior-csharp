@@ -9,13 +9,10 @@ namespace Course {
         public static void Main(string[] args) {
 
             int [,] mat = BuildMatrix();
+            Position p = new Position();
 
-            FindNumberInfo(mat);
+            ShowOptionMenu(mat, p);
 
-            //TODO: To find the neighbours, is necessary to validate if the 
-            //values for the line/ column are inside the matrix boundaries.
-            //TODO: Create "Position" class, to store a number number,position 
-            //and neighbours info.
         }
 
         public static int[,] BuildMatrix() {
@@ -42,48 +39,149 @@ namespace Course {
             return matrix;
         }
 
-        public static void FindNumberInfo(int[,] matrix) {
+        public static void ShowOptionMenu(int[,] matrix, Position p) {
+              int? answer = null;
 
+            while (answer != 0 ) {
+                Console.WriteLine();
+                Console.WriteLine("Digite o número da opção desejada: ");
+                Console.WriteLine("Sair (0)");
+                Console.WriteLine("Procurar um número (1)");
+                Console.WriteLine("Imprimir a matriz (2)");
+                Console.WriteLine("Imprimir um elemendo da matriz (3)");
+                Console.Write("Opção selecionada: ");
+                answer = int.Parse(Console.ReadLine());
+
+                switch (answer) {
+                    case 1:
+                        FindNumberInfo(matrix, p);
+                        answer = 1;
+                        break;
+                    case 2:
+                        PrintMatrix(matrix);
+                        answer = 2;
+                        break;
+                    case 3:
+                        PrintMatrixElement(matrix);
+                        answer = 3;
+                        break;
+                    case 0:
+                        Console.WriteLine("Encerrando o programa...");
+                        answer = 0;
+                        break;
+                    default: 
+                        break;
+                }
+            }
+        }
+
+        public static void FindNumberInfo(int[,] matrix, Position p) {
+         
+            Console.WriteLine();
             Console.Write("Qual número você gostaria de procurar? ");
             int number = int.Parse(Console.ReadLine());
 
-            int found = 0;
+            Boolean found = false;
 
             for (int i = 0; i < matrix.GetLength(0); i++ ) {
+
                 for (int j = 0; j < matrix.GetLength(1); j++) {
+                
 
                     if ( number == matrix[i,j]) {
-                        found++; 
+                        p.XPos = i;
+                        p.YPos = j;
+                        p.Value = matrix[i, j];
 
-                        FindNeighbours();
-                        //TODO: Adjust what happens when the number is found
+                        found = true; 
+
+                        IdentifyNeighbours(p, matrix, i, j );
+
+                        PrintNumberInfo(p);
+
                     }
                 }
             }
 
+            if (!found) {
+                Console.WriteLine("Número não encontrado");
+            }
 
-            if (found != 0) {
-                string messageEnd = "vez";
+        }
+            public static void PrintNumberInfo(Position p) {
 
-                if (found > 1) {
-                    messageEnd = "vezes";
+                Console.WriteLine();
+
+                Console.WriteLine($"Esses são os dados do número {p.Value}: ");
+
+                Console.WriteLine($"Position: {p.XPos}, {p.YPos}");
+
+                if (p.LeftNeighbour != null ) {
+                    Console.WriteLine($"Left: {p.LeftNeighbour}");
+                }
+                if (p.RightNeighbour != null ) {
+                    Console.WriteLine($"Right: {p.RightNeighbour}");
+                }
+                if (p.UpNeighbour != null ) {
+                    Console.WriteLine($"Up: {p.UpNeighbour}");
+                }
+                if (p.DownNeighbour != null ) {
+                    Console.WriteLine($"Down: {p.DownNeighbour}");
                 }
 
-                Console.WriteLine($"O número {number} apreceu {found} {messageEnd}.");
-            }
-            else {
-                Console.WriteLine($"O número {number} não foi encontrado!");
-            }
-        }
-            public static void PrintNumberInfo() {
-
-                //TODO: Create method logic
-                //TODO: Verify if the Positon.Attribute != null before print it
-
             }
 
-            public static void FindNeighbours() {
-                //TODO: Will populate the Object with it's neighbours values.
+            public static void PrintMatrix (int[,] matrix) {
+
+                Console.WriteLine();
+
+                for (int i = 0; i < matrix.GetLength(0); i++){
+                    for (int j = 0; j < matrix.GetLength(1); j++) {
+                        Console.Write($"{matrix[i,j]} ");
+                    }
+                    Console.WriteLine();
+                }
+            }
+
+            public static void PrintMatrixElement(int [,] matrix) {
+                Console.Write("Digite as coordenadas do número desejado: ");
+                string[] userInput = Console.ReadLine().Split(',');
+
+                int coorX = int.Parse(userInput[0]);
+                int coorY = int.Parse(userInput[1]);
+
+                Console.WriteLine($"Número selecionado para impressão: {matrix[coorX, coorY]}");
+
+            }   
+
+            public static void IdentifyNeighbours(Position p, int [,] matrix, int xPos, int yPos) {
+                if (!(yPos - 1 < 0)) {
+                    p.LeftNeighbour = matrix[xPos, yPos - 1];
+                } 
+                else {
+                    p.LeftNeighbour = null;
+                }
+                
+                if (!(yPos + 1 > matrix.GetLength(1) - 1)) {
+                    p.RightNeighbour = matrix[xPos, yPos + 1];
+                }
+                else {
+                    p.RightNeighbour=null;
+                }
+
+                if (!(xPos - 1 < 0)){
+                p.UpNeighbour = matrix[xPos - 1, yPos];
+                }
+                else {
+                    p.UpNeighbour=null;
+                }
+
+                if (!(xPos + 1 > matrix.GetLength(0) - 1)){
+                p.DownNeighbour = matrix[xPos + 1, yPos];
+                }
+                else {
+                    p.DownNeighbour=null;
+                }
             }
     }
 }
