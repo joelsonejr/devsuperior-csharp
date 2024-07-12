@@ -6,15 +6,724 @@
 ================= AULAS PASSADAS ========================
 =========================================================
 
+//5.18 - Exercício de fixação: Matrizes
+using System;
+using System.Globalization;
+using System.Collections.Generic;
+using System.Reflection.Metadata;
+
+namespace Course {
+    class Program {
+        public static void Main(string[] args) {
+
+            int [,] mat = BuildMatrix();
+            Position p = new Position();
+
+            ShowOptionMenu(mat, p);
+
+        }
+
+        public static int[,] BuildMatrix() {
+
+            string[] userInput;
+
+            Console.Write("Digite a quantidade de linhas e colunas da matriz, separados por espaço: ");
+            userInput = Console.ReadLine().Split(' ');
+
+            int lin = int.Parse(userInput[0]);
+            int col = int.Parse(userInput[1]);
+
+            int[,] matrix = new int[lin,col];
+
+            for (int i = 0; i < lin; i++) {
+                Console.Write($"Digite os elementos da linha {i}, separados por espaço: ");
+                userInput = Console.ReadLine().Split(' ');
+
+                for( int j = 0; j < col; j++) {
+                    matrix[i,j] = int.Parse(userInput[j]);
+                }
+            }
+
+            return matrix;
+        }
+
+        public static void ShowOptionMenu(int[,] matrix, Position p) {
+              int? answer = null;
+
+            while (answer != 0 ) {
+                Console.WriteLine();
+                Console.WriteLine("Digite o número da opção desejada: ");
+                Console.WriteLine("Sair (0)");
+                Console.WriteLine("Procurar um número (1)");
+                Console.WriteLine("Imprimir a matriz (2)");
+                Console.WriteLine("Imprimir um elemendo da matriz (3)");
+                Console.Write("Opção selecionada: ");
+                answer = int.Parse(Console.ReadLine());
+
+                switch (answer) {
+                    case 1:
+                        FindNumberInfo(matrix, p);
+                        answer = 1;
+                        break;
+                    case 2:
+                        PrintMatrix(matrix);
+                        answer = 2;
+                        break;
+                    case 3:
+                        PrintMatrixElement(matrix);
+                        answer = 3;
+                        break;
+                    case 0:
+                        Console.WriteLine("Encerrando o programa...");
+                        answer = 0;
+                        break;
+                    default: 
+                        break;
+                }
+            }
+        }
+
+        public static void FindNumberInfo(int[,] matrix, Position p) {
+         
+            Console.WriteLine();
+            Console.Write("Qual número você gostaria de procurar? ");
+            int number = int.Parse(Console.ReadLine());
+
+            Boolean found = false;
+
+            for (int i = 0; i < matrix.GetLength(0); i++ ) {
+
+                for (int j = 0; j < matrix.GetLength(1); j++) {
+                
+
+                    if ( number == matrix[i,j]) {
+                        p.XPos = i;
+                        p.YPos = j;
+                        p.Value = matrix[i, j];
+
+                        found = true; 
+
+                        IdentifyNeighbours(p, matrix, i, j );
+
+                        PrintNumberInfo(p);
+
+                    }
+                }
+            }
+
+            if (!found) {
+                Console.WriteLine("Número não encontrado");
+            }
+
+        }
+            public static void PrintNumberInfo(Position p) {
+
+                Console.WriteLine();
+
+                Console.WriteLine($"Esses são os dados do número {p.Value}: ");
+
+                Console.WriteLine($"Position: {p.XPos}, {p.YPos}");
+
+                if (p.LeftNeighbour != null ) {
+                    Console.WriteLine($"Left: {p.LeftNeighbour}");
+                }
+                if (p.RightNeighbour != null ) {
+                    Console.WriteLine($"Right: {p.RightNeighbour}");
+                }
+                if (p.UpNeighbour != null ) {
+                    Console.WriteLine($"Up: {p.UpNeighbour}");
+                }
+                if (p.DownNeighbour != null ) {
+                    Console.WriteLine($"Down: {p.DownNeighbour}");
+                }
+
+            }
+
+            public static void PrintMatrix (int[,] matrix) {
+
+                Console.WriteLine();
+
+                for (int i = 0; i < matrix.GetLength(0); i++){
+                    for (int j = 0; j < matrix.GetLength(1); j++) {
+                        Console.Write($"{matrix[i,j]} ");
+                    }
+                    Console.WriteLine();
+                }
+            }
+
+            public static void PrintMatrixElement(int [,] matrix) {
+                Console.Write("Digite as coordenadas do número desejado: ");
+                string[] userInput = Console.ReadLine().Split(',');
+
+                int coorX = int.Parse(userInput[0]);
+                int coorY = int.Parse(userInput[1]);
+
+                Console.WriteLine($"Número selecionado para impressão: {matrix[coorX, coorY]}");
+
+            }   
+
+            public static void IdentifyNeighbours(Position p, int [,] matrix, int xPos, int yPos) {
+                if (!(yPos - 1 < 0)) {
+                    p.LeftNeighbour = matrix[xPos, yPos - 1];
+                } 
+                else {
+                    p.LeftNeighbour = null;
+                }
+                
+                if (!(yPos + 1 > matrix.GetLength(1) - 1)) {
+                    p.RightNeighbour = matrix[xPos, yPos + 1];
+                }
+                else {
+                    p.RightNeighbour=null;
+                }
+
+                if (!(xPos - 1 < 0)){
+                p.UpNeighbour = matrix[xPos - 1, yPos];
+                }
+                else {
+                    p.UpNeighbour=null;
+                }
+
+                if (!(xPos + 1 > matrix.GetLength(0) - 1)){
+                p.DownNeighbour = matrix[xPos + 1, yPos];
+                }
+                else {
+                    p.DownNeighbour=null;
+                }
+            }
+    }
+}
+
+//////////////////////////////////////////////////////////////
+
+//5.17 - Exercício resolvido - Matrizes
+
+using System;
+using System.Globalization;
+using System.Collections.Generic;
+
+namespace Course {
+    class Program {
+        public static void Main(string[] args) {
+
+            Console.Write("Digite a ordem da Matriz: ");
+            int order = int.Parse(Console.ReadLine());
+
+            int [,] mat = new int [order, order];
+
+            for (int i = 0; i < order; i++) {
+                Console.Write($"Informe os elementos da linha {i} da matriz: ");
+                string[] userInput = Console.ReadLine().Split(' ');
+
+                for(int j = 0; j < order; j++) {
+                    mat[i,j] = int.Parse(userInput[j]);
+                }
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Main diagonal: ");
+
+            for (int i = 0; i < order; i++){
+                Console.Write($"{mat[i,i]} ");
+            }
+
+            int negativeNumbers = 0;
+
+            for (int i = 0; i < order; i++) {
+                for (int j = 0; j < order; j++) {
+                    if (mat[i,j] < 0) {
+                        negativeNumbers++;
+                    }
+                }
+            }
+
+            Console.WriteLine();
+            Console.WriteLine($"Negative numbers = {negativeNumbers}");
+        }
+    }
+}
+
+////////////////////////////////////////////////////////////////////////
+
+//5.16 - Matrizes
+
+using System;
+using System.Globalization;
+using System.Collections.Generic;
+
+namespace Course {
+    class Program {
+        public static void Main(string[] args) {
+
+            double [,] mat = new double[2, 3];
+
+            //Quantos elementos a matrix tem no total
+            Console.WriteLine(mat.Length);  
+
+            //Quanto é a primeira dimensao da matrix (quantidade de linhas)
+            Console.WriteLine(mat.Rank);
+
+            //Tamanho da primeira dimensão da matrix (quantidade de linhas)
+            Console.WriteLine(mat.GetLength(0));
+
+            //Tamanho da segunda dimensão da matrix (quantidade de colunas)
+            Console.WriteLine(mat.GetLength(1));
+        }
+    }
+}
+
+//////////////////////////////////////////////////////////
+
+//5.15 - Exercício de fixação - Listas
+
+using System;
+using System.Globalization;
+using System.Collections.Generic;
+
+namespace Course{
+    class Program {
+        public static void Main(string[] args) {
+
+            Console.Write("How many employees will be registered? ");
+            int numberOfEmployees = int.Parse(Console.ReadLine());
+
+            List<Employee> allEmployees = new List<Employee>();
+
+            for (int i = 0; i < numberOfEmployees; i++) {
+
+                Employee emp = new Employee();
+
+                Console.WriteLine();
+                Console.WriteLine($"Employee { i + 1}");
+                Console.Write("Id: ");
+                emp.Id = int.Parse(Console.ReadLine());
+                Console.Write("Name: ");
+                emp.Name = Console.ReadLine();
+                Console.Write("Salary: ");
+                emp.Salary = double.Parse(Console.ReadLine());
+
+                allEmployees.Add(emp);
+
+            }
+            Console.WriteLine();
+            Console.Write("Enter the employee id that will have salary increase (separeted by space): ");
+            string[] userInput = Console.ReadLine().Split(' ');
+
+            List<int> ids = new List<int>();
+
+            foreach (string input in userInput) {
+
+                ids.Add(int.Parse(input));
+            }
+
+            Console.Write("Enter the percentage: ");
+            double percentage = double.Parse(Console.ReadLine());
+
+            foreach(int id in ids) {
+                Employee? employeeToUpdate = allEmployees.Find( e => e.Id == id);
+
+                if (employeeToUpdate != null) {
+                    employeeToUpdate.SalaryIncrease(percentage);
+                }
+                else {
+                    Console.WriteLine("No employee to update");
+                }
+            }
+
+
+            Console.WriteLine();
+            Console.WriteLine("Updated list of employees: ");
+            foreach (Employee employee in allEmployees) {
+                Console.WriteLine(employee);
+
+            }
+
+        }
+    }
+}
+
+////////////////////////////////////////////////////////
+
+//5.13 - Listas - Parte 2
+using System;
+using System.Globalization;
+using System.Collections.Generic;
+
+namespace Course {
+    class Program {
+        public static void Main(string[] args) {
+
+            List<string> list = new List<string>();
+
+            //Adicionando itens é no final da lista.
+            list.Add("Sabrina");
+            list.Add("Kênia");
+            list.Add("Ana Beatriz");
+            list.Add("Viviane");
+            list.Add("Amanda");
+
+            foreach (string obj in list) {
+                Console.WriteLine(obj);
+            }
+
+            //Inserindo ítens em uma determinada posição da lista
+            list.Insert(2, "Cassia");
+            
+            Console.WriteLine();
+            foreach (string obj in list) {
+             Console.WriteLine(obj);
+            }
+
+            Console.WriteLine();
+            //Contanto quantidade de ítens da lista
+            Console.WriteLine(list.Count());
+
+            Console.WriteLine();
+            //Encontrar na lista a primeirta ocorrência de um elemento que
+            //satisfaça um predicado. No exemplo abaixo, será a 
+            //primeira ocorrência de um nome começando pela letra A.
+            string s1 = list.Find(x => x[0] == 'A');
+            Console.WriteLine($"Primeiro nome iniciado pela letra A: {s1}");
+
+            //Encontrar na lista a última ocorrência de um elemento que
+            //satisfaça um predicado.
+            string s2 = list.FindLast(x => x[0] == 'A');
+            Console.WriteLine($"Primeiro nome terminado pela letra A: {s2}");
+
+            //Encontrar a primeira posição de um elemento que satisfaça um 
+            //predicado.
+            int pos1 = list.FindIndex(x => x[0] == 'K');
+            Console.WriteLine(pos1);
+
+            //Encontrar a primeira posição de um elemento que satisfaça um 
+            //predicado.
+            int pos2 = list.FindLastIndex(x => x[0] == 'A');
+            Console.WriteLine(pos2);
+
+            //Filtrar a lista com base em um predicado
+            List<string> list2 = list.FindAll(x => x.Length >= 6 );
+            foreach (string name in list2) {
+                Console.WriteLine(name);
+            }
+
+            //Remover elementos da lista
+            Console.WriteLine();
+            list.Remove("Viviane");
+            foreach (string name in list) {
+            Console.WriteLine(name);
+            }
+
+            //Remover todas as ocorrências com base em um predicado
+            list.RemoveAll(x => x[0] == 'A');
+            Console.WriteLine();
+            foreach (string name in list) {
+            Console.WriteLine(name);
+            }
+            //Caso o método não encontre o objeto informado, ele simplesmente
+            //ignora.
+
+            //Remover um elemento de acordo com a posição dele.
+            list.RemoveAt(2);
+            Console.WriteLine();
+            foreach (string name in list) {
+            Console.WriteLine(name);
+            }
+
+            //Removendo os elementos de uma faixa
+            //(n, nn) posição inicial, quantos elementos serão removidos a partir
+            //dali.
+            list.RemoveRange(0, 2);
+            Console.WriteLine();
+            Console.WriteLine("Removendo");
+            foreach (string name in list) {
+            Console.WriteLine(name);
+            }
+        }
+    }
+}
+
+/////////////////////////////////////////////////////////
+
+//5.12 Listas - Parte 1
+
+using System;
+using System.Globalization;
+using System.Collections.Generic; // necessário para acessar a classe lista.
+
+namespace Course {
+    class Program {
+        public static void Main(string[] args) {
+
+            List<string> list = new List<string>(); //instaciando uma lista vazia.
+
+            List<string> list2 = new List<string> {"Márcis", "Joana"};
+        }
+    }
+}
+
+///////////////////////////////////////////////////////////
+
+//5.11 - Laço Foreach
+using System;
+using System.Globalization;
+
+namespace Course {
+    class Program {
+        public static void Main(string[] args) {
+
+            string[] vect = new string[] { "Ana", "Barbara", "Silvia"};
+
+            foreach (string s in vect) {
+                Console.WriteLine(s);
+            }
+
+        }
+    }
+}
+
+//////////////////////////////////////////////////////////////
+
+//5.10 - Boxing e Unboxing
+
+//////////////////////////////////////////////////////////
+
+//5.09 Modificadores de parâmetros Out e Ref
+using System;
+using System.ComponentModel.Design.Serialization;
+using System.Globalization;
+
+namespace Course {
+    class Program {
+        public static void Main(string[] args) {
+
+            int a = 10;
+            Calculator.Triple(ref a); //ref faz com que o parametro da função possa
+            //alterar o valor (seja referência) da variável original. 
+
+            Console.WriteLine(a);
+
+            int triple;
+            Calculator.Triple2(a, out triple);
+            // Funcionamento similar ao ref, mas não exige que a variável de saída
+            // tenha sido inicializada.
+            Console.WriteLine(triple);
+        }
+    }
+}
+
+/////////////////////////////////////////////////////////
+
+//5.08 - Modificador de parâmetros Params
+
+using System;
+using System.Globalization;
+
+namespace Course {
+    class Program {
+        public static void Main (string[] args) {
+            //O Params do método Sum garante que a quantidade de parâmetros 
+            // seja variável.
+            int s1 = Calculator.Sum(2, 3, 4);
+            int s2 = Calculator.Sum(2, 3, 4, 5, 6, 7);
+
+            Console.WriteLine(s1);
+            Console.WriteLine(s2);
+        }
+    }
+}
+
+////////////////////////////////////////////////////
+
+//5.06 - Vetores, parte 2
+
+using System;
+using System.Globalization;
+using System.Reflection.Metadata;
+
+namespace Course {
+    class Program {
+        public static void Main (string[] args){
+            Console.Write("Digite a quantidade de produtos: ");
+            int quantidadeProdutos = int.Parse(Console.ReadLine());
+
+            Product[] listaProdutos = new Product[quantidadeProdutos];
+
+            // Versão 01 do Loop
+            // for (int i = 0; i < quantidadeProdutos; i++) {
+            //     Product p = new Product();
+
+            //     Console.Write($"Digite o nome produto {i + 1}: ");
+            //     p.Nome = Console.ReadLine();
+            //     Console.Write($"Digite o preço do produto {i + 1}: ");
+            //     p.Preco = double.Parse(Console.ReadLine());
+
+            //     listaProdutos[i] = p;
+            // }
+
+            // Versão 02 do Loop
+            for (int i = 0; i < quantidadeProdutos; i++) {
+                Console.WriteLine();
+                Console.WriteLine($"Digite os dados do produto {i + 1}");
+                Console.Write("Nome: ");
+                string nome = Console.ReadLine();
+                Console.Write("Preço: ");
+                double preco = double.Parse(Console.ReadLine());
+            
+
+                Product p = new Product(nome, preco);
+
+                listaProdutos[i] = p;
+            }
+
+            double somaPrecos = 0;
+
+            for (int i = 0; i < listaProdutos.Length; i ++){
+                somaPrecos += listaProdutos[i].Preco;
+            }
+
+            double media = somaPrecos / listaProdutos.Length;
+            
+            Console.WriteLine($"Average Price = {media:F2}");
+
+
+        }
+    }
+}
+
+////////////////////////////////////////////////////////
+
+//5.05 - Vetores, parte 1
+using System;
+using System.Globalization;
+
+namespace Course {
+    class Program {
+
+        public static void Main(string[] args) {
+
+            Console.Write("Digite o valor de N: ");
+            int n = int.Parse(Console.ReadLine());
+
+            double[] alturas = new double[n];
+
+            for (int i = 0; i < n; i++) {
+                Console.Write($"Digite a altura da pessoa {i}: ");
+                alturas[i] = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+            }
+
+            double alturaMedia = 0;
+
+            for (int i = 0; i < alturas.Length; i++) {
+                alturaMedia += alturas[i];
+            }
+
+            double media = alturaMedia / alturas.Length;
+            Console.WriteLine($"Altura média igual = {media:F2}");
+
+            
+        }
+    }
+}
+
+///////////////////////////////////////////////////////
+
+// 5.04 - Nullable
+using System;
+using System.Globalization;
+
+namespace Course {
+    class Program {
+        public static void Main(string[] args) {
+
+            // double x = null;  - Dá erro
+            // Nullable<double> x = null; 
+            double? x = null;
+
+            double? y = 10.0;
+
+            Console.WriteLine(x.GetValueOrDefault()); // Pega o valor da variável, ou o valor padrão do Tipo da variável.
+            Console.WriteLine(y.GetValueOrDefault());
+
+            Console.WriteLine(x.HasValue); // Informa se dentro da varíavel existe/ não existe um valor. 
+            Console.WriteLine(y.HasValue);
+
+            // Console.WriteLine(x.Value); // Pega o valor diretamente de "dentro do x". Caso seja feito em cima de um objeto que está valendo nulo, dispara uma excessão. 
+            // Console.WriteLine(y.Value);
+
+            if (x.HasValue) { Console.WriteLine(x.Value);}
+             else Console.WriteLine("x é nulo");
+
+            //Nullish coalescing operator
+            double z = x ?? 5;
+            double a = y ?? 5;
+
+            Console.WriteLine(a);
+            Console.WriteLine(z);
+
+
+        }
+    }
+}
+
+///////////////////////////////////////////////////////////
+
+// 5.03 - Desalocação de Memória - Garbage Collector e Escopo Local.
+
+// 5.02 - Tipos Referência vs Tipos valor
+
+using System;
+using System.Globalization;
+
+namespace Course {
+    class Program {
+        public static void Main (string[] args) {
+
+            Point p;
+
+            p.X = 10;
+            p.Y = 20;
+
+            Console.WriteLine(p);
+
+            p = new Point();
+            Console.WriteLine(p); 
+
+        }
+    }
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
 //4.08 - Modificadores de Acesso
 
-Membro da classe:       Pode ser acessado por:
-public                  própria classe, subclasse no assembly, classes do assembly, subclasses fora do assembly, clsses fora do assembly
-protected internal      própria classe, subclasse no assembly, classes do assembly, subclasses fora do assembly
-internal                própria classe, subclasse no assembly, classes do assembly
-protected               própria classe, subclasse no assembly, subclasses fora do assembly
-private protected       própria classe, subclasse no assembly
-private                 própria classe
+assembly == projeto.
+subclasse é um conceito de herança.
+* Dentro de uma solução, podem haver vários projetos.
+
+Própria classe
+    public
+    protected internal
+    internal
+    protected
+    private protected
+    private
+Subclasse no Assembly
+    public
+    protected internal
+    internal
+    protected
+    private protected
+Classes do Assembly
+    public
+    protected internal
+    internal
+Subclasses fora do Assembly
+    public
+    protected internal
+    protected
+Classes fora do Assembly
+    public
+    private
 
 
 //4.07 - Ordem sugerida para implementação de membros de Classe
