@@ -1,10 +1,359 @@
-﻿
+﻿//6.10 - DateTimeKind e padrão ISO 8601
+using System;
+using System.Globalization;
+using System.Collections.Generic;
 
+namespace Course {
+    class Progam {
+        public static void Main(string[] args) {
+
+            //DateTimeKind
+            DateTime d1 = new DateTime(2024, 7, 17, 11, 40, 26);
+            DateTime d2 = new DateTime(2000, 8, 15, 13, 5, 58, DateTimeKind.Utc);
+            DateTime d3 = new DateTime(2000, 8, 15, 13, 5, 58, DateTimeKind.Local);
+
+            Console.WriteLine(d1);
+            Console.WriteLine(d2);
+            Console.WriteLine(d3);
+
+            Console.WriteLine($"d1: {d1}");
+            Console.WriteLine($"d1 do Local: {d1.ToLocalTime()}");
+            Console.WriteLine($"d1 to UTC {d1.ToUniversalTime()}");
+
+            //Padrão ISO
+            DateTime d4 = DateTime.Parse("2000-08-15 13:05:58");
+            DateTime d5= DateTime.Parse("2000-08-15T13:05:58Z");
+
+            Console.WriteLine($"d4: {d4}");
+            Console.WriteLine($"d5: {d5}");
+            Console.WriteLine(d5.ToString("yyyy-MM-ddTHH:mm:ssZ")); //Atenção!!! A conversão não ocorre de forma correta.
+            Console.WriteLine(d5.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")); 
+        }
+    }
+}
 
 /*
 =========================================================
 ================= AULAS PASSADAS ========================
 =========================================================
+
+
+
+////////////////////////////////////////////////////////
+
+//6.9 - Propriedades de Operações com Timespan
+using System;
+using System.Globalization;
+using System.Collections.Generic;
+
+namespace Course {
+    class Program { 
+        public static void Main(string[] args) {
+
+            TimeSpan t1 = TimeSpan.MaxValue;
+            TimeSpan t2 = TimeSpan.MinValue;
+            TimeSpan t3 = TimeSpan.Zero;
+
+            Console.WriteLine(t1);
+            Console.WriteLine(t2);
+            Console.WriteLine(t3);
+
+            //Propriedades
+            TimeSpan t = new TimeSpan( 2, 3, 5, 7, 11);
+            Console.WriteLine();
+            Console.WriteLine($"Timespan: {t}");
+            Console.WriteLine($"Days: {t.Days}");
+            Console.WriteLine($"Hours: {t.Hours}");
+            Console.WriteLine($"Milliseconds: {t.Milliseconds}");
+            Console.WriteLine($"Minutes: {t.Minutes}");
+            Console.WriteLine($"Seconds: {t.Seconds}");
+            Console.WriteLine($"Ticks: {t.Ticks}");
+            Console.WriteLine($"TotalDays: {t.TotalDays}");
+            Console.WriteLine($"TotalHours: {t.TotalHours}");
+            Console.WriteLine($"TotalMinutes: {t.TotalMinutes}");
+            Console.WriteLine($"TotalSeconds: {t.TotalSeconds}");
+            Console.WriteLine($"TotalMilliseconds: {t.TotalMilliseconds}");
+
+            //Operações
+            TimeSpan t4 = new TimeSpan(1, 30, 10);
+            TimeSpan t5 = new TimeSpan(0, 10, 5);
+            Console.WriteLine();
+            Console.WriteLine($"Soma: {t4.Add(t5)}");
+            Console.WriteLine($"Subtração: {t4.Subtract(t5)}");
+            Console.WriteLine($"Multiplicação: {t5.Multiply(2.0)}");
+            Console.WriteLine($"Divisão: {t5.Divide(2.0)}");
+
+
+        }
+    }
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+//6.8 - Propriedades e Operações com DateTime
+using System;
+using System.Globalization;
+using System.Collections.Generic;
+
+namespace Course {
+    class Program {
+        public static void Main(string[] args) {
+            DateTime d = new DateTime(2001, 8, 15, 13, 45, 58, 275);
+            DateTime d2 = new DateTime(2011, 10, 31, 9, 18, 29, 80);
+            Console.WriteLine(d);
+            Console.WriteLine();
+
+            //Propriedades
+            Console.WriteLine($"Date: {d.Date}");
+            Console.WriteLine($"Day: {d.Day}");
+            Console.WriteLine($"DayOfWeek: {d.DayOfWeek}");
+            Console.WriteLine($"DayOfYear: {d.DayOfYear}");
+            Console.WriteLine($"Hour: {d.Hour}");
+            Console.WriteLine($"Kind: {d.Kind}");
+            Console.WriteLine($"Milliseconds: {d.Millisecond}");
+            Console.WriteLine($"Minute: {d.Minute}");
+            Console.WriteLine($"Month: {d.Month}");
+            Console.WriteLine($"Second: {d.Second}");
+            Console.WriteLine($"Ticks: {d.Ticks}");
+            Console.WriteLine($"TimeOfDay: {d.TimeOfDay}");
+            Console.WriteLine($"Year: {d.Year}");
+
+            //Formatação
+            Console.WriteLine(d.ToLongDateString());
+            Console.WriteLine(d.ToLongTimeString());
+            Console.WriteLine(d.ToShortDateString());
+            Console.WriteLine(d.ToShortTimeString());
+            Console.WriteLine(d.ToString());
+            Console.WriteLine(d.ToString("dd-MM-yyyy HH:mm:ss"));
+            Console.WriteLine(d.ToString("dd-MM-yyyy HH:mm:ss.fff"));
+
+            //Operações com DateTime
+            Console.WriteLine(d.AddHours(2));
+            Console.WriteLine(d.AddMinutes(3));
+            Console.WriteLine(d.AddDays(7));
+            TimeSpan t = d2.Subtract(d);
+            Console.WriteLine(t);
+            Console.WriteLine(d.AddTicks(t.Ticks));
+
+        }
+    }
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+//6.7 - TimeSpan
+using System;
+using System.Globalization;
+using System.Collections.Generic;
+
+namespace Course {
+    class Program {
+        public static void Main(string[] args) {
+            TimeSpan t1 = new TimeSpan(0, 1, 30);
+            Console.WriteLine(t1);
+            Console.WriteLine(t1.Ticks);
+
+            TimeSpan t2 = new TimeSpan();
+            Console.WriteLine(t2);
+
+            TimeSpan t3 = new TimeSpan(900000000L);
+            Console.WriteLine(t3);
+
+            TimeSpan t4 = new TimeSpan(1, 2, 11, 21);
+            Console.WriteLine(t4);
+
+            TimeSpan t5 = new TimeSpan(1, 2, 11, 21, 321);
+            Console.WriteLine(t5);
+
+            TimeSpan t6 = TimeSpan.FromDays(1.5);
+            Console.WriteLine(t6);
+
+            TimeSpan t7 = TimeSpan.FromHours(1.5);
+            Console.WriteLine(t7);
+
+            TimeSpan t8 = TimeSpan.FromMinutes(1.5);
+            Console.WriteLine(t8);
+
+            TimeSpan t9 = TimeSpan.FromSeconds(1.5);
+            Console.WriteLine(t9);
+
+            TimeSpan t10 = TimeSpan.FromMilliseconds(1.5);
+            Console.WriteLine(t10);
+
+            TimeSpan t11 = TimeSpan.FromTicks(900000000);
+            Console.WriteLine(t11);
+        }
+    }
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+//6.6 - Datetime
+using System;
+using System.Globalization;
+using System.Collections.Generic;
+
+namespace Course {
+    class Program {
+        public static void Main(string[] args) {
+            DateTime d1 = DateTime.Now;
+            Console.WriteLine(d1);
+            Console.WriteLine(d1.Ticks);
+
+            DateTime d2 = new DateTime(2024, 10, 31);
+            Console.WriteLine(d2);
+
+            DateTime d3 = new DateTime(2024, 10, 31, 10, 05, 18);
+            Console.WriteLine(d3);
+
+            DateTime d4 = DateTime.Today;
+            Console.WriteLine(d4);
+            
+            DateTime d5 = DateTime.UtcNow;
+            Console.WriteLine(d5);
+
+            DateTime d6 = DateTime.Parse("2000-08-15");
+            Console.WriteLine(d6);
+
+            DateTime d7 = DateTime.Parse("2000-07-17 13:04:55");
+            Console.WriteLine(d7);
+
+            DateTime d8 = DateTime.Parse("2024/07/16");
+            Console.WriteLine(d8);
+
+            //Para quando se quer determinar o formato da data
+            DateTime d9 = DateTime.ParseExact("2000-08-15", "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            Console.WriteLine(d9);
+
+            DateTime d10 = DateTime.ParseExact("16/07/2024 12:26:30", "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+            Console.WriteLine(d10);
+
+        }
+    }
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+//6.5 - Funções interessantes para string
+using System;
+using System.Globalization;
+using System.Collections.Generic;
+
+namespace Course {
+    class Program {
+        public static void Main(string[] args) {
+            
+            string original = "  abcde FGHIJ ABC abc DEFG      ";
+
+            Console.WriteLine($"Original: ->{original}<-");
+            Console.WriteLine($"Maíuscula: ->{original.ToUpper()}<-");
+            Console.WriteLine($"Minúscula: ->{original.ToLower()}<-");
+            Console.WriteLine($"Trim: ->{original.Trim()}<-");
+            Console.WriteLine($"IndexOf: ->{original.IndexOf("bc")}<-");
+            Console.WriteLine($"LastIndexOf: ->{original.LastIndexOf("bc")}<-");
+            Console.WriteLine($"SubString (aonde começa): ->{original.Substring(3)}<-");
+            Console.WriteLine($"SubString (aonde começa e qtd de caracteres): ->{original.Substring(3, 5)}<-");
+            Console.WriteLine($"Replace (caracter): ->{original.Replace('a', 'x')}<-");
+            Console.WriteLine($"Replace (string): ->{original.Replace("abc", "xy")}<-");
+            Console.WriteLine($"Null or Empty: ->{String.IsNullOrEmpty(original)}<-");
+            Console.WriteLine($"Null or WhiteSpace: ->{String.IsNullOrWhiteSpace(original)}<-");
+
+
+
+        }
+    }
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+//6.4 - Expressão condicional ternária
+
+using System;
+using System.Globalization;
+using System.Collections.Generic;
+
+namespace Course {
+    class Progra {
+        public static void Main(string[] args) {
+
+            double preco = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+            double desconto = (preco < 20.0) ? preco * 0.1 : preco * 0.05;
+
+            Console.WriteLine($"Desconto {desconto}");
+        }
+    }
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+//6.3 - Sintaxe alternativa Switch-Case
+
+using System;
+using System.Globalization;
+using System.Collections.Generic;
+
+namespace Course {
+    class Program{
+        public static void Main(string[] args) {
+            Console.Write("Digite o número do dia da semana: ");
+            int x = int.Parse(Console.ReadLine());
+
+            string day;
+
+            switch (x) {
+                case 1: 
+                    day = "Sunday";
+                    break;
+                case 2:
+                    day = "Monday";
+                    break;
+                case 3:
+                    day = "Tuesday";
+                    break;
+                case 4: 
+                    day = "Wednesday";
+                    break;
+                case 5:
+                    day = "Thursday";
+                    break;
+                case 6:
+                    day = "Fryday";
+                    break;
+                case 7:
+                    day = "Saturday";
+                    break;
+                default:
+                    day = "Invalid value";
+                    break;
+            }
+
+            Console.WriteLine ($"Day: {day}");
+        }
+    }
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+//6.2 - Inferência de Tipos
+using System;
+using System.Globalization;
+using System.Collections.Generic;
+
+namespace Course {
+    class Program {
+        public static void Main(string[] args) {
+
+            var x = 10; //A palavra var indica que o tipo será inferido quando
+                // a variável for inicializada.
+            
+            var y = 20.0;
+            var z = "Maria";
+        }
+    }
+}
+
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 
 //5.18 - Exercício de fixação: Matrizes
 using System;
@@ -692,6 +1041,7 @@ namespace Course {
     }
 }
 
+/////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 
 //4.08 - Modificadores de Acesso
