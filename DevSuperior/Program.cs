@@ -1,4 +1,36 @@
-﻿//6.9 -
+﻿//6.10 - DateTimeKind e padrão ISO 8601
+using System;
+using System.Globalization;
+using System.Collections.Generic;
+
+namespace Course {
+    class Progam {
+        public static void Main(string[] args) {
+
+            //DateTimeKind
+            DateTime d1 = new DateTime(2024, 7, 17, 11, 40, 26);
+            DateTime d2 = new DateTime(2000, 8, 15, 13, 5, 58, DateTimeKind.Utc);
+            DateTime d3 = new DateTime(2000, 8, 15, 13, 5, 58, DateTimeKind.Local);
+
+            Console.WriteLine(d1);
+            Console.WriteLine(d2);
+            Console.WriteLine(d3);
+
+            Console.WriteLine($"d1: {d1}");
+            Console.WriteLine($"d1 do Local: {d1.ToLocalTime()}");
+            Console.WriteLine($"d1 to UTC {d1.ToUniversalTime()}");
+
+            //Padrão ISO
+            DateTime d4 = DateTime.Parse("2000-08-15 13:05:58");
+            DateTime d5= DateTime.Parse("2000-08-15T13:05:58Z");
+
+            Console.WriteLine($"d4: {d4}");
+            Console.WriteLine($"d5: {d5}");
+            Console.WriteLine(d5.ToString("yyyy-MM-ddTHH:mm:ssZ")); //Atenção!!! A conversão não ocorre de forma correta.
+            Console.WriteLine(d5.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")); 
+        }
+    }
+}
 
 /*
 =========================================================
@@ -6,6 +38,55 @@
 =========================================================
 
 
+
+////////////////////////////////////////////////////////
+
+//6.9 - Propriedades de Operações com Timespan
+using System;
+using System.Globalization;
+using System.Collections.Generic;
+
+namespace Course {
+    class Program { 
+        public static void Main(string[] args) {
+
+            TimeSpan t1 = TimeSpan.MaxValue;
+            TimeSpan t2 = TimeSpan.MinValue;
+            TimeSpan t3 = TimeSpan.Zero;
+
+            Console.WriteLine(t1);
+            Console.WriteLine(t2);
+            Console.WriteLine(t3);
+
+            //Propriedades
+            TimeSpan t = new TimeSpan( 2, 3, 5, 7, 11);
+            Console.WriteLine();
+            Console.WriteLine($"Timespan: {t}");
+            Console.WriteLine($"Days: {t.Days}");
+            Console.WriteLine($"Hours: {t.Hours}");
+            Console.WriteLine($"Milliseconds: {t.Milliseconds}");
+            Console.WriteLine($"Minutes: {t.Minutes}");
+            Console.WriteLine($"Seconds: {t.Seconds}");
+            Console.WriteLine($"Ticks: {t.Ticks}");
+            Console.WriteLine($"TotalDays: {t.TotalDays}");
+            Console.WriteLine($"TotalHours: {t.TotalHours}");
+            Console.WriteLine($"TotalMinutes: {t.TotalMinutes}");
+            Console.WriteLine($"TotalSeconds: {t.TotalSeconds}");
+            Console.WriteLine($"TotalMilliseconds: {t.TotalMilliseconds}");
+
+            //Operações
+            TimeSpan t4 = new TimeSpan(1, 30, 10);
+            TimeSpan t5 = new TimeSpan(0, 10, 5);
+            Console.WriteLine();
+            Console.WriteLine($"Soma: {t4.Add(t5)}");
+            Console.WriteLine($"Subtração: {t4.Subtract(t5)}");
+            Console.WriteLine($"Multiplicação: {t5.Multiply(2.0)}");
+            Console.WriteLine($"Divisão: {t5.Divide(2.0)}");
+
+
+        }
+    }
+}
 
 /////////////////////////////////////////////////////////////////////////////
 
