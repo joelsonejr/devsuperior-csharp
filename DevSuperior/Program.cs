@@ -1,4 +1,73 @@
-﻿//6.10 - DateTimeKind e padrão ISO 8601
+﻿//7.4 - Composição (Update 2)
+
+using System;
+using System.Globalization;
+using System.Collections.Generic;
+
+namespace Course
+{
+    class Program
+    {
+        public static void Main(string[] args) {
+
+        }
+    }
+}
+
+/*
+=========================================================
+================= AULAS PASSADAS ========================
+=========================================================
+
+
+
+//////////////////////////////////////////////////////////
+
+//7.3 - Categorias de Classes
+
+using System.Runtime.Serialization;
+
+//Views: telas do sistema
+//Controllers: intermediario entre a tela e o sistema 
+//Entities: entidades de negócio (produtos, clientes, etc)
+//Services:
+//Repositories: responsável por acessar os dados de um repositório qualquer
+
+///////////////////////////////////////////////////////////
+
+//7.2 - Enumerações
+
+using System;
+using System.Globalization;
+using System.Collections.Generic;
+using Course.Entities;
+using Course.Entities.Enums;
+
+namespace Course {
+    class Program {
+        public static void Main(string[] args) {
+            Order order = new Order {
+                Id = 1080,
+                Moment = DateTime.Now,
+                Status = Entities.Enums.OrderStatus.PendingPayment,
+            };
+
+            Console.WriteLine(order);
+            
+            string txt = order.Status.ToString();
+
+            Console.WriteLine($"From enum to string: {txt}");
+
+            OrderStatus os = Enum.Parse<OrderStatus>(txt);
+            Console.WriteLine($"From string to Enum: {os}");
+        }
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+//6.10 - DateTimeKind e padrão ISO 8601
 using System;
 using System.Globalization;
 using System.Collections.Generic;
@@ -31,13 +100,6 @@ namespace Course {
         }
     }
 }
-
-/*
-=========================================================
-================= AULAS PASSADAS ========================
-=========================================================
-
-
 
 ////////////////////////////////////////////////////////
 
