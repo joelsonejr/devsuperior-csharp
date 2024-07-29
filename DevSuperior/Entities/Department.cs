@@ -1,14 +1,17 @@
 using System;
-using System.Globalization;
-using System.Collections.Generic;
 
 namespace Course.Entities
 {
-    class Departments
+    class Department
     {
-        public String? Name {get; set;}
+        public string? Name {get; set;}
         
-        public Departments() {}
+        public Department() {}
+
+        public Department(string name) 
+        {
+            Name = name;
+        }
     }
 
 }
