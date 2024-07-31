@@ -1,4 +1,52 @@
-﻿//7.5 - Composição de Objetos - exercício resolvido
+﻿//7.6 - Exercício Resolvido 2 (Stringbuilder)
+
+using System;
+using Course.Entities;
+
+namespace Course
+{
+    class Program 
+    {
+        public static void Main(string[] args) 
+        {
+            Comment C1 = new Comment("Have a nive trip");
+            Comment C2 = new Comment("Wow that's awesome!");
+            Post p1 = new Post(
+                DateTime.Parse("2024-07-31 09:48:32" ),
+                "Traveling to New Zealand",
+                "I'm going to visit this wonderful contry!",
+                12
+            );
+            p1.AddComment(C1);
+            p1.AddComment(C2);
+
+            Comment c3 = new Comment("Good Night");
+            Comment c4 = new Comment("May the force be with you");
+            Post p2 = new Post(
+                DateTime.Parse("2018-08-28 23:14:19"),
+                "Good night guys",
+                "See you tomorrow",
+                5
+            );
+            p2.AddComment(c3);
+            p2.AddComment(c4);
+
+            Console.WriteLine(p1);
+            Console.WriteLine(p2);
+        }
+    }
+}
+
+/*
+=========================================================
+================= AULAS PASSADAS ========================
+=========================================================
+
+
+
+////////////////////////////////////////////////////////
+
+//7.5 - Composição de Objetos - exercício resolvido
 
 using System.Globalization;
 using Course.Entities;
@@ -57,13 +105,6 @@ namespace Course
         }
     }
 }
-
-/*
-=========================================================
-================= AULAS PASSADAS ========================
-=========================================================
-
-
 
 //////////////////////////////////////////////////////////
 
