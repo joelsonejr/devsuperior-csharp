@@ -1,4 +1,95 @@
-﻿//7.6 - Exercício Resolvido 2 (Stringbuilder)
+﻿//7.7 Exercício Proposto
+
+using System;
+using System.ComponentModel;
+using System.Globalization;
+using Course.Entities;
+using Course.Entities.Enums;
+
+namespace Couse {
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+
+
+                Client client = GenerateClient();
+  
+                Order order = GenerateOrder(client);
+
+                Console.Write("How many items to this order? ");
+                int itemAmount = int.Parse(Console.ReadLine());
+
+                GenerateOrderItem(order, itemAmount);
+
+
+
+                //TODO: Fazer a impressão do pedido
+
+        }
+
+        public static Client GenerateClient() 
+        {
+                Console.WriteLine("Enter client data: ");
+                Console.Write("Name: ");
+                string name = Console.ReadLine();
+                Console.Write("Email: ");
+                string email = Console.ReadLine();
+                Console.Write("Birth date (DD/MM/YYYY): ");
+                DateTime birthDate = DateTime.Parse(Console.ReadLine());
+
+                Client client = new Client(name, email, birthDate);
+
+                return client;
+        }
+
+        public static Order GenerateOrder(Client client)
+        {
+            Console.WriteLine("Enter order data: ");
+            Console.Write("Status: ");
+            OrderStatus status = Enum.Parse<OrderStatus>(Console.ReadLine());
+            DateTime orderMoment = DateTime.Now;
+
+
+            Order order = new Order(orderMoment,status, client);
+
+            return order;
+        }
+
+        public static void GenerateOrderItem(Order order, int itemAmount)
+        {
+            for (int i = 0; i < itemAmount; i++)
+                {
+                    Console.WriteLine($"Enter #{i+1} item data: ");
+                    Console.Write("Product name: ");
+                    string prodName = Console.ReadLine();
+                    Console.Write("Product price: ");
+                    double prodPrice = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                    Console.Write("Quantity: ");
+                    int prodQuantity = int.Parse(Console.ReadLine());
+
+                    Product product = new Product(prodName, prodPrice);
+
+                    OrderItem orderItem = new OrderItem(prodQuantity,prodPrice, product);
+
+                    order.AddItem(orderItem);
+                }
+        }
+        
+    }
+}
+
+/*
+=========================================================
+================= AULAS PASSADAS ========================
+=========================================================
+
+
+
+
+/////////////////////////////////////////////////////
+
+//7.6 - Exercício Resolvido 2 (Stringbuilder)
 
 using System;
 using Course.Entities;
@@ -36,13 +127,6 @@ namespace Course
         }
     }
 }
-
-/*
-=========================================================
-================= AULAS PASSADAS ========================
-=========================================================
-
-
 
 ////////////////////////////////////////////////////////
 
