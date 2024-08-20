@@ -16,7 +16,7 @@ namespace Course.Entities
             Product = product;
         }
 
-        public static double SubTotal(int Quantity, double Price) 
+        public double SubTotal() 
         {
             return Quantity * Price;
         }
