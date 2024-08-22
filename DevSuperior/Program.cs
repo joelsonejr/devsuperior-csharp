@@ -1,5 +1,6 @@
 ﻿//8.2 Herança
 using System;
+using Course.Entities;
 
 namespace Course
 {
@@ -7,7 +8,13 @@ namespace Course
     {
         public static void Main(string[] args) 
         {
-            
+            BusinessAccount account = new BusinessAccount(8010, "Joe", 100.0, 500.0);
+
+            Console.WriteLine(account.Balance);
+
+            // account.Balance = 100; Dá erro, por ser protected (só pode ser acessado pela própria classe, ou subclasses)
+
+            account.Loan(500);
         }
     }
 }
