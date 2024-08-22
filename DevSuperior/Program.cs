@@ -1,4 +1,310 @@
-﻿//6.10 - DateTimeKind e padrão ISO 8601
+﻿using System;
+using Course.Entities;
+
+namespace Course
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            Department department = CreateDepartment();
+
+            Console.Write("Quantos funcionários tem o departamento: ");
+            int employeeNumber = int.Parse(Console.ReadLine());
+
+            CreateEmployee(employeeNumber, department);
+
+            ShowReport(department);
+        }
+
+        public static Address CreateAddress(string email, string phone)
+        {   
+            Address add = new Address(email, phone);
+
+            return add;
+        }
+
+        public static Department CreateDepartment()
+            {
+                Console.Write("Nome do departamento: ");
+                string deptName = Console.ReadLine();
+                Console.Write("Dia do pagamento: ");
+                int deptPayDay = int.Parse(Console.ReadLine());
+                Console.Write("Email: ");
+                string deptEmail = Console.ReadLine();
+                Console.Write("Telefone: ");
+                string deptPhone = Console.ReadLine();
+
+                Address deptAddress = CreateAddress(deptEmail, deptPhone);
+                Department dept = new Department(deptName, deptPayDay, deptAddress);
+
+                return dept;
+            }
+
+        public static void CreateEmployee(int amount, Department dept)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                Console.WriteLine($"Dados do funcionário {i+1}: ");
+                Console.Write("Nome: ");
+                string empName = Console.ReadLine();
+                Console.Write("Salário: ");
+                double empSalary = double.Parse(Console.ReadLine());
+
+                Employee emp = new Employee(empName, empSalary);
+
+                dept.AddEmployee(emp);
+                
+            }
+        }
+
+        public static void ShowReport(Department dept) 
+        {
+            Console.WriteLine(dept);
+        }
+    }
+}
+
+
+/*
+=========================================================
+================= AULAS PASSADAS ========================
+=========================================================
+
+
+
+/////////////////////////////////////////////////////
+
+//7.7 Exercício Proposto
+
+using System;
+using System.ComponentModel;
+using System.Globalization;
+using Course.Entities;
+using Course.Entities.Enums;
+
+namespace Couse {
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+
+
+                Client client = GenerateClient();
+  
+                Order order = GenerateOrder(client);
+
+                Console.Write("How many items to this order? ");
+                int itemAmount = int.Parse(Console.ReadLine());
+
+                GenerateOrderItem(order, itemAmount);
+
+                Console.WriteLine(order);
+
+
+        }
+
+        public static Client GenerateClient() 
+        {
+                Console.WriteLine("Enter client data: ");
+                Console.Write("Name: ");
+                string name = Console.ReadLine();
+                Console.Write("Email: ");
+                string email = Console.ReadLine();
+                Console.Write("Birth date (DD/MM/YYYY): ");
+                DateTime birthDate = DateTime.Parse(Console.ReadLine());
+
+                Client client = new Client(name, email, birthDate);
+
+                return client;
+        }
+
+        public static Order GenerateOrder(Client client)
+        {
+            Console.WriteLine("Enter order data: ");
+            Console.Write("Status: ");
+            OrderStatus status = Enum.Parse<OrderStatus>(Console.ReadLine());
+            DateTime orderMoment = DateTime.Now;
+
+
+            Order order = new Order(orderMoment,status, client);
+
+            return order;
+        }
+
+        public static void GenerateOrderItem(Order order, int itemAmount)
+        {
+            for (int i = 0; i < itemAmount; i++)
+                {
+                    Console.WriteLine($"Enter #{i+1} item data: ");
+                    Console.Write("Product name: ");
+                    string prodName = Console.ReadLine();
+                    Console.Write("Product price: ");
+                    double prodPrice = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                    Console.Write("Quantity: ");
+                    int prodQuantity = int.Parse(Console.ReadLine());
+
+                    Product product = new Product(prodName, prodPrice);
+
+                    OrderItem orderItem = new OrderItem(prodQuantity,prodPrice, product);
+
+                    order.AddItem(orderItem);
+                }
+        }
+
+    }
+}
+
+/////////////////////////////////////////////////////
+
+//7.6 - Exercício Resolvido 2 (Stringbuilder)
+
+using System;
+using Course.Entities;
+
+namespace Course
+{
+    class Program 
+    {
+        public static void Main(string[] args) 
+        {
+            Comment C1 = new Comment("Have a nive trip");
+            Comment C2 = new Comment("Wow that's awesome!");
+            Post p1 = new Post(
+                DateTime.Parse("2024-07-31 09:48:32" ),
+                "Traveling to New Zealand",
+                "I'm going to visit this wonderful contry!",
+                12
+            );
+            p1.AddComment(C1);
+            p1.AddComment(C2);
+
+            Comment c3 = new Comment("Good Night");
+            Comment c4 = new Comment("May the force be with you");
+            Post p2 = new Post(
+                DateTime.Parse("2018-08-28 23:14:19"),
+                "Good night guys",
+                "See you tomorrow",
+                5
+            );
+            p2.AddComment(c3);
+            p2.AddComment(c4);
+
+            Console.WriteLine(p1);
+            Console.WriteLine(p2);
+        }
+    }
+}
+
+////////////////////////////////////////////////////////
+
+//7.5 - Composição de Objetos - exercício resolvido
+
+using System.Globalization;
+using Course.Entities;
+using Course.Entities.Enums;
+
+namespace Course
+{
+    class Program
+    {
+        public static void Main(string[] args) {
+
+ 
+            Console.Write("Enter department's name: ");
+            string deptName = Console.ReadLine();
+
+            Console.WriteLine("Enter worker data:");
+            Console.Write("Name: ");
+            string name = Console.ReadLine();
+            Console.Write("Level (Junior/MidLevel/Senior): ");
+            WorkerLevel level = Enum.Parse<WorkerLevel>(Console.ReadLine());  
+            Console.Write("Base salary: ");
+            double baseSalary = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+            Department dept = new Department(deptName);
+            Worker worker = new Worker(name, level, baseSalary, dept);
+                    
+            Console.Write("How many contracts to this worker? ");
+            int numberOfContracts = int.Parse(Console.ReadLine());
+
+            for(int i = 0; i < numberOfContracts; i++) 
+            {
+                Console.WriteLine($"Enter #{i +1} contract data:");
+                Console.Write("Date (DD/MM/YYYY): ");
+                DateTime date = DateTime.Parse(Console.ReadLine());
+                Console.Write("Value per hour: ");
+                double valuePerHour = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                Console.Write("Duration (hours): ");
+                int hours = int.Parse(Console.ReadLine());
+
+                HourContract contract = new HourContract(date, valuePerHour, hours);
+                worker.AddContract(contract);
+
+            }
+            
+            Console.Write("Enter month and year to calculate income (MM/YYYY): ");
+            string monthAndYear = Console.ReadLine();
+            int month = int.Parse(monthAndYear.Substring(0, 2));
+            int year = int.Parse(monthAndYear.Substring(3)); //Recortará da posição 3 até o final.
+
+            Console.WriteLine($"Name: {worker.Name}");
+            Console.WriteLine($"Department: {worker.Department.Name}");
+            Console.WriteLine($"Income for {monthAndYear}: {worker.Income(year, month).ToString("F2", CultureInfo.InvariantCulture)}");
+
+
+
+        }
+    }
+}
+
+//////////////////////////////////////////////////////////
+
+//7.3 - Categorias de Classes
+
+using System.Runtime.Serialization;
+
+//Views: telas do sistema
+//Controllers: intermediario entre a tela e o sistema 
+//Entities: entidades de negócio (produtos, clientes, etc)
+//Services:
+//Repositories: responsável por acessar os dados de um repositório qualquer
+
+///////////////////////////////////////////////////////////
+
+//7.2 - Enumerações
+
+using System;
+using System.Globalization;
+using System.Collections.Generic;
+using Course.Entities;
+using Course.Entities.Enums;
+
+namespace Course {
+    class Program {
+        public static void Main(string[] args) {
+            Order order = new Order {
+                Id = 1080,
+                Moment = DateTime.Now,
+                Status = Entities.Enums.OrderStatus.PendingPayment,
+            };
+
+            Console.WriteLine(order);
+            
+            string txt = order.Status.ToString();
+
+            Console.WriteLine($"From enum to string: {txt}");
+
+            OrderStatus os = Enum.Parse<OrderStatus>(txt);
+            Console.WriteLine($"From string to Enum: {os}");
+        }
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+//6.10 - DateTimeKind e padrão ISO 8601
 using System;
 using System.Globalization;
 using System.Collections.Generic;
@@ -31,13 +337,6 @@ namespace Course {
         }
     }
 }
-
-/*
-=========================================================
-================= AULAS PASSADAS ========================
-=========================================================
-
-
 
 ////////////////////////////////////////////////////////
 
