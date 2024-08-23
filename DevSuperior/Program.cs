@@ -1,4 +1,67 @@
-﻿//8.2 Herança
+﻿//8.3 - Upcasting e Downcasting
+//Upcasting - casting (conversão)  da subclasse para a superclasse
+using System;
+using System.Data;
+using Course.Entities;
+
+namespace Course
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            Account acc = new Account(1001, "Joe", 0.0);
+            BusinessAccount bacc = new(1002, "Rosa", 0.0, 500.00);
+
+            //Upcasting
+            //Superclasse recebendo objeto da subclasse
+            Account acc1 = bacc; 
+            //Objeto BusinessAccount dentro de uma variável do tipo Account
+            Account acc2 = new BusinessAccount(1003, "Ana", 0.0, 200.0);
+            Account acc3 = new SavingsAccount(1004, "Rosana", 0.0, 0.01);
+
+            //Downcasting
+
+            // BusinessAccount acc4 = acc2; //Para o compilador o que vale é o tipo da variável. Por isso dá erro. 
+            BusinessAccount acc4 = (BusinessAccount)acc2; //Fazendo o casting de forma explícita
+
+             acc4.Loan(100.0); //Variável do tipo BusinessAccount, que possui o método Loan. 
+            //  acc2.Loan(100.0); //Tipo Account não possui essa operação. Mesmo o conteúdo da variável sendo do tipo BusinessAccount. 
+
+            // BusinessAccount acc5 = (BusinessAccount)acc3; //BusinessAccount não é compatível com SavingsAccount. Apesar 
+            // casting não indicar erro, ocorrerá erro de compilção.
+
+            //Deve-se testar primeiro o tipo da variável, antes de realizar o Downcasting
+            if (acc3 is BusinessAccount)
+            {
+                BusinessAccount acc5 = (BusinessAccount)acc3;
+                acc5.Loan(200.0);
+                Console.WriteLine("Loan!");
+            }
+
+            if (acc3 is SavingsAccount)
+            {
+                // SavingsAccount acc5 = (SavingsAccount)acc3;
+                SavingsAccount acc5 = acc3 as SavingsAccount; //Outra forma de realizar o casting
+                acc5.UpdateBalance();
+                Console.WriteLine("Update");
+            }
+        }
+
+    }      
+}
+
+
+/*
+=========================================================
+================= AULAS PASSADAS ========================
+=========================================================
+
+
+
+/////////////////////////////////////////////////////
+
+//8.2 Herança
 using System;
 using Course.Entities;
 
@@ -18,14 +81,6 @@ namespace Course
         }
     }
 }
-
-
-/*
-=========================================================
-================= AULAS PASSADAS ========================
-=========================================================
-
-
 
 /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////
