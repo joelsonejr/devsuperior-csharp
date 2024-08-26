@@ -1,6 +1,6 @@
 namespace Course.Entities
 {
-    class SavingsAccount : Account
+    sealed class SavingsAccount : Account
     {
         public double InteresRate { get; set; }
 
@@ -18,6 +18,22 @@ namespace Course.Entities
         public void UpdateBalance() 
         {
             Balance += Balance * InteresRate;
+        }
+
+        //override: utilizando o método da superclasse, e realizando alterações
+        //no mesmo.
+        // public override void Withdraw(double amount)
+        // {
+        //     Balance -= amount;
+        // }
+
+        //base: utilizando o método da SuperClasse,  como ele é, e posteriormente
+        // realizando alterações no output do mesmo.
+        public override void Withdraw(double amount)
+        {
+            base.Withdraw(amount);
+
+            Balance -= 2.0;
         }
     }
 }

@@ -1,17 +1,23 @@
-using System;
-
 namespace Course.Entities
 {
-    public class Employee
+    class Employee
     {
-        public string Name {get; set;}
-        public double Salary {get; set;}
+        public string Name { get; set; }
+        public int Hours { get; set; }
+        public double ValuePerHour { get; set; } 
 
         public Employee() {}
 
-        public Employee(string name, double salary) {
+        public Employee (string name, int hours, double valuePerHour)
+        {
             Name = name;
-            Salary = salary;
+            Hours = hours;
+            ValuePerHour = valuePerHour;
+        }
+
+        public virtual double Payment() 
+        {
+            return 0.0;
         }
     }
 }

@@ -1,4 +1,87 @@
-﻿//8.3 - Upcasting e Downcasting
+﻿//8.7 Exercício Resolvido PT 01
+using System;
+using System.Reflection.Metadata.Ecma335;
+using System.Runtime.CompilerServices;
+
+namespace Course 
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("Enter the number of employees: ");
+            int employees = int.Parse(Console.ReadLine());
+
+            for ( int i = 0; i < employees; i ++)
+            {
+                Console.WriteLine($"Employee # {i + 1} data:");
+                Console.Write("Outsourced (y/n)? ");
+                char outsourced = char.Parse(Console.ReadLine());
+                Console.Write("Name: ");
+                string empName = Console.ReadLine();
+                Console.Write("Hours: ");
+                int empHours = int.Parse(Console.ReadLine());
+                Console.WriteLine("Value per hour");
+                double empHourValue = double.Parse(Console.ReadLine());
+
+                if ( Char.ToLower(outsourced) == 'y')
+                {
+                    Console.Write("Additional charge: ");
+                    double addCharge = double.Parse(Console.ReadLine());
+                }
+
+
+            }
+        }
+    }
+}
+
+
+/*
+=========================================================
+================= AULAS PASSADAS ========================
+=========================================================
+
+//8.6 Introdução ao Polimorfismo
+//Variáveis de um mesmo tipo (mais genérico) ligadas a tipos específicos
+//distintos, e possuindo comportamentos referentes a esses tipos. 
+//Exemplo: acc1 e acc2 da aula 8.4
+
+/////////////////////////////////////////////////////
+
+//8.5 Classes e Métodos Selados
+//Classe: evita que a classe seja herdada.
+//Método: evita que um método sobreposto seja sobreposto novamente.
+using System;
+
+
+/////////////////////////////////////////////////////
+
+//8.4 - Sobreposição, palavras virtual, override e base.
+using System;
+using Course.Entities;
+
+namespace Course 
+{
+    class Program
+    {
+        public static void Main(string[] args) 
+        {
+            Account acc1 = new Account(1001, "Joe", 500.0);
+            Account acc2 = new SavingsAccount(1002, "Rosa", 500.0, 0.01);
+
+            acc1.Withdraw(10.0);
+            acc2.Withdraw(10.0);
+
+            Console.WriteLine(acc1.Balance);
+            Console.WriteLine(acc2.Balance);
+        }
+    }
+}
+
+/////////////////////////////////////////////////////
+
+//8.3 - Upcasting e Downcasting
 //Upcasting - casting (conversão)  da subclasse para a superclasse
 using System;
 using System.Data;
@@ -50,14 +133,6 @@ namespace Course
 
     }      
 }
-
-
-/*
-=========================================================
-================= AULAS PASSADAS ========================
-=========================================================
-
-
 
 /////////////////////////////////////////////////////
 
