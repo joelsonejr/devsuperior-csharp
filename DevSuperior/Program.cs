@@ -1,7 +1,7 @@
 ﻿//8.7 Exercício Resolvido PT 01
-using System;
-using System.Reflection.Metadata.Ecma335;
-using System.Runtime.CompilerServices;
+using System.Collections.Generic;
+using Course.Entities;
+using System.Globalization;
 
 namespace Course 
 {
@@ -9,10 +9,12 @@ namespace Course
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Enter the number of employees: ");
-            int employees = int.Parse(Console.ReadLine());
+            Console.Write("Enter the number of employees: ");
+            int numEmployees = int.Parse(Console.ReadLine());
 
-            for ( int i = 0; i < employees; i ++)
+            List<Employee> employees = new List<Employee>();
+
+            for ( int i = 0; i < numEmployees; i ++)
             {
                 Console.WriteLine($"Employee # {i + 1} data:");
                 Console.Write("Outsourced (y/n)? ");
@@ -21,16 +23,33 @@ namespace Course
                 string empName = Console.ReadLine();
                 Console.Write("Hours: ");
                 int empHours = int.Parse(Console.ReadLine());
-                Console.WriteLine("Value per hour");
-                double empHourValue = double.Parse(Console.ReadLine());
+                Console.Write("Value per hour: ");
+                double empHourValue = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+                double addCharge = 0;
 
                 if ( Char.ToLower(outsourced) == 'y')
                 {
                     Console.Write("Additional charge: ");
-                    double addCharge = double.Parse(Console.ReadLine());
+                    addCharge = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+                    Employee employee = new OutsourcedEmployee(empName, empHours, empHourValue, addCharge);
+                    employees.Add(employee);
+
                 }
+                else
+                {
+                    Employee employee = new Employee(empName, empHours, empHourValue);                   
+                    employees.Add(employee);
+                } 
 
+            }
 
+            Console.WriteLine();
+            Console.WriteLine("PAYMENTS: ");
+            foreach (Employee employee in employees)
+            {
+                Console.WriteLine($"{employee.Name} - ${employee.Payment().ToString("F2", CultureInfo.InvariantCulture)}");
             }
         }
     }

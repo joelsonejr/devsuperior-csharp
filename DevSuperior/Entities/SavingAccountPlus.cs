@@ -1,9 +1,9 @@
-using System;
+// using System;
 
-namespace Course.Entities
-{
-    class SavingAccountPlus : SavingsAccount //uso do sealed
-    {
+// namespace Course.Entities
+// {
+//     class SavingAccountPlus : SavingsAccount //uso do sealed
+//     {
 
-    }
-}
+//     }
+// }

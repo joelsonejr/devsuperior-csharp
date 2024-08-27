@@ -6,7 +6,10 @@ namespace Course.Entities
         public int Hours { get; set; }
         public double ValuePerHour { get; set; } 
 
-        public Employee() {}
+        public Employee() 
+        {
+            
+        }
 
         public Employee (string name, int hours, double valuePerHour)
         {
@@ -17,7 +20,8 @@ namespace Course.Entities
 
         public virtual double Payment() 
         {
-            return 0.0;
+            double payment =  ValuePerHour * Hours;
+            return payment;
         }
     }
 }
