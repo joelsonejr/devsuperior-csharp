@@ -6,11 +6,11 @@ namespace Course.Entities
     {
         public int Quantity {get; set;}
         public double Price {get; set;}
-        public Product Product {get; set;}
+        public Product02 Product {get; set;}
 
         public OrderItem() {}
 
-        public OrderItem(int quantity, double price, Product product) {
+        public OrderItem(int quantity, double price, Product02 product) {
             Quantity = quantity;
             Price = price;
             Product = product;

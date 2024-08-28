@@ -1,4 +1,28 @@
-﻿//8.7 Exercício Resolvido PT 01
+﻿//8.8 Exercício Proposto
+using System;
+
+namespace Course
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            //TODO: Código principal com user input e lista de Produtos.
+        }
+    }
+}
+
+
+/*
+=========================================================
+================= AULAS PASSADAS ========================
+=========================================================
+
+
+
+/////////////////////////////////////////////////////
+
+//8.7 Exercício Resolvido PT 01
 using System.Collections.Generic;
 using Course.Entities;
 using System.Globalization;
@@ -55,11 +79,7 @@ namespace Course
     }
 }
 
-
-/*
-=========================================================
-================= AULAS PASSADAS ========================
-=========================================================
+/////////////////////////////////////////////////////
 
 //8.6 Introdução ao Polimorfismo
 //Variáveis de um mesmo tipo (mais genérico) ligadas a tipos específicos
