@@ -1,5 +1,8 @@
 ﻿//8.8 Exercício Proposto
 using System;
+using System.Globalization;
+using System.Collections.Generic;
+using Course.Entities;
 
 namespace Course
 {
@@ -7,7 +10,52 @@ namespace Course
     {
         public static void Main(string[] args)
         {
-            //TODO: Código principal com user input e lista de Produtos.
+            List<Product> productList = new List<Product>();
+
+            Console.Write("Enter the number of products: ");
+            int productNum = int.Parse(Console.ReadLine());
+
+            for (int i = 0; i < productNum; i++) 
+            {
+                 Console.WriteLine($"Product # {i + 1} data:");
+                 Console.Write("Common, used or imported (c/u/i)? ");
+                 char productOrigin = char.Parse(Console.ReadLine().ToLower());
+                 Console.Write("Name: ");
+                 string productName = Console.ReadLine();
+                 Console.Write("Price: ");
+                 double productPrice = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+                 if (productOrigin == 'c')
+                 {
+                    Product prod = new Product(productName, productPrice);
+                    productList.Add(prod);
+                 }
+                 
+                if (productOrigin == 'i')
+                {
+                    Console.Write("Customs fee: ");
+                    double productFee = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+                    Product importedProd = new ImportedProduct(productName, productPrice, productFee);
+                    productList.Add(importedProd);
+                }
+
+                if (productOrigin == 'u') {
+                    Console.Write("Manufacture date (DD/MM/YYYY): ");
+                    DateTime manufactureDate = DateTime.Parse(Console.ReadLine());
+
+                    Product usedProd = new UsedProducts(productName, productPrice, manufactureDate);
+                    productList.Add(usedProd);
+                }
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("PRICE TAGS:");
+
+            foreach( Product product in productList)
+            {
+                Console.WriteLine(product.PriceTag());
+            }
         }
     }
 }

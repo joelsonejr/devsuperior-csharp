@@ -4,17 +4,17 @@ namespace Course.Entities
 {
     class UsedProducts : Product
     {
-        public DateOnly ManufactureDate { get; set; }
+        public DateTime ManufactureDate { get; set; }
 
         public UsedProducts()
         {
 
         }
 
-        public UsedProducts(string name, double price, DateOnly manufacturedDate)
+        public UsedProducts(string name, double price, DateTime manufacturedDate)
             : base(name, price)
             {
-                ManufactureDate = ManufactureDate;
+                ManufactureDate = manufacturedDate;
             }
 
         public override string PriceTag()
@@ -25,9 +25,9 @@ namespace Course.Entities
                 + " (used) "
                 + tag[1]
                 + " "
-                + Price
-                + "(Manufacture date: "
-                + ManufactureDate
+                + Price.ToString("F2", CultureInfo.InvariantCulture)
+                + " (Manufacture date: "
+                + ManufactureDate.ToString("dd/MM/yyyy")
                 + ")";
 
             return usedPriceTag;

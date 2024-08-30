@@ -23,7 +23,7 @@ namespace Course.Entities
         {
             string priceTag = Name 
                 + " $ " 
-                + Price;
+                + Price.ToString("F2", CultureInfo.InvariantCulture);
 
             return priceTag;
         }

@@ -25,8 +25,8 @@ namespace Course.Entities
                 + " "
                 + tag[1]
                 + " "
-                + TotalPrice()
-                + "(Custom fee: $ "
+                + TotalPrice().ToString("F2", CultureInfo.InvariantCulture)
+                + " (Customs fee: $ "
                 + CustomsFee.ToString("F2",  CultureInfo.InvariantCulture)
                 + ")";
 
