@@ -1,4 +1,146 @@
-﻿//8.8 Exercício Proposto
+﻿//8.10 Métodos Abstratos
+using System;
+using Course.Entities.Enums;
+using Course.Entities;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Globalization;
+
+namespace Course 
+{
+    class Program 
+    {
+        public static void Main(string[] args)
+        {   
+            List<Shape> shapes = new List<Shape>();
+
+            Console.Write("Enter the number of shapes: ");
+            int numShapes = int.Parse(Console.ReadLine());
+
+            for (int i = 0; i < numShapes; i++)
+            {
+                Console.WriteLine($"Shapen # { i + 1} data: ");
+                Console.Write("Rectangle or Circle (r / c): ");
+                char shapeType = char.Parse(Console.ReadLine().ToLower());
+                Console.Write("Color (Black, Blue, Red): ");
+                Colors shapeColor = Enum.Parse<Colors>(Console.ReadLine());
+
+                if(shapeType == 'r')
+                {
+                    Console.Write("Width: ");
+                    double rectWidth = double.Parse(Console.ReadLine());
+                    Console.Write("Height: ");
+                    double rectHeight = double.Parse(Console.ReadLine());
+
+                    Rectangles rect = new Rectangles(rectWidth, rectHeight, shapeColor);
+
+                    shapes.Add(rect);
+                }
+
+                if(shapeType == 'c')
+                {
+                    Console.Write("Radius: ");
+                    double circRadius = double.Parse(Console.ReadLine());
+
+                    Circle circle = new Circle(circRadius, shapeColor);
+
+                    shapes.Add(circle);
+                }
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("SHAPE AREAS: ");
+            
+            foreach(Shape shape in shapes)
+            {
+                Console.WriteLine(shape.Area().ToString("F2", CultureInfo.InvariantCulture));
+            }
+        }
+    }
+}
+
+/*
+=========================================================
+================= AULAS PASSADAS ========================
+=========================================================
+
+
+
+/////////////////////////////////////////////////////
+
+
+//8.9 Classes Abstratas
+using System; 
+using Course.Entities;
+using System.Collections.Generic;
+using System.Globalization;
+
+namespace Course 
+{
+    class Program
+    {
+        public static void Main(string[] args) 
+        {   
+            List<Account> list = new List<Account>();
+
+            list.Add(new SavingsAccount(1001, "Joe", 500.0, 0.01));
+            list.Add(new BusinessAccount(1001, "Maria", 500.0, 400.0));
+            list.Add(new SavingsAccount(1003, "Bob", 500.0, 0.01));
+            list.Add(new BusinessAccount(1004, "Ana", 500.0, 500.0));
+
+            double sum = 0;
+
+            foreach (Account acc in list)
+            {
+                sum += acc.Balance;
+            }
+
+            Console.WriteLine($"Total balance: {sum.ToString("F2", CultureInfo.InvariantCulture)}");
+
+            foreach (Account acc in list)
+            {
+                acc.Withdraw(10.0);
+            }
+
+            foreach (Account acc in list)
+            {
+                Console.WriteLine($"Uptaded balance for account {acc.Number}: {acc.Balance.ToString("F2", CultureInfo.InvariantCulture)}");
+            }
+
+            // Account acc = new Account(1001, "Joe", 0.0); //Dá erro, porque agora a classe Account é abstrata.
+            // BusinessAccount bacc = new(1002, "Rosa", 0.0, 500.00);
+
+
+            // Account acc1 = bacc; 
+            // Account acc2 = new BusinessAccount(1003, "Ana", 0.0, 200.0);
+            // Account acc3 = new SavingsAccount(1004, "Rosana", 0.0, 0.01);
+
+
+            // BusinessAccount acc4 = (BusinessAccount)acc2; 
+
+            //  acc4.Loan(100.0); 
+
+            // if (acc3 is BusinessAccount)
+            // {
+            //     BusinessAccount acc5 = (BusinessAccount)acc3;
+            //     acc5.Loan(200.0);
+            //     Console.WriteLine("Loan!");
+            // }
+
+            // if (acc3 is SavingsAccount)
+            // {
+    
+            //     SavingsAccount acc5 = acc3 as SavingsAccount; 
+            //     acc5.UpdateBalance();
+            //     Console.WriteLine("Update");
+            // }
+        }
+    }
+}
+
+/////////////////////////////////////////////////////
+
+//8.8 Exercício Proposto
 using System;
 using System.Globalization;
 using System.Collections.Generic;
@@ -59,13 +201,6 @@ namespace Course
         }
     }
 }
-
-
-/*
-=========================================================
-================= AULAS PASSADAS ========================
-=========================================================
-
 
 
 /////////////////////////////////////////////////////
