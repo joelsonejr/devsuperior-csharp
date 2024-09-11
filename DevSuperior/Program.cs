@@ -1,4 +1,27 @@
-﻿//8.10 Métodos Abstratos
+﻿using System;
+
+namespace Course 
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            //TODO: finalizar os overrride do métido CalculateTax (traduzir regras de negócio).
+            //TODO: imprimir o total de imposto pago por cd um.
+            //TODO: imprimir o total de imposto arrecadado.
+        }
+    }
+}
+
+/*
+=========================================================
+================= AULAS PASSADAS ========================
+=========================================================
+
+
+
+/////////////////////////////////////////////////////
+//8.10 Métodos Abstratos
 using System;
 using Course.Entities.Enums;
 using Course.Entities;
@@ -58,13 +81,6 @@ namespace Course
         }
     }
 }
-
-/*
-=========================================================
-================= AULAS PASSADAS ========================
-=========================================================
-
-
 
 /////////////////////////////////////////////////////
 
