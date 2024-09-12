@@ -1,8 +1,6 @@
-using Course.Entities;
-
 namespace Course.Entities
 {
-    class IndividualTaxPayer : TaxPayer
+    class IndividualTaxPayer : TaxPayers
     {
         public double HealthExpense { get; set; }
 
@@ -13,7 +11,12 @@ namespace Course.Entities
 
         public override double CalculateTax()
         {
-            return 0;
+            double taxRate = AnnualIncome < 20000.00 ? 0.15 : 0.25;
+            double taxDiscount = HealthExpense / 2; 
+
+            double taxOverIncome = AnnualIncome * taxRate - taxDiscount;
+
+            return taxOverIncome;
         }
     }
 }

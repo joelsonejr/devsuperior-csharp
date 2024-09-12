@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Globalization;
+using Course.Entities;
 
 namespace Course 
 {
@@ -6,9 +7,61 @@ namespace Course
     {
         public static void Main(string[] args)
         {
-            //TODO: finalizar os overrride do métido CalculateTax (traduzir regras de negócio).
-            //TODO: imprimir o total de imposto pago por cd um.
-            //TODO: imprimir o total de imposto arrecadado.
+            List<TaxPayers> payersList = new List<TaxPayers>();
+
+            Console.Write("Enter the number of tax payers: ");
+            int numTaxPayers = int.Parse(Console.ReadLine());
+
+            for (int i = 0; i < numTaxPayers; i++)
+            {
+                Console.WriteLine($"Tax Payer #{i+1} data:");
+                Console.Write("Individual or Company (i/c)? ");
+                char payerType = char.Parse(Console.ReadLine().ToLower());
+                Console.Write("Name: ");
+                string payerName = Console.ReadLine();
+                Console.Write("Annual income: ");
+                double payerIncome = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+                if(payerType == 'i')
+                {
+                    Console.Write("Health expenditures: ");
+                    double payerHealthExp = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+                    IndividualTaxPayer payer = new IndividualTaxPayer(payerHealthExp, payerName, payerIncome);
+
+                    payersList.Add(payer);
+                }
+
+                if(payerType == 'c')
+                {
+                    Console.Write("Number of employees: ");
+                    int employNumber = int.Parse(Console.ReadLine());
+
+                    CompanyTaxPayer company = new CompanyTaxPayer(employNumber, payerName, payerIncome);
+
+                    payersList.Add(company);
+                }
+            }
+
+            PrintTaxInformation(payersList);
+
+        }
+
+        public static void PrintTaxInformation(List<TaxPayers> payers)
+        {
+                        Console.WriteLine("");
+            Console.WriteLine("TAXES PAID: ");
+            double totalTaxes = 0;
+            foreach(TaxPayers taxPayer in payers)
+            {
+                Console.Write($"{taxPayer.Name}: ");
+                Console.WriteLine($"$ {taxPayer.CalculateTax().ToString("F2", CultureInfo.InvariantCulture)}");
+
+                totalTaxes += taxPayer.CalculateTax();
+            }
+            Console.WriteLine();
+            Console.Write("TOTAL TAXES: $ ");
+            Console.WriteLine(totalTaxes.ToString("F2", CultureInfo.InvariantCulture));
         }
     }
 }

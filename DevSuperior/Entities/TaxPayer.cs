@@ -1,15 +1,15 @@
 
 namespace Course.Entities
 {
-    abstract class TaxPayer
+    abstract class TaxPayers
     {
         public string Name { get; set; }
         public double AnnualIncome { get; set; }
 
 
-        public TaxPayer(string name, double annualIncome) {
+        public TaxPayers(string name, double annualIncome) {
             Name = name;
-            AnnualIncome = AnnualIncome;
+            AnnualIncome = annualIncome;
         }
 
         public abstract double CalculateTax();

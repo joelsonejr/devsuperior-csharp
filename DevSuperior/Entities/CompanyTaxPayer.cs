@@ -1,8 +1,6 @@
-using Course.Entities;
-
 namespace Course.Entities
 {
-    class CompanyTaxPayer : TaxPayer
+    class CompanyTaxPayer : TaxPayers
     {
         public int QuantityOfEmployees { get; set; }
 
@@ -13,7 +11,11 @@ namespace Course.Entities
 
         public override double CalculateTax()
         {
-            return 0;
+            double taxRate = QuantityOfEmployees > 10 ? 0.14 : 0.16; 
+
+            double taxOverIncome = AnnualIncome * taxRate;
+
+            return taxOverIncome;
         }
     }
 }
