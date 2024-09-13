@@ -1,18 +1,33 @@
-using System;
+using System.Globalization;
+using System.Text;
 
 namespace Course.Entities
 {
-    public class Product
+    class Product
     {
-        public string Name {get; set;}
-        public double Price {get; set;}
+        public string Name { get; set; }
+        public double Price { get; set; }
 
-        public Product() {}
+        public Product()
+        {
 
-        public Product(string name, double price) 
+        }
+
+        public Product (string name, double price) 
         {
             Name = name;
             Price = price;
         }
+
+        public virtual string PriceTag()
+        {
+            string priceTag = Name 
+                + " $ " 
+                + Price.ToString("F2", CultureInfo.InvariantCulture);
+
+            return priceTag;
+        }
+
+    
     }
 }

@@ -1,4 +1,542 @@
-﻿using System;
+﻿//8.12 Desafio Plataforma de ensino
+using Course.Entities;
+using System.Collections.Generic;
+
+namespace Course
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            List<Lesson> lessonList = new List<Lesson>();
+
+            Console.Write("Quantas aulas tem o curso? ");
+            int numberOfClasses = int.Parse(Console.ReadLine());
+
+            CreateLesson(numberOfClasses, lessonList);       
+            
+            PrintTotalDuration(lessonList);
+            
+        }
+
+        public static void CreateLesson(int numClasses, List<Lesson> lessons)
+        {
+            for(int i = 0; i < numClasses; i++)
+            {    
+                Console.WriteLine();
+                Console.WriteLine($"Dados da {i+1}ª aula:");
+                Console.Write("Conteúdo da tarefa (c/t)? ");
+                char lessonType = char.Parse(Console.ReadLine().ToLower());
+                Console.Write("Título: ");
+                string lessonTitle = Console.ReadLine();
+
+                if(lessonType == 'c')
+                {
+                    CreateVideoClass(lessonTitle, lessons);
+                }
+
+                if(lessonType == 't')
+                {
+                    CreateTaskClass(lessonTitle, lessons);
+                }
+            }
+        }
+
+        public static void CreateVideoClass(string title, List<Lesson> list) {
+            Console.Write("URL do vídeo: ");
+            string lessonUrl = Console.ReadLine();
+            Console.Write("Duração em segundos: ");
+            int lessonDuration = int.Parse(Console.ReadLine());
+
+            Video video = new Video(lessonUrl, lessonDuration, title);
+            list.Add(video);
+        }
+
+        public static void CreateTaskClass(string title, List<Lesson> list)
+        {
+            Console.Write("Descrição: ");
+            string lessonDescription = Console.ReadLine();
+            Console.Write("Quantidade de questões: ");
+            int lessonQuestions = int.Parse(Console.ReadLine());
+
+            Entities.Task task = new Entities.Task(lessonDescription, lessonQuestions, title);
+
+            list.Add(task);                   
+    }
+
+        public static void PrintTotalDuration(List<Lesson> list)
+        {   
+            int totalDuration = 0;
+
+            foreach(Lesson lesson in list)
+            {
+                totalDuration += lesson.Duration();
+            }
+
+            Console.WriteLine();
+            Console.WriteLine($"Duração total do curso = {totalDuration} segundos");
+      
+        }
+    }
+}
+
+/*
+=========================================================
+================= AULAS PASSADAS ========================
+=========================================================
+
+
+
+/////////////////////////////////////////////////////
+//8.11 Exercício propost
+
+using System.Globalization;
+using Course.Entities;
+
+namespace Course 
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            List<TaxPayers> payersList = new List<TaxPayers>();
+
+            Console.Write("Enter the number of tax payers: ");
+            int numTaxPayers = int.Parse(Console.ReadLine());
+
+            for (int i = 0; i < numTaxPayers; i++)
+            {
+                Console.WriteLine($"Tax Payer #{i+1} data:");
+                Console.Write("Individual or Company (i/c)? ");
+                char payerType = char.Parse(Console.ReadLine().ToLower());
+                Console.Write("Name: ");
+                string payerName = Console.ReadLine();
+                Console.Write("Annual income: ");
+                double payerIncome = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+                if(payerType == 'i')
+                {
+                    Console.Write("Health expenditures: ");
+                    double payerHealthExp = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+                    IndividualTaxPayer payer = new IndividualTaxPayer(payerHealthExp, payerName, payerIncome);
+
+                    payersList.Add(payer);
+                }
+
+                if(payerType == 'c')
+                {
+                    Console.Write("Number of employees: ");
+                    int employNumber = int.Parse(Console.ReadLine());
+
+                    CompanyTaxPayer company = new CompanyTaxPayer(employNumber, payerName, payerIncome);
+
+                    payersList.Add(company);
+                }
+            }
+
+            PrintTaxInformation(payersList);
+
+        }
+
+        public static void PrintTaxInformation(List<TaxPayers> payers)
+        {
+                        Console.WriteLine("");
+            Console.WriteLine("TAXES PAID: ");
+            double totalTaxes = 0;
+            foreach(TaxPayers taxPayer in payers)
+            {
+                Console.Write($"{taxPayer.Name}: ");
+                Console.WriteLine($"$ {taxPayer.CalculateTax().ToString("F2", CultureInfo.InvariantCulture)}");
+
+                totalTaxes += taxPayer.CalculateTax();
+            }
+            Console.WriteLine();
+            Console.Write("TOTAL TAXES: $ ");
+            Console.WriteLine(totalTaxes.ToString("F2", CultureInfo.InvariantCulture));
+        }
+    }
+}
+
+/////////////////////////////////////////////////////
+//8.10 Métodos Abstratos
+using System;
+using Course.Entities.Enums;
+using Course.Entities;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Globalization;
+
+namespace Course 
+{
+    class Program 
+    {
+        public static void Main(string[] args)
+        {   
+            List<Shape> shapes = new List<Shape>();
+
+            Console.Write("Enter the number of shapes: ");
+            int numShapes = int.Parse(Console.ReadLine());
+
+            for (int i = 0; i < numShapes; i++)
+            {
+                Console.WriteLine($"Shapen # { i + 1} data: ");
+                Console.Write("Rectangle or Circle (r / c): ");
+                char shapeType = char.Parse(Console.ReadLine().ToLower());
+                Console.Write("Color (Black, Blue, Red): ");
+                Colors shapeColor = Enum.Parse<Colors>(Console.ReadLine());
+
+                if(shapeType == 'r')
+                {
+                    Console.Write("Width: ");
+                    double rectWidth = double.Parse(Console.ReadLine());
+                    Console.Write("Height: ");
+                    double rectHeight = double.Parse(Console.ReadLine());
+
+                    Rectangles rect = new Rectangles(rectWidth, rectHeight, shapeColor);
+
+                    shapes.Add(rect);
+                }
+
+                if(shapeType == 'c')
+                {
+                    Console.Write("Radius: ");
+                    double circRadius = double.Parse(Console.ReadLine());
+
+                    Circle circle = new Circle(circRadius, shapeColor);
+
+                    shapes.Add(circle);
+                }
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("SHAPE AREAS: ");
+            
+            foreach(Shape shape in shapes)
+            {
+                Console.WriteLine(shape.Area().ToString("F2", CultureInfo.InvariantCulture));
+            }
+        }
+    }
+}
+
+/////////////////////////////////////////////////////
+
+
+//8.9 Classes Abstratas
+using System; 
+using Course.Entities;
+using System.Collections.Generic;
+using System.Globalization;
+
+namespace Course 
+{
+    class Program
+    {
+        public static void Main(string[] args) 
+        {   
+            List<Account> list = new List<Account>();
+
+            list.Add(new SavingsAccount(1001, "Joe", 500.0, 0.01));
+            list.Add(new BusinessAccount(1001, "Maria", 500.0, 400.0));
+            list.Add(new SavingsAccount(1003, "Bob", 500.0, 0.01));
+            list.Add(new BusinessAccount(1004, "Ana", 500.0, 500.0));
+
+            double sum = 0;
+
+            foreach (Account acc in list)
+            {
+                sum += acc.Balance;
+            }
+
+            Console.WriteLine($"Total balance: {sum.ToString("F2", CultureInfo.InvariantCulture)}");
+
+            foreach (Account acc in list)
+            {
+                acc.Withdraw(10.0);
+            }
+
+            foreach (Account acc in list)
+            {
+                Console.WriteLine($"Uptaded balance for account {acc.Number}: {acc.Balance.ToString("F2", CultureInfo.InvariantCulture)}");
+            }
+
+            // Account acc = new Account(1001, "Joe", 0.0); //Dá erro, porque agora a classe Account é abstrata.
+            // BusinessAccount bacc = new(1002, "Rosa", 0.0, 500.00);
+
+
+            // Account acc1 = bacc; 
+            // Account acc2 = new BusinessAccount(1003, "Ana", 0.0, 200.0);
+            // Account acc3 = new SavingsAccount(1004, "Rosana", 0.0, 0.01);
+
+
+            // BusinessAccount acc4 = (BusinessAccount)acc2; 
+
+            //  acc4.Loan(100.0); 
+
+            // if (acc3 is BusinessAccount)
+            // {
+            //     BusinessAccount acc5 = (BusinessAccount)acc3;
+            //     acc5.Loan(200.0);
+            //     Console.WriteLine("Loan!");
+            // }
+
+            // if (acc3 is SavingsAccount)
+            // {
+    
+            //     SavingsAccount acc5 = acc3 as SavingsAccount; 
+            //     acc5.UpdateBalance();
+            //     Console.WriteLine("Update");
+            // }
+        }
+    }
+}
+
+/////////////////////////////////////////////////////
+
+//8.8 Exercício Proposto
+using System;
+using System.Globalization;
+using System.Collections.Generic;
+using Course.Entities;
+
+namespace Course
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            List<Product> productList = new List<Product>();
+
+            Console.Write("Enter the number of products: ");
+            int productNum = int.Parse(Console.ReadLine());
+
+            for (int i = 0; i < productNum; i++) 
+            {
+                 Console.WriteLine($"Product # {i + 1} data:");
+                 Console.Write("Common, used or imported (c/u/i)? ");
+                 char productOrigin = char.Parse(Console.ReadLine().ToLower());
+                 Console.Write("Name: ");
+                 string productName = Console.ReadLine();
+                 Console.Write("Price: ");
+                 double productPrice = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+                 if (productOrigin == 'c')
+                 {
+                    Product prod = new Product(productName, productPrice);
+                    productList.Add(prod);
+                 }
+                 
+                if (productOrigin == 'i')
+                {
+                    Console.Write("Customs fee: ");
+                    double productFee = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+                    Product importedProd = new ImportedProduct(productName, productPrice, productFee);
+                    productList.Add(importedProd);
+                }
+
+                if (productOrigin == 'u') {
+                    Console.Write("Manufacture date (DD/MM/YYYY): ");
+                    DateTime manufactureDate = DateTime.Parse(Console.ReadLine());
+
+                    Product usedProd = new UsedProducts(productName, productPrice, manufactureDate);
+                    productList.Add(usedProd);
+                }
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("PRICE TAGS:");
+
+            foreach( Product product in productList)
+            {
+                Console.WriteLine(product.PriceTag());
+            }
+        }
+    }
+}
+
+
+/////////////////////////////////////////////////////
+
+//8.7 Exercício Resolvido PT 01
+using System.Collections.Generic;
+using Course.Entities;
+using System.Globalization;
+
+namespace Course 
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            Console.Write("Enter the number of employees: ");
+            int numEmployees = int.Parse(Console.ReadLine());
+
+            List<Employee> employees = new List<Employee>();
+
+            for ( int i = 0; i < numEmployees; i ++)
+            {
+                Console.WriteLine($"Employee # {i + 1} data:");
+                Console.Write("Outsourced (y/n)? ");
+                char outsourced = char.Parse(Console.ReadLine());
+                Console.Write("Name: ");
+                string empName = Console.ReadLine();
+                Console.Write("Hours: ");
+                int empHours = int.Parse(Console.ReadLine());
+                Console.Write("Value per hour: ");
+                double empHourValue = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+                double addCharge = 0;
+
+                if ( Char.ToLower(outsourced) == 'y')
+                {
+                    Console.Write("Additional charge: ");
+                    addCharge = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+                    Employee employee = new OutsourcedEmployee(empName, empHours, empHourValue, addCharge);
+                    employees.Add(employee);
+
+                }
+                else
+                {
+                    Employee employee = new Employee(empName, empHours, empHourValue);                   
+                    employees.Add(employee);
+                } 
+
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("PAYMENTS: ");
+            foreach (Employee employee in employees)
+            {
+                Console.WriteLine($"{employee.Name} - ${employee.Payment().ToString("F2", CultureInfo.InvariantCulture)}");
+            }
+        }
+    }
+}
+
+/////////////////////////////////////////////////////
+
+//8.6 Introdução ao Polimorfismo
+//Variáveis de um mesmo tipo (mais genérico) ligadas a tipos específicos
+//distintos, e possuindo comportamentos referentes a esses tipos. 
+//Exemplo: acc1 e acc2 da aula 8.4
+
+/////////////////////////////////////////////////////
+
+//8.5 Classes e Métodos Selados
+//Classe: evita que a classe seja herdada.
+//Método: evita que um método sobreposto seja sobreposto novamente.
+using System;
+
+
+/////////////////////////////////////////////////////
+
+//8.4 - Sobreposição, palavras virtual, override e base.
+using System;
+using Course.Entities;
+
+namespace Course 
+{
+    class Program
+    {
+        public static void Main(string[] args) 
+        {
+            Account acc1 = new Account(1001, "Joe", 500.0);
+            Account acc2 = new SavingsAccount(1002, "Rosa", 500.0, 0.01);
+
+            acc1.Withdraw(10.0);
+            acc2.Withdraw(10.0);
+
+            Console.WriteLine(acc1.Balance);
+            Console.WriteLine(acc2.Balance);
+        }
+    }
+}
+
+/////////////////////////////////////////////////////
+
+//8.3 - Upcasting e Downcasting
+//Upcasting - casting (conversão)  da subclasse para a superclasse
+using System;
+using System.Data;
+using Course.Entities;
+
+namespace Course
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            Account acc = new Account(1001, "Joe", 0.0);
+            BusinessAccount bacc = new(1002, "Rosa", 0.0, 500.00);
+
+            //Upcasting
+            //Superclasse recebendo objeto da subclasse
+            Account acc1 = bacc; 
+            //Objeto BusinessAccount dentro de uma variável do tipo Account
+            Account acc2 = new BusinessAccount(1003, "Ana", 0.0, 200.0);
+            Account acc3 = new SavingsAccount(1004, "Rosana", 0.0, 0.01);
+
+            //Downcasting
+
+            // BusinessAccount acc4 = acc2; //Para o compilador o que vale é o tipo da variável. Por isso dá erro. 
+            BusinessAccount acc4 = (BusinessAccount)acc2; //Fazendo o casting de forma explícita
+
+             acc4.Loan(100.0); //Variável do tipo BusinessAccount, que possui o método Loan. 
+            //  acc2.Loan(100.0); //Tipo Account não possui essa operação. Mesmo o conteúdo da variável sendo do tipo BusinessAccount. 
+
+            // BusinessAccount acc5 = (BusinessAccount)acc3; //BusinessAccount não é compatível com SavingsAccount. Apesar 
+            // casting não indicar erro, ocorrerá erro de compilção.
+
+            //Deve-se testar primeiro o tipo da variável, antes de realizar o Downcasting
+            if (acc3 is BusinessAccount)
+            {
+                BusinessAccount acc5 = (BusinessAccount)acc3;
+                acc5.Loan(200.0);
+                Console.WriteLine("Loan!");
+            }
+
+            if (acc3 is SavingsAccount)
+            {
+                // SavingsAccount acc5 = (SavingsAccount)acc3;
+                SavingsAccount acc5 = acc3 as SavingsAccount; //Outra forma de realizar o casting
+                acc5.UpdateBalance();
+                Console.WriteLine("Update");
+            }
+        }
+
+    }      
+}
+
+/////////////////////////////////////////////////////
+
+//8.2 Herança
+using System;
+using Course.Entities;
+
+namespace Course
+{
+    class Program
+    {
+        public static void Main(string[] args) 
+        {
+            BusinessAccount account = new BusinessAccount(8010, "Joe", 100.0, 500.0);
+
+            Console.WriteLine(account.Balance);
+
+            // account.Balance = 100; Dá erro, por ser protected (só pode ser acessado pela própria classe, ou subclasses)
+
+            account.Loan(500);
+        }
+    }
+}
+
+/////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
+// DESAFIO do módulo 07
+using System;
 using Course.Entities;
 
 namespace Course
@@ -64,14 +602,6 @@ namespace Course
         }
     }
 }
-
-
-/*
-=========================================================
-================= AULAS PASSADAS ========================
-=========================================================
-
-
 
 /////////////////////////////////////////////////////
 

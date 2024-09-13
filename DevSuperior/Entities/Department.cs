@@ -10,7 +10,7 @@ namespace Course.Entities
         public string Name {get; set;}
         public int PayDay {get; set;}
         public Address Address {get; set;}
-        public List<Employee> Employee {get; set;} = new List<Employee>();
+        public List<Employee02> Employee {get; set;} = new List<Employee02>();
 
         public Department() {}
 
@@ -21,12 +21,12 @@ namespace Course.Entities
             Address = address;
         }
 
-        public void AddEmployee (Employee employee)
+        public void AddEmployee (Employee02 employee)
         {
             Employee.Add(employee);
         }
 
-        public void RemoveEmployee (Employee employee) 
+        public void RemoveEmployee (Employee02 employee) 
         {
             Employee.Remove(employee);
         }
@@ -35,7 +35,7 @@ namespace Course.Entities
         {   
             double pay = 0;
 
-            foreach (Employee emp in Employee)
+            foreach (Employee02 emp in Employee)
             {
                 pay += emp.Salary;
             }
@@ -53,7 +53,7 @@ namespace Course.Entities
             sb.AppendLine($"Pagamento realizado no dia: {PayDay}");
             sb.AppendLine("Funcionários: ");
 
-            foreach (Employee emp in Employee) 
+            foreach (Employee02 emp in Employee) 
             {
                 sb.AppendLine(emp.Name);
             }
