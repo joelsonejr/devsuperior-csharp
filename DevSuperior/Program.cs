@@ -1,4 +1,310 @@
-﻿//8.12 Desafio Plataforma de ensino
+﻿
+
+/*
+=========================================================
+================= AULAS PASSADAS ========================
+=========================================================
+
+
+
+/////////////////////////////////////////////////////
+//09.8 - Exercício Proposto
+
+using System.Globalization;
+using Course.Entities;
+using Course.Entities.Exceptions;
+
+namespace Course
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            try 
+            {
+                Console.WriteLine("Enter account data");
+                Console.Write("Number: ");
+                int number = int.Parse(Console.ReadLine());
+                Console.Write("Holder: ");
+                string holder = Console.ReadLine();
+                Console.Write("Initial balance: ");
+                double balance = double.Parse(Console.ReadLine());
+                Console.Write("Withdraw limit: ");
+                double withdrawLimit = double.Parse(Console.ReadLine());
+
+                Account account = new Account(number, holder, balance, withdrawLimit);
+
+                Console.WriteLine();
+                Console.Write("Enter amount for withdraw: ");
+                double amount = double.Parse(Console.ReadLine());
+
+                account.Withdraw(amount);
+                Console.WriteLine($"New balance: {account.Balance.ToString("F2", CultureInfo.InvariantCulture)}");
+            }
+            catch (ChallengeException e)
+            {
+                Console.WriteLine($"Withdraw error: {e.Message}");
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine($"Unexpected error: {e.Message}");
+            }
+        }
+    }
+}
+
+/////////////////////////////////////////////////////
+
+//09.7 - Criando Excessões Personalizadas - pt 3
+//Utilizando tratamento de excessões
+
+using System.ComponentModel;
+using Course.Entities;
+using Course.Entities.Exceptions;
+
+namespace Course
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            try 
+            {
+                Console.Write("Room number: ");
+                int number = int.Parse(Console.ReadLine());
+                Console.Write("Check-in date (dd/MM/yyyy): ");
+                DateTime checkIn = DateTime.Parse(Console.ReadLine());
+                Console.Write("Check-out date (dd/MM/yyyy): ");
+                DateTime checkOut = DateTime.Parse(Console.ReadLine());
+
+                
+                Reservation reservation = new Reservation(number, checkIn, checkOut);
+                Console.WriteLine($"Reservation: {reservation}");
+
+                Console.WriteLine();
+                Console.WriteLine("Enter data to update reservation:");
+                Console.Write("Check-in date (dd/MM/yyyy): ");
+                checkIn = DateTime.Parse(Console.ReadLine());
+                Console.Write("Check-out date (dd/MM/yyyy): ");
+                checkOut = DateTime.Parse(Console.ReadLine());
+
+                reservation.UpdateDates(checkIn, checkOut);
+
+                Console.WriteLine($"Reservation: {reservation}");
+            }
+            catch (DomainException e)
+            {
+                Console.WriteLine($"Error in reservation: {e.Message}");
+            }
+
+            //Outro exemplo de tratamento de excessão.
+            catch (FormatException e)
+            {
+            Console.WriteLine($"Format error: {e.Message}");
+            }
+
+            //Capturando excessões que não foram previstas
+            catch (Exception e)
+            {
+                Console.WriteLine($"Unexpected erro: {e.Message}");
+            }
+
+        }
+    }
+}
+
+/////////////////////////////////////////////////////
+//09.6 - Criando Excessões Personalizadas - pt 2
+//Passando as validações para a classe Reservation, mas sem utilizar excessões.
+
+using System.ComponentModel;
+using Course.Entities;
+
+namespace Course
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            Console.Write("Room number: ");
+            int number = int.Parse(Console.ReadLine());
+            Console.Write("Check-in date (dd/MM/yyyy): ");
+            DateTime checkIn = DateTime.Parse(Console.ReadLine());
+            Console.Write("Check-out date (dd/MM/yyyy): ");
+            DateTime checkOut = DateTime.Parse(Console.ReadLine());
+
+            if (checkOut <= checkIn)
+            {
+                Console.WriteLine("Error in reservation: check-out date must be after check in date ");
+            }
+
+            else 
+            {
+                Reservation reservation = new Reservation(number, checkIn, checkOut);
+                Console.WriteLine($"Reservation: {reservation}");
+
+                Console.WriteLine();
+                Console.WriteLine("Enter data to update reservation:");
+                Console.Write("Check-in date (dd/MM/yyyy): ");
+                checkIn = DateTime.Parse(Console.ReadLine());
+                Console.Write("Check-out date (dd/MM/yyyy): ");
+                checkOut = DateTime.Parse(Console.ReadLine());
+
+                string error = reservation.UpdateDates(checkIn, checkOut);
+
+                if (error != null) 
+                {   
+                    Console.WriteLine($"Error in reservation: {error}");
+                }
+                else
+                {
+                    Console.WriteLine($"Reservation: {reservation}");
+                }
+            }
+        }
+    }
+}
+
+/////////////////////////////////////////////////////
+//09.5 - Criando Excessões Personalizadas - pt 1
+//Sem utilizar excessões
+using System.ComponentModel;
+using Course.Entities;
+
+namespace Course
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            Console.Write("Room number: ");
+            int number = int.Parse(Console.ReadLine());
+            Console.Write("Check-in date (dd/MM/yyyy): ");
+            DateTime checkIn = DateTime.Parse(Console.ReadLine());
+            Console.Write("Check-out date (dd/MM/yyyy): ");
+            DateTime checkOut = DateTime.Parse(Console.ReadLine());
+
+            if (checkOut <= checkIn)
+            {
+                Console.WriteLine("Error in reservation: check-out date must be after check in date ");
+            }
+
+            else 
+            {
+                Reservation reservation = new Reservation(number, checkIn, checkOut);
+                Console.WriteLine($"Reservation: {reservation}");
+
+                Console.WriteLine();
+                Console.WriteLine("Enter data to update reservation:");
+                Console.Write("Check-in date (dd/MM/yyyy): ");
+                checkIn = DateTime.Parse(Console.ReadLine());
+                Console.Write("Check-out date (dd/MM/yyyy): ");
+                checkOut = DateTime.Parse(Console.ReadLine());
+
+                DateTime now = DateTime.Now;
+
+                if (checkIn < now || checkOut < now)
+                {
+                    Console.WriteLine("Error in reservation: Reservation dates for update must be future dates");
+                }
+                else if (checkOut <= checkIn)
+                {
+                    Console.WriteLine("Error in reservation: check-out date must be after check in date ");
+                }
+                else 
+                {
+                    reservation.UpdateDates(checkIn, checkOut);
+                    Console.WriteLine($"Reservation: {reservation}");
+                }
+            }
+        }
+    }
+}
+
+
+/////////////////////////////////////////////////////
+//09.4 - Bloco Finally
+using System;
+using System.IO;
+
+namespace Course 
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            FileStream fs = null;
+
+            try 
+            {
+                fs = new FileStream(@"C:\temp\data.txt", FileMode.Open);
+                StreamReader sr = new StreamReader(fs);
+                string line = sr.ReadLine();
+                Console.WriteLine(line);
+            }
+            catch (FileNotFoundException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                if (fs != null)
+                {
+                    fs.Close();
+                }
+            }
+        }
+    }
+}
+
+
+/////////////////////////////////////////////////////
+//09.3 - Try-Catch
+
+using System;
+using System.Linq.Expressions;
+
+namespace Course
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+           try 
+           {
+            int n1 = int.Parse(Console.ReadLine());
+            int n2 = int.Parse(Console.ReadLine());
+
+            int result = n1 / n2;
+
+            Console.WriteLine(result);
+           }
+            // catch (Exception e )
+            // {
+            //     Console.WriteLine("Error: " + e.Message);
+            // }
+            catch (DivideByZeroException)
+            {
+                Console.WriteLine("Divison by zero not allowed.");
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine("Format error: " + e.Message);
+            }
+        }
+
+    }
+}
+
+/////////////////////////////////////////////////////
+//9.02 Discussão Inicial Sobre Excessões
+Teórica
+
+/////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
+
+//8.12 Desafio Plataforma de ensino
 using Course.Entities;
 using System.Collections.Generic;
 
@@ -79,13 +385,6 @@ namespace Course
         }
     }
 }
-
-/*
-=========================================================
-================= AULAS PASSADAS ========================
-=========================================================
-
-
 
 /////////////////////////////////////////////////////
 //8.11 Exercício propost

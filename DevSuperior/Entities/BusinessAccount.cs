@@ -1,6 +1,6 @@
 namespace Course.Entities
 {
-    class BusinessAccount : Account
+    class BusinessAccount : Account02
     {
         public double LoanLimit { get; set; }
 
