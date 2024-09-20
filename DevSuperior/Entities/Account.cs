@@ -1,28 +1,48 @@
+using System.Runtime;
+using Course.Entities.Exceptions;
+
 namespace Course.Entities
 {
-    abstract class Account
+    class Account
     {
-        public int Number { get; private set; }
-        public string Holder { get; private set; }
-        public double Balance { get; protected set; }
+        public int Number { get; set; }
+        public string Holder { get; set; }
+        public double Balance { get; set; }
+        public double WithdrawLimit { get; set; }
 
-        public Account() {}
-        
-        public Account(int number, string holder, double balance)
+        public Account()
         {
-            this.Number = number;
-            this.Holder = holder;
-            this.Balance = balance;
+
         }
 
-        public virtual void Withdraw(double amount)
+        public Account(int number, string holder, double balance, double withdrawLimit)
         {
-            Balance -= amount + 5.0;
+            Number = number;
+            Holder = holder;
+            Balance = balance;
+            WithdrawLimit = withdrawLimit;
         }
 
-        public void Deposit(double amount)
+
+        public void Deposit(double amount) 
         {
             Balance += amount;
+        }   
+
+        public void Withdraw(double amount) 
+        {
+            if (amount > WithdrawLimit)
+            {
+                throw new ChallengeException("The amount exceeds withdraw limit");
+            }
+
+            if( amount > Balance)
+            {
+                throw new ChallengeException("not enough balance");
+            }
+
+            Balance -= amount;
         }
+
     }
 }
