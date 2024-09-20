@@ -1,4 +1,122 @@
-﻿//09.4 - Criando Excessões Personalizadas - pt 1
+﻿//09.7 - Criando Excessões Personalizadas - pt 3
+//Utilizando tratamento de excessões
+
+using System.ComponentModel;
+using Course.Entities;
+using Course.Entities.Exceptions;
+
+namespace Course
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            try 
+            {
+                Console.Write("Room number: ");
+                int number = int.Parse(Console.ReadLine());
+                Console.Write("Check-in date (dd/MM/yyyy): ");
+                DateTime checkIn = DateTime.Parse(Console.ReadLine());
+                Console.Write("Check-out date (dd/MM/yyyy): ");
+                DateTime checkOut = DateTime.Parse(Console.ReadLine());
+
+                
+                Reservation reservation = new Reservation(number, checkIn, checkOut);
+                Console.WriteLine($"Reservation: {reservation}");
+
+                Console.WriteLine();
+                Console.WriteLine("Enter data to update reservation:");
+                Console.Write("Check-in date (dd/MM/yyyy): ");
+                checkIn = DateTime.Parse(Console.ReadLine());
+                Console.Write("Check-out date (dd/MM/yyyy): ");
+                checkOut = DateTime.Parse(Console.ReadLine());
+
+                reservation.UpdateDates(checkIn, checkOut);
+
+                Console.WriteLine($"Reservation: {reservation}");
+            }
+            catch (DomainException e)
+            {
+                Console.WriteLine($"Error in reservation: {e.Message}");
+            }
+
+            //Outro exemplo de tratamento de excessão.
+            catch (FormatException e)
+            {
+            Console.WriteLine($"Format error: {e.Message}");
+            }
+
+            //Capturando excessões que não foram previstas
+            catch (Exception e)
+            {
+                Console.WriteLine($"Unexpected erro: {e.Message}");
+            }
+
+        }
+    }
+}
+
+/*
+=========================================================
+================= AULAS PASSADAS ========================
+=========================================================
+
+
+
+/////////////////////////////////////////////////////
+//09.6 - Criando Excessões Personalizadas - pt 2
+//Passando as validações para a classe Reservation, mas sem utilizar excessões.
+
+using System.ComponentModel;
+using Course.Entities;
+
+namespace Course
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            Console.Write("Room number: ");
+            int number = int.Parse(Console.ReadLine());
+            Console.Write("Check-in date (dd/MM/yyyy): ");
+            DateTime checkIn = DateTime.Parse(Console.ReadLine());
+            Console.Write("Check-out date (dd/MM/yyyy): ");
+            DateTime checkOut = DateTime.Parse(Console.ReadLine());
+
+            if (checkOut <= checkIn)
+            {
+                Console.WriteLine("Error in reservation: check-out date must be after check in date ");
+            }
+
+            else 
+            {
+                Reservation reservation = new Reservation(number, checkIn, checkOut);
+                Console.WriteLine($"Reservation: {reservation}");
+
+                Console.WriteLine();
+                Console.WriteLine("Enter data to update reservation:");
+                Console.Write("Check-in date (dd/MM/yyyy): ");
+                checkIn = DateTime.Parse(Console.ReadLine());
+                Console.Write("Check-out date (dd/MM/yyyy): ");
+                checkOut = DateTime.Parse(Console.ReadLine());
+
+                string error = reservation.UpdateDates(checkIn, checkOut);
+
+                if (error != null) 
+                {   
+                    Console.WriteLine($"Error in reservation: {error}");
+                }
+                else
+                {
+                    Console.WriteLine($"Reservation: {reservation}");
+                }
+            }
+        }
+    }
+}
+
+/////////////////////////////////////////////////////
+//09.5 - Criando Excessões Personalizadas - pt 1
 //Sem utilizar excessões
 using System.ComponentModel;
 using Course.Entities;
@@ -52,12 +170,6 @@ namespace Course
         }
     }
 }
-
-/*
-=========================================================
-================= AULAS PASSADAS ========================
-=========================================================
-
 
 
 /////////////////////////////////////////////////////
