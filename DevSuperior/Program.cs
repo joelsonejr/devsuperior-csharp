@@ -1,4 +1,37 @@
-﻿
+﻿using System;
+using System.IO;
+
+namespace Course
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+
+        }
+
+        public string GetFileLocation(string path)
+        {   
+            string location = Path.GetFullPath(path);
+            return location;
+        }
+
+        public double CalculateProductPrice(int quantity, double value)
+        {
+            return quantity * value;
+        }
+
+        public void CreateFolder(string path)
+        {
+            Directory.CreateDirectory($"{path}/out");
+        }
+
+        public string CreateFileEntry(string name, double totalValue)
+        {
+            return "";
+        }
+    }
+}
 
 /*
 =========================================================
@@ -6,6 +39,232 @@
 =========================================================
 
 
+
+/////////////////////////////////////////////////////
+//010.6 - Path
+using System;
+using System.IO;
+
+namespace Course
+{
+    class Program
+    {
+        public static void Main(string[] args) 
+        {
+            string path = @"./ioFiles/file1.txt";
+
+            Console.WriteLine("Directory separator: " + Path.DirectorySeparatorChar);
+            Console.WriteLine("Path separator: " + Path.PathSeparator);
+            Console.WriteLine("Directory name: " + Path.GetDirectoryName(path));
+            Console.WriteLine("File name: " + Path.GetFileName(path));
+            Console.WriteLine("File name without extension: " + Path.GetFileNameWithoutExtension(path));
+            Console.WriteLine("File extension:  " + Path.GetExtension(path));
+            Console.WriteLine("Full path: " + Path.GetFullPath(path));
+            Console.WriteLine("Path to tempo folder:  " + Path.GetTempPath());
+        }
+    }
+}
+
+/////////////////////////////////////////////////////
+//010.5 - Directory, DirectoryInfo
+using System;
+using System.Collections.Generic;
+
+namespace Course
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            string path =@"./";
+
+            try
+            {
+                IEnumerable<string> folder = Directory.EnumerateDirectories(path, "*.*", SearchOption.AllDirectories);
+                Console.WriteLine("FOLDERS: ");
+                foreach (string item in folder)
+                {
+                    Console.WriteLine(item);
+                }
+
+                IEnumerable<string> files = Directory.EnumerateFiles(path, "*.*", SearchOption.AllDirectories);
+                Console.WriteLine("files: ");
+                foreach (string item in files)
+                {
+                    Console.WriteLine(item);
+                }
+
+                Directory.CreateDirectory(path + "/pasta-do-curso");
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+        }
+    }
+}
+
+/////////////////////////////////////////////////////
+//010.4 - StringWriter
+using System.IO;
+
+namespace Course
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            string sourcePath = @"./ioFiles/file1.txt";
+            string targetPath = @"./ioFiles/file5.txt";
+
+            try {
+                string[] lines = File.ReadAllLines(sourcePath);
+
+                using(StreamWriter sw = File.AppendText(targetPath))
+                {
+                    foreach (string line in lines)
+                    {
+                        sw.WriteLine(line.ToUpper());
+                    }
+                }
+
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+        }
+    }
+}
+
+/////////////////////////////////////////////////////
+//010.3 - Bloco Using
+//Garante que os objetos IDisposable ( que não são gerenciados pelo CLR), sejam
+// fechados.
+
+using System;
+
+namespace Course
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            try
+            {
+                string path = @"./ioFiles/file1.txt";
+
+                using (FileStream fs = new FileStream(path, FileMode.Open)) 
+                { 
+                    using (StreamReader sr = new StreamReader(fs))
+                    {
+                        while (!sr.EndOfStream)
+                        {
+                            string line = sr.ReadLine();
+                            Console.WriteLine(line);
+                        }
+                    }
+
+                }
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine($"Erro {e.Message}");
+            }
+
+            //No caso de uma instanciação resumida do StreamReader, seria feito:
+            //1. Remover a linha contendo o FileStream
+            //2. Inicializar o StreamReader da forma a seguir:
+            // using (StreamReader sr = new File.OpenText(path)) 
+        }
+    }
+}
+
+/////////////////////////////////////////////////////
+//010.2 - FileStream  e Streamreader
+using System.IO;
+
+namespace Course
+{
+    class Program 
+    {
+        public static void Main(string[] args) 
+        {
+            string path = @"./ioFiles/file1.txt";
+
+            FileStream fs = null;
+            StreamReader sr = null;
+
+            // Uma forma resumida de realizar a criação dessas instâncias, é 
+            // 1. omitindo o FileStream de todo o código.
+            // 2. declarar, dentro do bloco try o StreamReader da forma:
+            //      sr = File.OpenText(path);
+            // O OpenText cria uma FileStream, "por debaixo dos panos".
+
+            try
+            {
+                fs = new FileStream(path,FileMode.Open);
+                sr = new StreamReader(fs);
+                while (!sr.EndOfStream) 
+                {
+                    string line = sr.ReadLine();
+                    Console.WriteLine(line);                    
+                }
+            }
+            catch (IOException  e)
+            {
+                Console.WriteLine($"Error: {e.Message}");
+            }
+            //Fechando as streams, após o uso. 
+            finally
+            {
+                if(fs != null) fs.Close();
+                if(sr != null) sr.Close();                
+            }
+        }
+    }
+
+}
+
+
+/////////////////////////////////////////////////////
+//010.1 - File, Fileinfo Ioexception
+using System;
+using System.IO;
+
+namespace Course
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            string sourcePath = @"./ioFiles/file1.txt";
+            string targetPath = @"./ioFiles/file4.txt";
+
+            try  
+            {
+                FileInfo fileInfo = new FileInfo(sourcePath);
+                fileInfo.CopyTo(targetPath);
+
+                string[] lines = File.ReadAllLines(sourcePath);
+
+                foreach(string line in lines)
+                {
+                    Console.WriteLine(line);
+                }
+
+            }
+            catch(IOException e)
+            {
+                Console.WriteLine("An error occurered!");
+                Console.WriteLine(e.Message);              
+            }
+
+        }
+    }
+}
 
 /////////////////////////////////////////////////////
 //09.8 - Exercício Proposto
