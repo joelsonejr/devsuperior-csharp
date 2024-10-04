@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Course.Entities;
 
 namespace Course
 {
@@ -7,6 +8,13 @@ namespace Course
     {
         public static void Main(string[] args)
         {
+            //Acho o arquivo
+            //Leio o conteúdo do arquivo
+            //Crio um obj Products para cada linha do arquivo
+            //Guardo esse objeto em uma lista
+            //Criar pasta de saída
+            //Passo o conteúdo dessa lista para um arquivo. 
+            //Salvar o arquivo na pasta de saída.
 
         }
 
