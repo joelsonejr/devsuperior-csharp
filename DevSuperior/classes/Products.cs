@@ -26,7 +26,7 @@ namespace Course.Entities
         override public string ToString ()
         {
             return ProdName
-            + ","
+            + ", "
             + ProdValue.ToString("F2", CultureInfo.InvariantCulture);
         }
 

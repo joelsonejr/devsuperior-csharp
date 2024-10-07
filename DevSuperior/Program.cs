@@ -8,33 +8,85 @@ namespace Course
     {
         public static void Main(string[] args)
         {
-            //Acho o arquivo
-            //Leio o conteúdo do arquivo
-            //Crio um obj Products para cada linha do arquivo
-            //Guardo esse objeto em uma lista
-            //Criar pasta de saída
+            string path = @"./";
+            List<Products> products = new List<Products>();
+
+            try 
+            {
+                string filePath = GetFileLocation(path);
+
+                // using (StreamReader sr = new File.OpenText(path)) 
+                // {
+                //     foreach (string line in sr)
+                //     {
+
+                //     }
+                // }
+
+                 using (FileStream fs = new FileStream(filePath, FileMode.Open)) 
+                { 
+                    using (StreamReader sr = new StreamReader(fs))
+                    {
+                        while (!sr.EndOfStream)
+                        {
+                            string line = sr.ReadLine();
+
+                            // Console.WriteLine($"line content {line}");
+
+                            string[] a = line.Split(',');
+
+                            string  prodsName = a[0];
+                            double prodsPrice = double.Parse(a[1]);
+                            int prodsAmount = int.Parse(a[2]);
+
+                            Products prods = new Products(prodsName, prodsPrice, prodsAmount);
+                            
+                            products.Add(prods);                            
+                            
+                        }
+                    }
+
+                }
+
+                CreateFolder(filePath);
+
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine($"Operation error: {e.Message}");
+            }
+
+
+
+
+
+            //Acho o arquivo - ok
+            //Leio o conteúdo do arquivo - ok
+            //Crio um obj Products para cada linha do arquivo - ok
+            //Guardo esse objeto em uma lista - ok
+            //Criar pasta de saída - ok
             //Passo o conteúdo dessa lista para um arquivo. 
             //Salvar o arquivo na pasta de saída.
 
         }
 
-        public string GetFileLocation(string path)
+        public static string GetFileLocation(string path)
         {   
-            string location = Path.GetFullPath(path);
-            return location;
+            string location = Directory.EnumerateFiles(path, "*.csv", SearchOption.AllDirectories).FirstOrDefault();
+;
+            return location != null ? location : "";
         }
 
-        public double CalculateProductPrice(int quantity, double value)
+
+        public static void CreateFolder(string path)
         {
-            return quantity * value;
+            string newFolderLocation = Path.GetDirectoryName(path);
+            Console.WriteLine(newFolderLocation);
+            
+            Directory.CreateDirectory($"{newFolderLocation}/out");
         }
 
-        public void CreateFolder(string path)
-        {
-            Directory.CreateDirectory($"{path}/out");
-        }
-
-        public string CreateFileEntry(string name, double totalValue)
+        public static string CreateFileEntry(string name, double totalValue)
         {
             return "";
         }
