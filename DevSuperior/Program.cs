@@ -48,7 +48,7 @@ namespace Course
 
                 }
 
-                CreateFolder(filePath);
+                CreateFileEntry(products, filePath);
 
             }
             catch (IOException e)
@@ -78,19 +78,45 @@ namespace Course
         }
 
 
-        public static void CreateFolder(string path)
+        public static string CreateFolder(string path)
         {
             string newFolderLocation = Path.GetDirectoryName(path);
             Console.WriteLine(newFolderLocation);
 
             string key = DateTime.Now.TimeOfDay.ToString();
+
+            string dirLocation = $"{newFolderLocation}/out-{key}";
             
-            Directory.CreateDirectory($"{newFolderLocation}/out-{key}");
+            Directory.CreateDirectory(dirLocation);
+
+            return dirLocation;
         }
 
-        public static string CreateFileEntry(string name, double totalValue)
+        public static void CreateFileEntry(List<Products> list, string path)
         {
-            return "";
+            string targetPath = CreateFolder(path);
+
+            try {
+                
+
+                using(StreamWriter sw = File.AppendText($"{targetPath}/summary.csv"))
+                {
+                    foreach (Products p in list)
+                    {
+                        sw.WriteLine(p);
+                    }
+                }
+
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine($"IOException: {e.Message}");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"General Exception: {e.Message}");
+            }
+
         }
     }
 }
