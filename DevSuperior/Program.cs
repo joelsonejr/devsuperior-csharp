@@ -82,8 +82,10 @@ namespace Course
         {
             string newFolderLocation = Path.GetDirectoryName(path);
             Console.WriteLine(newFolderLocation);
+
+            string key = DateTime.Now.TimeOfDay.ToString();
             
-            Directory.CreateDirectory($"{newFolderLocation}/out");
+            Directory.CreateDirectory($"{newFolderLocation}/out-{key}");
         }
 
         public static string CreateFileEntry(string name, double totalValue)
