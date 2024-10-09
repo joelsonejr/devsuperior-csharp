@@ -1,4 +1,5 @@
-﻿using System;
+﻿//10.7 - Exercício de fixação
+using System;
 using System.IO;
 using Course.Entities;
 
@@ -15,17 +16,7 @@ namespace Course
             {
                 string filePath = GetFileLocation(path);
 
-                // using (StreamReader sr = new File.OpenText(path)) 
-                // {
-                //     foreach (string line in sr)
-                //     {
-
-                //     }
-                // }
-
-                 using (FileStream fs = new FileStream(filePath, FileMode.Open)) 
-                { 
-                    using (StreamReader sr = new StreamReader(fs))
+                    using (StreamReader sr = File.OpenText(filePath))
                     {
                         while (!sr.EndOfStream)
                         {
@@ -46,7 +37,7 @@ namespace Course
                         }
                     }
 
-                }
+                // }
 
                 CreateFileEntry(products, filePath);
 
@@ -55,18 +46,6 @@ namespace Course
             {
                 Console.WriteLine($"Operation error: {e.Message}");
             }
-
-
-
-
-
-            //Acho o arquivo - ok
-            //Leio o conteúdo do arquivo - ok
-            //Crio um obj Products para cada linha do arquivo - ok
-            //Guardo esse objeto em uma lista - ok
-            //Criar pasta de saída - ok
-            //Passo o conteúdo dessa lista para um arquivo. 
-            //Salvar o arquivo na pasta de saída.
 
         }
 
