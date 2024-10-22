@@ -1,4 +1,37 @@
-﻿//10.7 - Exercício de fixação
+﻿//11.01 - Interfaces
+using System;
+using System.Globalization;
+using Course.Entities;
+
+namespace Course
+{
+    class Program 
+    {
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("Enter rental data");
+            Console.Write("Car model: ");
+            string model = Console.ReadLine();
+            Console.Write("Pickup (dd/MM/yyyy hh:ss): ");
+            DateTime start = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+            Console.Write("Return (dd/MM/yyyy hh:ss): ");
+            DateTime finish = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+
+            CarRental carRental = new CarRental(start, finish, new Vehicle(model));
+
+        }   
+    }
+}
+
+/*
+=========================================================
+================= AULAS PASSADAS ========================
+=========================================================
+
+
+
+/////////////////////////////////////////////////////
+//10.7 - Exercício de fixação
 using System;
 using System.IO;
 using Course.Entities;
@@ -99,13 +132,6 @@ namespace Course
         }
     }
 }
-
-/*
-=========================================================
-================= AULAS PASSADAS ========================
-=========================================================
-
-
 
 /////////////////////////////////////////////////////
 //010.6 - Path
