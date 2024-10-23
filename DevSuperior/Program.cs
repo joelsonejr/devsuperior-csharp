@@ -1,4 +1,77 @@
-﻿//11.01 - Interfaces
+﻿//11.05  -exercício de fixação
+using Course.Entities;
+using Course.Services;
+using System.Globalization;
+
+namespace Course
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("Enter contract data");
+            Console.Write("Number: ");
+            int contractNumber = int.Parse(Console.ReadLine());
+            Console.Write("Date (dd/mm/yyyy): ");
+            DateTime contractDate = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+            Console.Write("Contract value: ");
+            double contractValue = double.Parse(Console.ReadLine());
+            Console.Write("Enter number of installments: ");
+            int contractIntallments = int.Parse(Console.ReadLine());
+        }
+    }
+}
+
+
+/*
+=========================================================
+================= AULAS PASSADAS ========================
+=========================================================
+
+
+
+/////////////////////////////////////////////////////
+//11.01 & 11.02 & 11.03- Interfaces
+using System;
+using System.Globalization;
+using Course.Entities;
+using Course.Services;
+
+namespace Course
+{
+    class Program 
+    {
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("Enter rental data");
+            Console.Write("Car model: ");
+            string model = Console.ReadLine();
+            Console.Write("Pickup (dd/MM/yyyy hh:ss): ");
+            DateTime start = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+            Console.Write("Return (dd/MM/yyyy hh:ss): ");
+            DateTime finish = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+            Console.Write("Enter price per hour: ");
+            double hour = double.Parse(Console.ReadLine(),CultureInfo.InvariantCulture);
+            Console.Write("Enter price per day: ");
+            double day = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+            CarRental carRental = new CarRental(start, finish, new Vehicle(model));
+
+            RentalService rentalService = new RentalService(hour, day, new BrazilTaxService());
+
+            rentalService.ProcessInvoice(carRental);
+
+            Console.WriteLine("INVOICE: ");
+            Console.WriteLine(carRental.Invoice);
+
+        }   
+    }
+}
+
+
+
+/////////////////////////////////////////////////////
+//11.01 & 11.02 - Interfaces
 using System;
 using System.Globalization;
 using Course.Entities;
@@ -34,13 +107,6 @@ namespace Course
         }   
     }
 }
-
-/*
-=========================================================
-================= AULAS PASSADAS ========================
-=========================================================
-
-
 
 /////////////////////////////////////////////////////
 //10.7 - Exercício de fixação
