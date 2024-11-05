@@ -1,14 +1,23 @@
-namespace Couse.Entities
+using System.Globalization;
+
+namespace Course.Entities
 {
     class Installment
     {
-        public DateTime InstallmentDate { get; set; }
-        public double InstallmentValue { get; set; }
+        public DateOnly DueDate { get; set; }
+        public double Amount { get; set; }
 
-        public Installment(DateTime installmentDate, double installmentValue)
+        public Installment(DateOnly dueDate, double amount)
         {
-            InstallmentDate = installmentDate;
-            InstallmentValue = installmentValue;
+            DueDate = dueDate;
+            Amount = amount;
         }
+
+        override public string ToString()
+        {
+            return DueDate.ToString("dd/MM/yyyy") + " - " + Amount.ToString("F2", CultureInfo.InvariantCulture);            
+        }
+
+        
     }
 }

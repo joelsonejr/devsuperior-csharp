@@ -1,19 +1,19 @@
-using Couse.Entities;
+using Course.Entities;
 
 namespace Course.Entities
 {
     class Contract
     {
         public int ContractNumber { get; set; }
-        public DateTime ContractDate { get; set; }
-        public double ContractValue { get; set; }
+        public DateOnly ContractDate { get; set; }
+        public double TotalValue { get; set; }
         public List<Installment> Installments { get; set; }
 
-        public Contract(int contractNumber, DateTime contractDate, double contractValue)
+        public Contract(int contractNumber, DateOnly contractDate, double totalValue)
         {
             ContractNumber = contractNumber;
             ContractDate = contractDate;
-            ContractValue = contractValue;
+            TotalValue = totalValue;
         }
     }
 }

@@ -1,9 +1,12 @@
 ﻿//11.05  -exercício de fixação
+
+//TODO: Corrigir o arredontamento dos valores!
+        
 using Course.Entities;
 using Course.Services;
 using System.Globalization;
 
-namespace Course
+namespace Course 
 {
     class Program
     {
@@ -13,12 +16,25 @@ namespace Course
             Console.Write("Number: ");
             int contractNumber = int.Parse(Console.ReadLine());
             Console.Write("Date (dd/mm/yyyy): ");
-            DateTime contractDate = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+            DateOnly contractDate = DateOnly.ParseExact(Console.ReadLine(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
             Console.Write("Contract value: ");
             double contractValue = double.Parse(Console.ReadLine());
             Console.Write("Enter number of installments: ");
-            int contractIntallments = int.Parse(Console.ReadLine());
+            int numberOfIntallments = int.Parse(Console.ReadLine());
+
+            Contract contract = new Contract(contractNumber, contractDate, contractValue);
+
+            ContractService contractService = new ContractService(new PayPalService());
+
+            contractService.ProcessContract(contract, numberOfIntallments);
+
+            foreach(Installment installment in contract.Installments)
+            {
+                Console.WriteLine(installment);
+            }
+
         }
+
     }
 }
 
