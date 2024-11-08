@@ -1,6 +1,6 @@
 ﻿//11.05  -exercício de fixação
 
-//TODO: Corrigir o arredontamento dos valores!
+//TODO: Confirmar se está ocorrendo o arredontamento dos valores!
         
 using Course.Entities;
 using Course.Services;
@@ -18,7 +18,7 @@ namespace Course
             Console.Write("Date (dd/mm/yyyy): ");
             DateOnly contractDate = DateOnly.ParseExact(Console.ReadLine(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
             Console.Write("Contract value: ");
-            double contractValue = double.Parse(Console.ReadLine());
+            double contractValue = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
             Console.Write("Enter number of installments: ");
             int numberOfIntallments = int.Parse(Console.ReadLine());
 

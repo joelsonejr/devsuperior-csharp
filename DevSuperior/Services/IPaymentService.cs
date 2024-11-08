@@ -6,7 +6,7 @@ namespace Course.Services
     {
         public double Interest(double value, int quota);
 
-        public double PaymentFee(double value);
+        public double PaymentFee(double value, double interest);
 
     }
 }

@@ -12,9 +12,9 @@ namespace Course.Services
             return interest;
         }
 
-        public double PaymentFee(double value)
+        public double PaymentFee(double value, double interest)
         {
-            double paymentFee = value * 0.02;
+            double paymentFee = (value + interest) * 0.02;
 
             return paymentFee;
         }

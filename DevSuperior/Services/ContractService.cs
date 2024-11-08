@@ -21,8 +21,8 @@ namespace Course.Services
 
       for (int i = 1; i <= months; i++)
       {
-        double paymentFee = _paymentService.PaymentFee(basicValue);
         double interest = _paymentService.Interest(basicValue, i);
+        double paymentFee = _paymentService.PaymentFee(basicValue, interest);
 
         double quotaValue = basicValue + interest + paymentFee;
         DateOnly quotaDate = contract.ContractDate.AddMonths(i);
