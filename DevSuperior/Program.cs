@@ -1,4 +1,32 @@
-﻿//11.05  -exercício de fixação
+﻿//11.07 Herança múltipla (Problema do diamante)
+using System;
+using Course.Entities;
+
+namespace Course 
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            ComboDevice cd = new ComboDevice() {SerialNumber = 1001};
+
+            cd.ProcessDoc("convite");
+            cd.Print("convite");
+            Console.WriteLine(cd.Scan());
+        }
+    }
+}
+
+
+/*
+=========================================================
+================= AULAS PASSADAS ========================
+=========================================================
+
+
+
+//////////////////////////////////////
+//11.05  -exercício de fixação
 
 //TODO: Confirmar se está ocorrendo o arredontamento dos valores!
         
@@ -37,14 +65,6 @@ namespace Course
 
     }
 }
-
-
-/*
-=========================================================
-================= AULAS PASSADAS ========================
-=========================================================
-
-
 
 /////////////////////////////////////////////////////
 //11.01 & 11.02 & 11.03- Interfaces

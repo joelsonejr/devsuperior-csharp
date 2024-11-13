@@ -615,7 +615,7 @@ namespace Course.Devices
 {
     class ComboDevices : Device, IScan, IPrinter
     {
-        public void ProcessDoc(string document)
+        public override void ProcessDoc(string document)
         {
             Console.WriteLine("ComboDevice processing: " + document);
         }
