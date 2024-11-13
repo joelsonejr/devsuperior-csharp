@@ -7,12 +7,6 @@ namespace Course.Entities
         public double Width { get; set; }
         public double Height { get; set; }        
 
-        public Rectangles (double width, double height, Colors color) : base(color)
-        {
-            Width = width;
-            Height = height;
-
-        }
         
         public override double Area()
         {

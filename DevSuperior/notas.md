@@ -1,4 +1,4 @@
-# Intefaces
+# Intefaces 
 
 ## Exercício da locadora de carros
 
@@ -457,4 +457,179 @@ Depois, foram criados os serviços:
 			    - Construtor
 			    - Objeto de instanciação (builder/ factory)
 			    - Container/ framework
+
+----
+
+# 11.7 - Herdar vs Cumprir contrato
+
+## Revisão de Polimorfismo (capítulo 8.6)
+
+- Recurso que permite que variáveis de  um mesmo tipo, mais genérico, possam apontar para objetos de tipos específicos diferentes, tendo assim comportamentos específicos.
+
+  ```c#
+  //Classe Account
+  namespace Course
+  {
+      class Account
+      {
+          public int AccountNumber { get; set;}
+          public string HolderName { get; set; }
+          public double Balance { get; private set; }
+          
+          public Account(int number, string name, double balance)
+          {
+              AccountNumber = number;
+              HolderName = name;
+              Balance = balance;
+          }
+          
+          //virtual permite que seja realizado um override nesse método.
+          public virtual void Withdraw(double amount)
+          {
+              Balance -= amount + 5.0;
+          }
+      }
+  }
+  ```
+
+  ```c#
+  //Classe SavingsAccount
+  namespace Course
+  {
+      class SavingsAccount : Account
+      {
+          public double Interest { get; set;}
+          
+          public SavingsAccount(int number, string name, double balance, double interest)
+              : base(number, name, balance)
+          {
+              Interest = interest;
+          }
+          
+  
+          public override void Withdraw(double amount)
+          {
+              base.Withdraw(amout);
+              Balance -= 2.0;
+          }
+      }
+  }
+  ```
+
+  
+
+  ```c#
+  Account acc1 = new Account(1001, "Joe", 500.00);
+  Account acc2 = new SavingsAccount(1002, "Anna", 500.0, 0.01);
+  
+  acc1.Withdraw(10.0);
+  acc2.Withdraw(10.0);
+  ```
+
+  - Quando for chamado o saque, para acc1 e acc2, os comportamentos serão diferentes. 
+  - Vale lembrar que, no Polimorfismo, a associação é feita em tempo de execução.
+
+## Semelhanças e Diferenças entre Herança e Cumprir contrato
+
+![image-20241108124914695](/home/joe/.var/app/io.typora.Typora/config/Typora/typora-user-images/image-20241108124914695.png)
+
+### Semelhanças
+
+- Relação é um : *Rectangle* é uma *Shape*, assim como *Circle* também é. Analogamente, *BrazilTaxService* e *UsaTaxService* são *TaxService*.
+- Generalização/ especialização: *Shape* é um tipo genérico, e *Rectangle* e *Circle* são tipos específicos. Vale a mesma idéia para a Interface e os serviços.
+- Polimorfismo: uma variável do tipo *Shape* pode, em tempo de execução, ser associada com um objeto concreto *Rectangle* ou *Circle*. E a operação *Area()* irá se comportar conforme a implementação que foi feita no objeto concreto. A mesma lójgica se aplica para a interface *ITaxService*, os serviços associados, e a operação *Tax* terá um compormento polimórfico, de acordo com qual objeto concreto será feita a associação (*BrazilTaxService*, ou *UsaTaxService*).
+
+### Diferenças:
+
+- Herança implica no reuso de informações e comportamentos. 
+  - A classe *Shape* tem o atributo *Color*, que será herdado por *Rectangle* e *Circle*. Ou seja, reaproveitamento do atributo e do seu *get/ set*.
+- Interface tem como objetivo a implementação do contrato a ser cumprido. 
+  - A interface *ITaxService* tem um contrato definido. Ela indica que a classe concreta que implementar o *TaxService* tem que possuir o método *double Tax( double amount)*.
+  - Quando, por exemplo, é feita a classe concreta *BrazilTaxService* , não está sendo feito nenhum reaproveitamento. Apenas a implementação do contrato (método) que é estabelecido pela interface *TaxService*.
+
+- Expandindo o exemplo acima, também é possível implementar uma interface *Shape*, tendo também uma estrutura reutilizável. 
+
+  ![image-20241108130803119](/home/joe/.var/app/io.typora.Typora/config/Typora/typora-user-images/image-20241108130803119.png)
+
+  - Interface *Shape*, que define a operação área, mais uma classe abstrata que define o atributo *Color*. Por a classe ser abstrata, ela não irá implementar a operação área. Em seguida, as classes concretas, que herdam da AbstractShape, é quem serão responsáveis por implementar o método, que foi definido na interface.
+  - Uma vantagem dessa abordagem é que pode-se ter classes concretas que não possuem o atributo cor, mas que são figuras. 
+
+---
+
+# 11.8 - Problema do diamante
+
+![image-20241113172226767](/home/joe/.var/app/io.typora.Typora/config/Typora/typora-user-images/image-20241113172226767.png)
+
+Esse problema se refere a uma ambiguidade gerada pela existência do mesmo método em mais de uma superclase. 
+
+Herança múltipla não é permitida. Ex.: ProcessDoc está implementado nas classes Scanner e Printer. De qual dos dois a classe ComboDevice herdará esse método?
+
+Para contornar esse problema, são utilizadas interfaces para Scanner e Printer. Dessa forma ComboDevice herdará de *Device* e implementará os métodos das interfaces *IScanner* e *IPrinter* .
+
+![image-20241113172844026](/home/joe/.var/app/io.typora.Typora/config/Typora/typora-user-images/image-20241113172844026.png)
+
+```c#
+//Classe Device
+
+namespace Course.Devices
+{
+    abstract class Device
+    {
+        public int SerialNumber { get; set; }
+        
+        public abstract void ProcessDoc(string document);
+    }
+}
+```
+
+```c#
+//Interface IScanner
+
+namespace Course.Devices
+{
+    interface IScanner
+    {
+        string Scan();
+    }
+}
+
+```
+
+```c#
+//Interface IPrinter
+
+namespace Course.Devices
+{
+    interface IPrinter
+    {
+        void Print(string document);
+    }
+}
+```
+
+```c#
+//Class ComboDevice
+using System; 
+
+namespace Course.Devices
+{
+    class ComboDevices : Device, IScan, IPrinter
+    {
+        public void ProcessDoc(string document)
+        {
+            Console.WriteLine("ComboDevice processing: " + document);
+        }
+        
+        public string Scan()
+        {
+            return "ComboDevice scan result";
+        }
+        
+        public void Print(string document)
+        {
+            Console.WriteLine("ComboDevice print" + document);
+        }
+    }
+}
+```
 
