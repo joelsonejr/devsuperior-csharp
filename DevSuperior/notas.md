@@ -1,4 +1,4 @@
-# Intefaces 
+# 11. Intefaces 
 
 ## Exercício da locadora de carros
 
@@ -633,3 +633,293 @@ namespace Course.Devices
 }
 ```
 
+# 11.9 - Interface IComparable
+
+Esse é o padrão utilizado pela linguagem, para se comparar dois objetos. Caso deseje-se que um objeto de um determinado tipo é comparável com outro, esse tipo terá de implementar a interface IComparable.
+
+```c#
+public interface IComparable {
+    int CompareTo(object other);
+}
+```
+
+Ex.: suponha que deseja-se ordenar uma lista, que é composta por objetos funcionários. Cada objeto possui duas propriedades, *Nome* e *Salário* . Para que a lista seja ordenada, é necessário que cada um de seus valores seja comparado entre si. 
+
+```c#
+//Programa principal
+namespace Course
+{
+	//(...)
+    // Criação da lista
+    List<Employee> list = new List<Employee>();
+    
+    //Adicionando ítens a lista
+    list.Add(new Employee("Xena", 5.700));
+    //(...)
+    
+    //Após ter inserido todos os funcionários, ordenando a lista
+    list.Sort();
+    
+    //Caso a interface não tenha sido implementada no objeto, a execução do .Sort() disparará uma excessão.
+}
+
+```
+
+Implementando a interface
+
+```c#
+//Class Employee
+
+namespace Course.Entities
+{
+    class Employee : IComparable
+    {
+        public string Name { get; set; }
+        public double Salary { get; set; }
+        
+        public Employee( string name, double salary)
+        {
+            Name = name;
+            Salaray = salary;
+        }
+        
+        public int CompareTo(objetct obj) {
+            
+        }
+        
+        //O retorno do CompareTo, diz se o objeto passado como parâmetro é menor, igual ou maior do que o objeto atual.
+        // menor -> retorna um valor menor do que zero
+        // igual -> retorna zero
+        // maior -> retorna um valor maior do que zero
+    }
+}
+```
+
+Abaixo consta um exemplo de implementação da interface, considerando que a comparação será realizada entre os atributos *Name* de cada objeto.
+
+```c#
+public int CompareTo(objetc obj)
+{
+    //Essa verificação foi utilizada apenas para garantir que os elementos comparados possuem o mesmo tipo, uma vez que obj pode ser de qualquer tipo.
+    // O tipo do erro a ser disparado depende da preferência/ bom senso de quem estiver escrevendo o código.
+    if(!(obj is Employee)) {
+        throw new ArgumentException("Comparing error: argument is not of type Employee");
+    }
+    
+    Employee other = obj as Employee; //Downcasting o obj como o tipo Employee.
+    return Name.CompareTo(other.Name); //Comparando o objeto atual com o que foi passado como argumento, e retornando se ele é menor, igual ou maior ao objeto que foi fornecido como parâmetro.
+}
+```
+
+
+
+# 12. Generics, Set, Dictionary
+
+## 12.1 e 12.2- Generics
+
+- Permitem que **classes**, **interfaces** e **métodos** possam ser parametrizados por tipo. Seus benefícios são:
+  - Reuso
+  - Type safety
+  - Performance
+
+Exemplo de Generic
+
+````c#
+List<string> list = new List<string>();
+List.Add("Victory");
+string name = list[0] //Victory
+````
+
+- Type safety:  a classe *List* foi parametrizada com o tipo string. Garantindo assim com que todos os seus elementos, e que as operações realizadas neles/ com eles sejam desse tipo. 
+- Reuso: a classe *List* , e todos os seus métodos, pode ser reutilizada com valores de outros tipos, sem que sua lógica precise ser reescrita. Basta apenas alterar o seu tipo.
+- Performance: Podem ser necessárias conversões de tipo ao longo da execução do programa, caso não seja utilizado um tipo genérico.
+
+Exemplo 2 : criar um programa que leia um conjunto de N números inteiros (N de 1 a 10), e os imprima na tela. Crie um serviço de impressão para resolver esse problema. 
+
+```
+//Modelagem do PrintService
+
+PrintService
++ addValue(value : int): void
++ first(): int
++ print(): void
+```
+
+
+
+- O problema será resolvido de duas formas: utilizando um vetor, e utilizando um Generic.
+
+````c#
+//PrintService.cs
+using System;
+namespace Course
+{
+    class PrintService
+    {
+        private int[] _values = new int[10]; //variável interna
+        private int _count = 0; //variável interna
+        
+        public void AddValue(int value) 
+        {
+            if (_count ==10)
+            {
+                throw new InvalidOperationException("PrintService is full"); // verificando se ainda tem expaço no vetor.
+            }
+            _values[_count] = value;
+            _count++;
+        }
+        
+        public int First() 
+        {
+            if (_count ==10)
+            {
+                throw new InvalidOperationException("PrintService is empty"); // verificando se o vetor está vazio.
+            }
+            return _values[0];
+        }
+        
+        //O método print deve retornar os valores do vetor no seguinte formato: [val-01, val-02, val-03, ..., val-n]
+        public void Print()
+        {
+            Console.Write("["]);
+            for (int i = 0; i < _count -1; i++ )
+            {
+                Console.Write(_values[i] + ", ");
+            }
+            if (_count > 0)
+            {
+                Console.Write(_values[_count-1]);
+            }
+            Console.WriteLine("]");
+        }
+        
+        
+    }
+}
+
+````
+
+```c#
+//Programa principal		
+using System;
+namespace Course
+{
+    class Program
+    {
+        public static void Main(string[], args)
+        {
+            PrintService printService = new PrintService();
+            
+            Console.Write("How many values");
+            int n = int.Parse(Console.ReadLine());
+            
+            for (int i = 0; i < n; i++)
+            {
+                int x = int.Parse(Console.ReadLine());
+                printService.Add(x);
+            }
+            
+            printService.Print();
+            Console.WriteLine("First: " + printService.First());
+        }
+    }
+}
+```
+
+- O problema dessa abordagem que o *PrinService* não pode ser utilizado para valores que não sejam do tipo *int*. Da forma que a solução foi implementada, seria necessário criar uma outra classe, que trabalhasse com valores do tipo *string* .
+- Uma saída seria mudar os tipos dentro do *PrintService*  para *object* . Apesar de o serviço passar a aceitar qualquer tipo, isso trará um problema de *TypeSafety*. Como *object* pode ser qualquer tipo, o compilador não será capaz de identificar, por exemplo, caso valores do tipo *string* sejam atribuidos a variáveis do tipo *int* .
+
+- A fim de contornar esses problemas, utiliza-se o *Generic*. A classe será parametrizada por um tipo genérico, que será especificado no momento da instanciação do objeto. 
+
+  ```c#
+  //Correções no PrintService
+  using System;
+  namespace Course
+  {
+      class PrintService<T> //Parametrizando a classe com o tipo "T". Pode ser utilizada qualquer outra letra, para designar o tipo genérico.
+      {
+          private T[] _values = new T[10]; //A variável também receberá o tipo T.
+         //...
+          
+          public void AddValue(T value) 
+          {
+             //...
+          }
+          
+          public T First() 
+          {
+              //...
+          }
+          
+          public void Print()
+          {
+             //...
+          }
+                  
+      }
+  }
+  ```
+
+- No programa principal, basta especificar o tipo, no momento da instanciação do objeto.
+
+  ```c#
+  //Programa principal		
+  using System;
+  namespace Course
+  {
+      class Program
+      {
+          public static void Main(string[], args)
+          {
+              PrintService<int> printService = new PrintService<int>();
+              
+              Console.Write("How many values");
+              int n = int.Parse(Console.ReadLine());
+              
+              for (int i = 0; i < n; i++)
+              {
+                  int x = int.Parse(Console.ReadLine());
+                  printService.Add(x);
+              }
+              
+              printService.Print();
+              Console.WriteLine("First: " + printService.First());
+          }
+      }
+  }
+  ```
+
+- Aplica-se a mesma lógica, caso se deseje trabalhar com strings
+
+  ```c#
+  //Programa principal		
+  using System;
+  namespace Course
+  {
+      class Program
+      {
+          public static void Main(string[], args)
+          {
+              PrintService<string> printService = new PrintService<string>();
+              
+              Console.Write("How many values");
+              int n = int.Parse(Console.ReadLine());
+              
+              for (int i = 0; i < n; i++)
+              {
+                  string x = Console.ReadLine();
+                  printService.Add(x);
+              }
+              
+              printService.Print();
+              Console.WriteLine("First: " + printService.First());
+          }
+      }
+  }
+  ```
+
+  
+
+  
+
+  
