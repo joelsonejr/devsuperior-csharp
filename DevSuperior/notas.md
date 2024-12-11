@@ -771,7 +771,7 @@ namespace Course
         
         public int First() 
         {
-            if (_count ==10)
+            if (_count == 0)
             {
                 throw new InvalidOperationException("PrintService is empty"); // verificando se o vetor está vazio.
             }

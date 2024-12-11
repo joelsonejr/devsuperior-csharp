@@ -1,4 +1,29 @@
-﻿//TODO: Codar aula 12.2
+﻿//12.1 & 12.2 Generics
+using System;
+using Course.Services;
+namespace Course
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            PrintService<int> printService = new PrintService<int>();
+
+            Console.WriteLine("How many values: ");
+            int n = int.Parse(Console.ReadLine());
+
+            for (int i = 0; i < n; i++)
+            {
+                int x = int.Parse(Console.ReadLine());
+                printService.Add(x);
+            }
+
+            printService.Print();
+            Console.WriteLine($"First: {printService.First()}");
+
+        }
+    }
+}
 
 
 /*
