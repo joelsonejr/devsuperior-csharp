@@ -1,3 +1,4 @@
 {
-  "dotnet.defaultSolution": "DevSuperior.sln"
+  "dotnet.defaultSolution": "Generics01.sln"
+  // "dotnet.defaultSolution": "DevSuperior.sln"
 }
