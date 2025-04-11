@@ -40,7 +40,7 @@ Primeiramente, foram criadas as entidades:
 
 - Vehicle, com a propriedade _Model_.
 
-  ```c#
+  ```csharp
   namespace Course.Entities
   {
       class Vehicle
@@ -57,7 +57,7 @@ Primeiramente, foram criadas as entidades:
 
 - Invoice, com as propriedades _BasicPayment_, _Tax_ e a propriedade calculada _TotalPayment_ .
 
-  ```C#
+  ```csharp
   using System.Globalization;
   namespace Course.Entities
   {
@@ -91,7 +91,7 @@ Primeiramente, foram criadas as entidades:
 
 - CarRental, com as propriedades _Start_, _End_, _Vehicle_ e _Invoice_ . A propriedade invoice não foi incluida no construtor, pois ela receberá seu valor a partir do serviço _RentalService_.
 
-  ```c#
+  ```csharp
   namespace Course.Entities
   {
       public class CarRental
@@ -117,7 +117,7 @@ Depois, foram criados os serviços:
 
 - **BrazilTaxService** : contém a lógica de cálculo de imposto, de acordo com o valor da nota.
 
-  ```c#
+  ```csharp
   //BrazilTaxService
   class BrazilTaxService
   {
@@ -138,7 +138,7 @@ Depois, foram criados os serviços:
 
 - **RentalService** : responsável por processar o aluguel, e gerar a nota de pagamento (Invoice).
 
-  ```c#
+  ```csharp
   using Course.Entities;
 
   namespace Course.Services
@@ -169,13 +169,13 @@ Depois, foram criados os serviços:
 
     Dentro da classe (serviço) RentalService, cria-se um atributo privado, o qual receberá uma instância do objeto BrazilTaxService:
 
-    ```c#
+    ```csharp
     private BrazilTaxService _brazilTaxService = new BrazilTaxService();
     ```
 
   - Em seguida, é feita a implementação do método _ProcessInvoice_ , que possui as regras de negócio necessárias para calcular a o valor total da locação, considerando os impostos, e com essas informações gerar o Invoice.
 
-    ```c#
+    ```csharp
     public void ProcessInvoice(CarRental carRental)
     {
      TimeSpan duration = carRenta.Finish.Subtract(carRental.Start);
@@ -198,7 +198,7 @@ Depois, foram criados os serviços:
 
     A estrutura completa do serviço ficou da seguinte forma:
 
-    ```c#
+    ```csharp
     //Rental Service
     using Course.Entities;
 
@@ -243,7 +243,7 @@ Depois, foram criados os serviços:
 
     - No programa principal, após serem recebidos todos os dados do usário, e ter sido instanciado um objeto do tipo _carRental_, será instanciado o serviço _RentalService_ para que o aluguel possa ser processado.
 
-      ```c#
+      ```csharp
       //Importanto o novo serviço
       using Course.Services;
 
@@ -275,7 +275,7 @@ Depois, foram criados os serviços:
 
       - Será criado o arquivo de interface _ITaxService_ dentro da pasta Services.
 
-        ```c#
+        ```csharp
         //ITaxService.cs
 
         namespace Course.Services
@@ -291,7 +291,7 @@ Depois, foram criados os serviços:
 
       - A instanciação não será mais feita no momento em que se declara a dependência. Ao invés disso, o construtor será modificado, para que receba mais um atributo, que é referente ao serviço de impostos. Isso é chamado de **Inversão de controle, por meio de inversão de dependência.**. A classe RentalService não é mais responsável por instanciar sua própria dependência.
 
-        ```c#
+        ```csharp
         //Rental Service
         using Course.Entities;
 
@@ -319,7 +319,7 @@ Depois, foram criados os serviços:
 
         - Outro ajuste que precisa ser feito, e corrigir o nome da variável dentro do método ProcessInvoice, alterando de _\_brasilTaxService_ para _taxService_.
 
-        ```c#
+        ```csharp
         //Rental Service
         using Course.Entities;
 
@@ -454,7 +454,7 @@ Depois, foram criados os serviços:
 
 - Recurso que permite que variáveis de um mesmo tipo, mais genérico, possam apontar para objetos de tipos específicos diferentes, tendo assim comportamentos específicos.
 
-  ```c#
+  ```csharp
   //Classe Account
   namespace Course
   {
@@ -480,7 +480,7 @@ Depois, foram criados os serviços:
   }
   ```
 
-  ```c#
+  ```csharp
   //Classe SavingsAccount
   namespace Course
   {
@@ -504,7 +504,7 @@ Depois, foram criados os serviços:
   }
   ```
 
-  ```c#
+  ```csharp
   Account acc1 = new Account(1001, "Joe", 500.00);
   Account acc2 = new SavingsAccount(1002, "Anna", 500.0, 0.01);
 
@@ -557,7 +557,7 @@ Para contornar esse problema, são utilizadas interfaces para Scanner e Printer.
 
 ![image-20241113172844026](./img/image-20241113172844026.png)
 
-```c#
+```csharp
 //Classe Device
 
 namespace Course.Devices
@@ -571,7 +571,7 @@ namespace Course.Devices
 }
 ```
 
-```c#
+```csharp
 //Interface IScanner
 
 namespace Course.Devices
@@ -584,7 +584,7 @@ namespace Course.Devices
 
 ```
 
-```c#
+```csharp
 //Interface IPrinter
 
 namespace Course.Devices
@@ -596,7 +596,7 @@ namespace Course.Devices
 }
 ```
 
-```c#
+```csharp
 //Class ComboDevice
 using System;
 
@@ -626,7 +626,7 @@ namespace Course.Devices
 
 Esse é o padrão utilizado pela linguagem, para se comparar dois objetos. Caso deseje-se que um objeto de um determinado tipo é comparável com outro, esse tipo terá de implementar a interface IComparable.
 
-```c#
+```csharp
 public interface IComparable {
     int CompareTo(object other);
 }
@@ -634,7 +634,7 @@ public interface IComparable {
 
 Ex.: suponha que deseja-se ordenar uma lista, que é composta por objetos funcionários. Cada objeto possui duas propriedades, _Nome_ e _Salário_ . Para que a lista seja ordenada, é necessário que cada um de seus valores seja comparado entre si.
 
-```c#
+```csharp
 //Programa principal
 namespace Course
 {
@@ -656,7 +656,7 @@ namespace Course
 
 Implementando a interface
 
-```c#
+```csharp
 //Class Employee
 
 namespace Course.Entities
@@ -686,7 +686,7 @@ namespace Course.Entities
 
 Abaixo consta um exemplo de implementação da interface, considerando que a comparação será realizada entre os atributos _Name_ de cada objeto.
 
-```c#
+```csharp
 public int CompareTo(objetc obj)
 {
     //Essa verificação foi utilizada apenas para garantir que os elementos comparados possuem o mesmo tipo, uma vez que obj pode ser de qualquer tipo.
@@ -711,7 +711,7 @@ public int CompareTo(objetc obj)
 
 Exemplo de Generic
 
-```c#
+```csharp
 List<string> list = new List<string>();
 List.Add("Victory");
 string name = list[0] //Victory
@@ -723,7 +723,7 @@ string name = list[0] //Victory
 
 Exemplo 2 : criar um programa que leia um conjunto de N números inteiros (N de 1 a 10), e os imprima na tela. Crie um serviço de impressão para resolver esse problema.
 
-```c#
+```csharp
 //Modelagem do PrintService
 
 PrintService
@@ -734,7 +734,7 @@ PrintService
 
 - O problema será resolvido de duas formas: utilizando um vetor, e utilizando um Generic.
 
-```c#
+```csharp
 //PrintService.cs
 using System;
 namespace Course
@@ -784,7 +784,7 @@ namespace Course
 
 ```
 
-```c#
+```csharp
 //Programa principal
 using System;
 namespace Course
@@ -817,7 +817,7 @@ namespace Course
 
 - A fim de contornar esses problemas, utiliza-se o _Generic_. A classe será parametrizada por um tipo genérico, que será especificado no momento da instanciação do objeto.
 
-  ```c#
+  ```csharp
   //Correções no PrintService
   using System;
   namespace Course
@@ -848,7 +848,7 @@ namespace Course
 
 - No programa principal, basta especificar o tipo, no momento da instanciação do objeto.
 
-  ```c#
+  ```csharp
   //Programa principal
   using System;
   namespace Course
@@ -877,7 +877,7 @@ namespace Course
 
 - Aplica-se a mesma lógica, caso se deseje trabalhar com strings
 
-  ```c#
+  ```csharp
   //Programa principal
   using System;
   namespace Course
@@ -914,7 +914,7 @@ namespace Course
 
   A fim de auxiliar no entendimento, foi criado um _CalculationService_ que, inicialmente, apenas serve para números inteiros.
 
-  ```c#
+  ```csharp
   //CalculationService - apenas para valores do tipo int
   namespace Course.Services
   {
@@ -941,7 +941,7 @@ namespace Course
   }
   ```
 
-  ```c#
+  ```csharp
   //Programa principal
   using System;
   using System.Collections.Generic;
@@ -979,7 +979,7 @@ namespace Course
 
   O tipo de retorno do método será alterado para um tipo genérico _T_ , e o método deve ser identificado como sendo genérico. Assim como o tipo do argumento do método deve ser alterado de _int_ para _T_.
 
-  ```c#
+  ```csharp
   //CalculationService
   namespace Course.Services
   {
@@ -992,7 +992,7 @@ namespace Course
 
   Os demais tipos das variáveis que interagem com o argumento do método, também devem ser alterados para _T_.
 
-  ```c#
+  ```csharp
   //CalculationService
   namespace Course.Services
   {
@@ -1023,7 +1023,7 @@ namespace Course
 
   Para resolver esse problema, é preciso declarar que o tipo aceito pelo método _Max_ é um tipo comparável.
 
-  ```c#
+  ```csharp
   //CalculationService
   namespace Course.Services
   {
@@ -1038,7 +1038,7 @@ namespace Course
 
   Após essa alteração, a comparação terá de ser reescrita.
 
-  ```c#
+  ```csharp
   //CalculationService - para qualquer tipo
   namespace Course.Services
   {
@@ -1071,7 +1071,7 @@ Seguindo este mesmo raciocínio, pode-se resolver o problema proposto como base 
 
 Para agrupar os valores que serão inseridos, foi criada a classe Product
 
-```c#
+```csharp
 //Classe Product
 using System.Globalization;
 
@@ -1100,7 +1100,7 @@ namespace Course.Entities
 
 O Programa principal será ajustado de acordo
 
-```c#
+```csharp
 //Programa principal
 using System;
 using System.Collections.Generic;
@@ -1141,6 +1141,36 @@ namespace Course
 
 A classe _Product_ não implementa a interface _IComparable_, o que gera um erro de compilação. Para resolver isso, a implementação da classe deve ser ajustada.
 
-## Continuar no vídeo em 17:06
+Primeiro, indica-se que a classe Product extende a interface *Icomparable*
 
-- a
+````csharp
+using System.Globalization;
+using System;
+
+namespace ClGenericsRestrictions.Entities
+{
+    class Product : IComparable
+    {
+````
+
+Em seguida, é necessário implementar a interface
+
+````csharp
+//método adicionado ao final da classe Product
+ public int CompareTo(object? obj)
+        {
+            //verificando o tipo do objeto que o método está recebendo
+            if (!(obj is Product))
+            {
+                throw new ArgumentException("Comparing error: argument is not a Product");
+            }
+
+            //Downcasting
+            Product other = obj as Product;
+
+            //Indica que toda vez que objetos do tipo Product forem comparados
+            //(IComparable), isso será feito com base no preço destes.
+            return Price.CompareTo(other.Price);
+
+        }
+````
