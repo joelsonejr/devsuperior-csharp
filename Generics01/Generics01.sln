@@ -1,8 +1,10 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generics01", "Generics01.csproj", "{0F27FD88-F16E-99D9-ECF9-3960959CC801}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericsRestrictions", "..\GenericsRestrictions\GenericsRestrictions\GenericsRestrictions.csproj", "{D423CB77-9D0E-4468-9879-1FF6E739B235}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,6 +16,10 @@ Global
 		{0F27FD88-F16E-99D9-ECF9-3960959CC801}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F27FD88-F16E-99D9-ECF9-3960959CC801}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F27FD88-F16E-99D9-ECF9-3960959CC801}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D423CB77-9D0E-4468-9879-1FF6E739B235}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D423CB77-9D0E-4468-9879-1FF6E739B235}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D423CB77-9D0E-4468-9879-1FF6E739B235}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D423CB77-9D0E-4468-9879-1FF6E739B235}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
