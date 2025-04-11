@@ -1,0 +1,15 @@
+/mnt/lab/dev/github/devsuperior-cSharp/GenericsRestrictions/GenericsRestrictions/bin/Debug/net8.0/GenericsRestrictions
+/mnt/lab/dev/github/devsuperior-cSharp/GenericsRestrictions/GenericsRestrictions/bin/Debug/net8.0/GenericsRestrictions.deps.json
+/mnt/lab/dev/github/devsuperior-cSharp/GenericsRestrictions/GenericsRestrictions/bin/Debug/net8.0/GenericsRestrictions.runtimeconfig.json
+/mnt/lab/dev/github/devsuperior-cSharp/GenericsRestrictions/GenericsRestrictions/bin/Debug/net8.0/GenericsRestrictions.dll
+/mnt/lab/dev/github/devsuperior-cSharp/GenericsRestrictions/GenericsRestrictions/bin/Debug/net8.0/GenericsRestrictions.pdb
+/mnt/lab/dev/github/devsuperior-cSharp/GenericsRestrictions/GenericsRestrictions/obj/Debug/net8.0/GenericsRestrictions.GeneratedMSBuildEditorConfig.editorconfig
+/mnt/lab/dev/github/devsuperior-cSharp/GenericsRestrictions/GenericsRestrictions/obj/Debug/net8.0/GenericsRestrictions.AssemblyInfoInputs.cache
+/mnt/lab/dev/github/devsuperior-cSharp/GenericsRestrictions/GenericsRestrictions/obj/Debug/net8.0/GenericsRestrictions.AssemblyInfo.cs
+/mnt/lab/dev/github/devsuperior-cSharp/GenericsRestrictions/GenericsRestrictions/obj/Debug/net8.0/GenericsRestrictions.csproj.CoreCompileInputs.cache
+/mnt/lab/dev/github/devsuperior-cSharp/GenericsRestrictions/GenericsRestrictions/obj/Debug/net8.0/GenericsRestrictions.sourcelink.json
+/mnt/lab/dev/github/devsuperior-cSharp/GenericsRestrictions/GenericsRestrictions/obj/Debug/net8.0/GenericsRestrictions.dll
+/mnt/lab/dev/github/devsuperior-cSharp/GenericsRestrictions/GenericsRestrictions/obj/Debug/net8.0/refint/GenericsRestrictions.dll
+/mnt/lab/dev/github/devsuperior-cSharp/GenericsRestrictions/GenericsRestrictions/obj/Debug/net8.0/GenericsRestrictions.pdb
+/mnt/lab/dev/github/devsuperior-cSharp/GenericsRestrictions/GenericsRestrictions/obj/Debug/net8.0/GenericsRestrictions.genruntimeconfig.cache
+/mnt/lab/dev/github/devsuperior-cSharp/GenericsRestrictions/GenericsRestrictions/obj/Debug/net8.0/ref/GenericsRestrictions.dll
