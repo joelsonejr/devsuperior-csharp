@@ -1174,3 +1174,8 @@ Em seguida, é necessário implementar a interface
 
         }
 ````
+
+- Existem mais tipos de restrições possíveis. Essa informação está disponível na
+  documentação do CSharp:
+  
+  [Contraints on type parameters](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/generics/constraints-on-type-parameters)
