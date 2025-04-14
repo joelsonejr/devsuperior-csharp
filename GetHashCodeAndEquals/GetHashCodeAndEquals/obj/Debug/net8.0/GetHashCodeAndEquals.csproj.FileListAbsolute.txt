@@ -1,0 +1,15 @@
+/mnt/lab/dev/github/devsuperior-cSharp/GetHashCodeAndEquals/GetHashCodeAndEquals/bin/Debug/net8.0/GetHashCodeAndEquals
+/mnt/lab/dev/github/devsuperior-cSharp/GetHashCodeAndEquals/GetHashCodeAndEquals/bin/Debug/net8.0/GetHashCodeAndEquals.deps.json
+/mnt/lab/dev/github/devsuperior-cSharp/GetHashCodeAndEquals/GetHashCodeAndEquals/bin/Debug/net8.0/GetHashCodeAndEquals.runtimeconfig.json
+/mnt/lab/dev/github/devsuperior-cSharp/GetHashCodeAndEquals/GetHashCodeAndEquals/bin/Debug/net8.0/GetHashCodeAndEquals.dll
+/mnt/lab/dev/github/devsuperior-cSharp/GetHashCodeAndEquals/GetHashCodeAndEquals/bin/Debug/net8.0/GetHashCodeAndEquals.pdb
+/mnt/lab/dev/github/devsuperior-cSharp/GetHashCodeAndEquals/GetHashCodeAndEquals/obj/Debug/net8.0/GetHashCodeAndEquals.GeneratedMSBuildEditorConfig.editorconfig
+/mnt/lab/dev/github/devsuperior-cSharp/GetHashCodeAndEquals/GetHashCodeAndEquals/obj/Debug/net8.0/GetHashCodeAndEquals.AssemblyInfoInputs.cache
+/mnt/lab/dev/github/devsuperior-cSharp/GetHashCodeAndEquals/GetHashCodeAndEquals/obj/Debug/net8.0/GetHashCodeAndEquals.AssemblyInfo.cs
+/mnt/lab/dev/github/devsuperior-cSharp/GetHashCodeAndEquals/GetHashCodeAndEquals/obj/Debug/net8.0/GetHashCodeAndEquals.csproj.CoreCompileInputs.cache
+/mnt/lab/dev/github/devsuperior-cSharp/GetHashCodeAndEquals/GetHashCodeAndEquals/obj/Debug/net8.0/GetHashCodeAndEquals.sourcelink.json
+/mnt/lab/dev/github/devsuperior-cSharp/GetHashCodeAndEquals/GetHashCodeAndEquals/obj/Debug/net8.0/GetHashCodeAndEquals.dll
+/mnt/lab/dev/github/devsuperior-cSharp/GetHashCodeAndEquals/GetHashCodeAndEquals/obj/Debug/net8.0/refint/GetHashCodeAndEquals.dll
+/mnt/lab/dev/github/devsuperior-cSharp/GetHashCodeAndEquals/GetHashCodeAndEquals/obj/Debug/net8.0/GetHashCodeAndEquals.pdb
+/mnt/lab/dev/github/devsuperior-cSharp/GetHashCodeAndEquals/GetHashCodeAndEquals/obj/Debug/net8.0/GetHashCodeAndEquals.genruntimeconfig.cache
+/mnt/lab/dev/github/devsuperior-cSharp/GetHashCodeAndEquals/GetHashCodeAndEquals/obj/Debug/net8.0/ref/GetHashCodeAndEquals.dll
