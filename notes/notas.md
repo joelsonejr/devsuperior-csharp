@@ -38,7 +38,7 @@ O serviço de aluguel é responsável pela lógica da nota de pagamento. Porém 
 
 Primeiramente, foram criadas as entidades:
 
-- Vehicle, com a propriedade _Model_.
+- Vehicle, com a propriedade *Model*.
 
   ```csharp
   namespace Course.Entities
@@ -404,9 +404,9 @@ Depois, foram criados os serviços:
         Console.WriteLine(carRental.Invoice);
         ```
 
-        ***
+---
 
-        ## Injeção de dependência
+    ## Injeção de dependência
 
         É quando no momento da instanciação de um objeto é informado qual o outro objeto do qual ele depende.
 
@@ -1179,3 +1179,85 @@ Em seguida, é necessário implementar a interface
   documentação do CSharp:
   
   [Contraints on type parameters](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/generics/constraints-on-type-parameters)
+
+---
+
+## 14. GetHashCode e Equals
+
+São operações da clase Object, utilizadas para comparar objetos entre sí.
+
+- Equals: lento, 100% preciso.
+- GetHashCode: rápido, porém quando a resposta é positiva, há uma pequena
+  possibilidade de que ela esteja errada.
+- Os tipod pré-definidos já possuem esses métodos implementados. Classes e
+  structs prersonalizado precisam sobrepôlos (override).
+- *GetHashCode* retorna um número inteiro (hash) que representa o objeto. Esses
+  número são gerados de forma aleatória a cada execução. Logo, as comparações
+  devem ser realizadas dentro de uma mesma execução.
+
+Exemplos de Equals
+
+````csharp
+using System;
+
+namespace Course {
+    class Program {
+        static void Main(string[] args)
+        {
+            string a = "Samantha";
+            string b = "Amanda";
+            string c = "Samantha";
+
+            a.Equals(b); //retorna False
+            a.Equals(c) //retorna True
+        }
+    }
+}
+````
+
+Exemplo de GetHashCode
+
+```csharp
+using System;
+
+namespace Course
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string a = "Samantha";
+            string b = "Amanda";
+
+            a.GetHashCode(); // retorna, por exemplo, -159319552
+            b.GetHashCode(); // retorna, por exemplo, 649970431
+        }
+    }
+}
+```
+
+Cada vez que o programa for executado, serão gerados novos valores hash para *a*,
+e para *b*.
+
+- Como o *GetHasCode* é mais performático que o *Equals*, uma estratégia que
+  pode ser utilizada para contornar o falso positivo do *GetHasCode* é:
+  - Utilizar o *GetHashcode* para ser mais rápido.
+  - Caso ele dê negativo, seguir com esse resultado.
+  - Caso ele dê positivo, realizar um double check com o *Equals*
+
+Implementando o *GetHashCode* e o *Equals* em uma classe customizada.
+
+```csharp
+using System;
+
+namespace Course.Entities
+{
+    class Client
+    {
+        public string Name { get; set; }
+        public string Email { get; set; }
+    }
+}
+```
+
+# Continuar a partir de 09:20
