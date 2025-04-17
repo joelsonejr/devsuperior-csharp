@@ -1256,8 +1256,45 @@ namespace Course.Entities
     {
         public string Name { get; set; }
         public string Email { get; set; }
+
+        pubnlic override bool Equals(object obj)
+        {
+            if(!obj is Client)
+            {
+                return false;
+            }
+
+            Client other = obj as Client;
+            return Email.Equals(other.Email)
+        }
+
+        public override int GetHashCode()
+        {
+            return Email.GetHashCode();
+        }
     }
 }
-```
 
-# Continuar a partir de 09:20
+
+````csharp
+//Programa principal
+
+using System;
+
+namespace Course
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Client a = new Client {Name = "Sonia", Email = "sonia@email.com"};
+            Client b = new Client {Name = "Mara", Email = "mara@gmail.com"};
+
+            a.Equals(b) //False. Como o critério de comparação é o e-mail, e os 
+            // cliente possuem e-mails diferentes...
+        }
+    }
+}
+````
+
+É importante lembrar que o *Equals* e o *==* são ações diferentes. O *==* compara a referência de ponteiro de memória dos objetos. 
