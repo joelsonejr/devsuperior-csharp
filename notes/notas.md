@@ -1298,3 +1298,71 @@ namespace Course
 ````
 
 É importante lembrar que o *Equals* e o *==* são ações diferentes. O *==* compara a referência de ponteiro de memória dos objetos. 
+
+---
+
+## 15.HashSet e SortedSet - Parte 1
+
+- Representam um conjunto de elementos.
+- Não admitem repetições
+- Elementos não tem posição (indíce)
+- Acesso, inserção e remoção de elementos são rápidos.
+- Oferece operações de conjuntos.
+
+### Hashset
+
+- Armazena os elementos em tabela hash (cria um hash para identificar cada
+  um dos elementos)
+- Extremamente rápido O(1)
+- A ordem dos elementos não é garantida
+
+### SortedSet
+
+- Armazenamento em árvore
+- Rápido O(log(n))
+- Elementos armazenado ordenadamente conforme implementação IComparer<T>
+
+### Principais métodos
+
+- Add
+- Clear
+- Contains
+- UnionWith: unir conjuntos
+- InterctWith
+- ExceptWith: diferença entre conjuntos
+- Remove(T)
+- RemoveWhere(predicate): remove mais de um elemento
+
+### Exemplo de implementação
+
+```csharp
+
+using System;
+using System.Collections.Generic;
+
+namespace Course
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            HashSet<string> set = new HashSet<string>();
+
+            set.Add("TV");
+            set.Add("Notebook");
+            set.Add("Tablet");
+
+            Console.WriteLine(set.Contains("Notebook"));
+            Console.WriteLine(set.Contains("Computer"));
+
+            //como não existem posições dentro do conjunto, será utilizado o 
+            // foreach, para acessar os conteúdos do mesmo.
+            foreach( string p in set)
+            {
+                Console.WriteLine(string);
+            }
+        }
+    }
+}
+```
+-> Criar projeto com o código acima.
